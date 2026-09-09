@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-bg-light text-text-primary;
+}
+
+/* Поддержка отключения анимации */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Пользовательские компоненты */
+.btn-primary {
+  @apply px-6 py-3 bg-orange-accent text-white rounded-card font-semibold hover:bg-orange-light transition-colors;
+}
+
+.btn-secondary {
+  @apply px-6 py-3 bg-white text-orange-accent border-2 border-orange-accent rounded-card font-semibold hover:bg-bg-light transition-colors;
+}
+
+.btn-ghost {
+  @apply px-6 py-3 text-orange-accent font-semibold hover:underline transition-colors;
+}
+
+.container-max {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.card {
+  @apply bg-bg-card rounded-card border border-border-light shadow-sm hover:shadow-md transition-shadow;
+}
+
+.gradient-accent {
+  @apply bg-gradient-to-r from-orange-light to-orange-accent;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply font-bold;
+}
+
+h1 {
+  @apply text-4xl sm:text-5xl lg:text-6xl leading-tight;
+}
+
+h2 {
+  @apply text-3xl sm:text-4xl lg:text-5xl leading-tight;
+}
+
+h3 {
+  @apply text-2xl sm:text-3xl leading-tight;
+}
