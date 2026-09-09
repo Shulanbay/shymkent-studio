@@ -5,7 +5,9 @@
       "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --no-src-dir --import-alias '@/*' --skip-install)",
       "Bash(npm install *)",
       "Bash(git add *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(npm run *)",
+      "Bash(git commit *)"
     ]
   }
 }

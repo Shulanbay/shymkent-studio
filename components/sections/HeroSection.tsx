@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { RoomImage } from '@/components/RoomImage';
 
 export function HeroSection() {
   return (
@@ -41,11 +42,8 @@ export function HeroSection() {
             </div>
           </div>
 
-          <div className="relative h-96 md:h-full min-h-96 bg-border-light rounded-lg flex items-center justify-center">
-            <div className="text-center text-text-secondary">
-              <p className="text-lg font-semibold">Фотография студии</p>
-              <p className="text-sm">Заглушка — ожидание реальных фотографий</p>
-            </div>
+          <div className="relative h-96 md:h-full min-h-96 rounded-lg overflow-hidden">
+            <RoomImage src="/images/rooms/small.jpg" alt="Подкаст-студия SHYM STUDIO" className="h-96" priority />
           </div>
         </div>
       </div>

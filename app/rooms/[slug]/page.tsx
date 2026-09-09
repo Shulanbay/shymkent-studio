@@ -1,20 +1,27 @@
 import { redirect } from 'next/navigation';
+import { RoomImage } from '@/components/RoomImage';
 
 const roomsData: Record<string, any> = {
-  large: {
-    name: 'Большая подкаст-зона',
-    capacity: '4 человека',
-    description: 'Просторная комната для групповых обсуждений и интервью с несколькими гостями.',
-  },
   small: {
     name: 'Маленькая подкаст-комната',
     capacity: '2 человека',
+    size: '3 × 4 м',
     description: 'Интимная комната для интервью один-на-один или дуэта.',
+    image: '/images/rooms/small.jpg',
+  },
+  large: {
+    name: 'Большая подкаст-зона',
+    capacity: '4 человека',
+    size: '3 × 6 м',
+    description: 'Просторная комната для групповых обсуждений и интервью с несколькими гостями.',
+    image: '/images/rooms/large.jpg',
   },
   lounge: {
     name: 'Холл / Living Room',
     capacity: '3 человека',
+    size: '3 × 5 м',
     description: 'Уютная зона с релаксирующей атмосферой для естественного разговора.',
+    image: '/images/rooms/lounge.jpg',
   },
 };
 
@@ -33,11 +40,8 @@ export default function RoomDetailPage({ params }: { params: { slug: string } })
           <p className="text-xl text-text-secondary mb-12">{room.description}</p>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="h-96 bg-border-light rounded-card flex items-center justify-center">
-              <p className="text-center text-text-secondary">
-                <span className="font-semibold block">Фотография</span>
-                <span className="text-sm">Заглушка</span>
-              </p>
+            <div className="h-96 rounded-card overflow-hidden">
+              <RoomImage src={room.image} alt={room.name} className="h-96" priority />
             </div>
 
             <div>
@@ -47,6 +51,11 @@ export default function RoomDetailPage({ params }: { params: { slug: string } })
                 <div>
                   <h3 className="font-semibold text-text-primary mb-2">Вместимость</h3>
                   <p className="text-orange-accent font-semibold text-lg">{room.capacity}</p>
+                </div>
+
+                <div>
+                  <h3 className="font-semibold text-text-primary mb-2">Размер комнаты</h3>
+                  <p className="text-text-secondary">{room.size}</p>
                 </div>
 
                 <div>
