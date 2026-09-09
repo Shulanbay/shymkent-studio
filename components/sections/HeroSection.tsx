@@ -8,7 +8,7 @@ export function HeroSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
             <div className="inline-block mb-6 px-4 py-2 bg-orange-accent/10 rounded-full text-orange-accent font-semibold text-sm">
-              SHYM STUDIO · Шымкент
+              SHYMKENT STUDIO · Шымкент
             </div>
 
             <h1 className="mb-6 text-text-primary">Подкаст-студия в Шымкенте</h1>
@@ -43,7 +43,7 @@ export function HeroSection() {
           </div>
 
           <div className="relative h-96 md:h-full min-h-96 rounded-lg overflow-hidden">
-            <RoomImage src="/images/rooms/small.jpg" alt="Подкаст-студия SHYM STUDIO" className="h-96" priority />
+            <RoomImage src="/images/rooms/small.jpg" alt="Подкаст-студия SHYMKENT STUDIO" className="h-96" priority />
           </div>
         </div>
       </div>

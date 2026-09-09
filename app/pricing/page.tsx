@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'Цены на запись подкастов | SHYM STUDIO',
+  title: 'Цены на запись подкастов | SHYMKENT STUDIO',
   description: 'Тарифы на запись и монтаж подкастов в Шымкенте. От 15 000 ₸/час или полный пакет за 30 000 ₸.',
 };
 

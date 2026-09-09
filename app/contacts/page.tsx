@@ -1,8 +1,8 @@
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'Контакты | SHYM STUDIO',
-  description: 'Адрес студии, телефон и контакты SHYM STUDIO в Шымкенте',
+  title: 'Контакты | SHYMKENT STUDIO',
+  description: 'Адрес студии, телефон и контакты SHYMKENT STUDIO в Шымкенте',
 };
 
 export default function ContactsPage() {

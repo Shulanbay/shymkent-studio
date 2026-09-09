@@ -10,7 +10,7 @@ export function Footer() {
       <div className="container-max">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           <div>
-            <h3 className="font-bold mb-4">SHYM STUDIO</h3>
+            <h3 className="font-bold mb-4">SHYMKENT STUDIO</h3>
             <p className="text-sm text-gray-400">Подкаст-студия в Шымкенте</p>
           </div>
 
@@ -75,7 +75,7 @@ export function Footer() {
 
         <div className="border-t border-gray-700 pt-8">
           <p className="text-center text-sm text-gray-400">
-            © {currentYear} SHYM STUDIO. Все права защищены.
+            © {currentYear} SHYMKENT STUDIO. Все права защищены.
           </p>
         </div>
       </div>

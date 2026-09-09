@@ -1,6 +1,6 @@
 export const metadata = {
-  title: 'Политика конфиденциальности | SHYM STUDIO',
-  description: 'Политика конфиденциальности SHYM STUDIO',
+  title: 'Политика конфиденциальности | SHYMKENT STUDIO',
+  description: 'Политика конфиденциальности SHYMKENT STUDIO',
 };
 
 export default function PrivacyPage() {
@@ -14,7 +14,7 @@ export default function PrivacyPage() {
             <div>
               <h2 className="text-2xl font-bold text-text-primary mb-4">Введение</h2>
               <p>
-                SHYM STUDIO («мы», «наш», «компания») уважает конфиденциальность наших пользователей и обязуется защищать личные данные, которые вы нам предоставляете.
+                SHYMKENT STUDIO («мы», «наш», «компания») уважает конфиденциальность наших пользователей и обязуется защищать личные данные, которые вы нам предоставляете.
               </p>
             </div>
 

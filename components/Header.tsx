@@ -14,7 +14,7 @@ export function Header() {
             <div className="w-10 h-10 bg-text-primary rounded-lg flex items-center justify-center">
               <span className="text-white font-bold">S</span>
             </div>
-            <span className="hidden sm:inline font-bold text-text-primary">SHYM STUDIO</span>
+            <span className="hidden sm:inline font-bold text-text-primary">SHYMKENT STUDIO</span>
           </Link>
 
           <nav className="hidden md:flex items-center gap-8">
