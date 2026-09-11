@@ -1,42 +1,45 @@
 export function EquipmentSection() {
-  const equipment = [
+  const stats = [
     {
-      name: 'Sony FX30',
-      quantity: '3 камеры',
-      description: 'Несколько ракурсов для живого разговора и профессиональной картинки',
+      number: '3×',
+      label: 'Sony FX30',
     },
     {
-      name: 'Shure SM7B',
-      quantity: 'до 4 микрофонов',
-      description: 'Отдельный микрофон для каждого участника, чистый звук без помех',
+      number: '4×',
+      label: 'Shure SM7B',
     },
     {
-      name: 'RØDECaster Pro II',
-      quantity: 'Профессиональная запись',
-      description: 'Звуковой интерфейс для чистой и качественной записи аудиодорожки',
+      number: '3',
+      label: 'уникальные студии',
+    },
+    {
+      number: '4K',
+      label: 'Video',
+    },
+    {
+      number: '∞',
+      label: 'Профессиональный свет',
+    },
+    {
+      number: '✓',
+      label: 'Готовый multicam production',
     },
   ];
 
   return (
-    <section className="py-16 md:py-32 bg-bg-light">
+    <section className="py-20 md:py-32 bg-white">
       <div className="container-max">
         <div className="text-center mb-16">
-          <h2 className="mb-4 text-text-primary">Профессиональная картинка и звук</h2>
-          <p className="text-xl text-text-secondary">Оборудование студии мирового класса</p>
+          <h2 className="mb-6 text-text-primary">На чём вы можете быть уверены</h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {equipment.map((item) => (
-            <div key={item.name} className="card p-8 text-center hover:shadow-lg transition-shadow">
-              <div className="w-16 h-16 bg-gradient-accent rounded-lg mx-auto mb-6 flex items-center justify-center">
-                <span className="text-white font-bold text-2xl">📹</span>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
+          {stats.map((stat) => (
+            <div key={stat.label} className="text-center">
+              <div className="text-5xl md:text-6xl font-bold text-orange-accent mb-3">
+                {stat.number}
               </div>
-
-              <h3 className="text-xl font-bold mb-2 text-text-primary">{item.name}</h3>
-
-              <p className="font-semibold text-orange-accent mb-3">{item.quantity}</p>
-
-              <p className="text-text-secondary">{item.description}</p>
+              <p className="text-text-secondary font-medium">{stat.label}</p>
             </div>
           ))}
         </div>

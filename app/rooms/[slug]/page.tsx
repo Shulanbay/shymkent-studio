@@ -59,11 +59,11 @@ export default function RoomDetailPage({ params }: { params: { slug: string } })
                 </div>
 
                 <div>
-                  <h3 className="font-semibold text-text-primary mb-3">Доступные тарифы</h3>
+                  <h3 className="font-semibold text-text-primary mb-3">Доступные пакеты</h3>
                   <ul className="space-y-2 text-text-secondary">
-                    <li>✓ Запись без монтажа — 15 000 ₸/час</li>
-                    <li>✓ Монтаж эпизода — 20 000 ₸</li>
-                    <li>✓ Полный подкаст — 30 000 ₸</li>
+                    <li>✓ Запись (60 мин) — 20 000 ₸</li>
+                    <li>✓ Выпуск (90 мин + монтаж) — 40 000 ₸</li>
+                    <li>✓ Контент (90 мин + социальный контент) — 60 000 ₸</li>
                   </ul>
                 </div>
 

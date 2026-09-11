@@ -2,17 +2,22 @@ import Link from 'next/link';
 
 export function TourSection() {
   return (
-    <section className="py-16 md:py-32 bg-gradient-accent">
-      <div className="container-max">
-        <div className="max-w-2xl mx-auto text-center text-white">
-          <h2 className="mb-4">Приходите познакомиться со студией</h2>
+    <section className="py-20 md:py-32 bg-gradient-to-r from-orange-accent to-orange-light relative overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute inset-0 opacity-10 pointer-events-none">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+      </div>
 
-          <p className="text-xl mb-8 text-white/90">
-            Хотите сначала увидеть комнаты? Запишитесь на бесплатный тур: покажем пространство и оборудование, обсудим формат вашего подкаста.
+      <div className="container-max relative z-10">
+        <div className="max-w-2xl mx-auto text-center text-white">
+          <h2 className="mb-6 text-white">Приходите на экскурсию</h2>
+
+          <p className="text-lg mb-10 text-white/95 leading-relaxed">
+            Увидьте студии своими глазами, познакомьтесь с оборудованием и обсудите вашу идею с командой. Экскурсия абсолютно бесплатная.
           </p>
 
-          <Link href="/studio-tour" className="btn-secondary text-center inline-block">
-            Записаться на бесплатный тур
+          <Link href="/studio-tour" className="inline-block px-8 py-4 bg-white text-orange-accent rounded-lg font-semibold hover:bg-bg-light transition-colors">
+            Забронировать бесплатный тур
           </Link>
         </div>
       </div>

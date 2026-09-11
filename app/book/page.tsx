@@ -29,12 +29,11 @@ export default function BookingPage() {
 
   const calculatePrice = () => {
     if (formData.service === 'recording') {
-      const durationHours = parseInt(formData.duration) / 60;
-      return 15000 * durationHours;
-    } else if (formData.service === 'editing') {
-      return 20000;
+      return 20000; // 60 minutes
+    } else if (formData.service === 'release') {
+      return 40000; // up to 90 minutes + editing
     } else {
-      return 30000;
+      return 60000; // full content package
     }
   };
 
@@ -78,26 +77,26 @@ export default function BookingPage() {
                         className="w-5 h-5"
                       />
                       <div className="ml-4 flex-grow">
-                        <p className="font-semibold text-text-primary">Запись без монтажа</p>
-                        <p className="text-sm text-text-secondary">Съёмка на 3 камеры, исходники через 24 часа</p>
+                        <p className="font-semibold text-text-primary">Запись</p>
+                        <p className="text-sm text-text-secondary">60 минут съёмки на 3 камеры, исходники через 24 часа</p>
                       </div>
-                      <p className="text-lg font-bold text-orange-accent">15 000 ₸/ч</p>
+                      <p className="text-lg font-bold text-orange-accent">20 000 ₸</p>
                     </label>
 
-                    <label className="flex items-center p-4 border-2 rounded-card cursor-pointer hover:border-orange-accent transition" style={{ borderColor: formData.service === 'editing' ? '#FF6B24' : '#EDE5DD' }}>
+                    <label className="flex items-center p-4 border-2 rounded-card cursor-pointer hover:border-orange-accent transition" style={{ borderColor: formData.service === 'release' ? '#FF6B24' : '#EDE5DD' }}>
                       <input
                         type="radio"
                         name="service"
-                        value="editing"
-                        checked={formData.service === 'editing'}
+                        value="release"
+                        checked={formData.service === 'release'}
                         onChange={handleInputChange}
                         className="w-5 h-5"
                       />
                       <div className="ml-4 flex-grow">
-                        <p className="font-semibold text-text-primary">Монтаж эпизода</p>
-                        <p className="text-sm text-text-secondary">Готовность за 3 рабочих дня, 2 правки бесплатно</p>
+                        <p className="font-semibold text-text-primary">Выпуск</p>
+                        <p className="text-sm text-text-secondary">До 90 минут + профессиональный монтаж + обработка звука</p>
                       </div>
-                      <p className="text-lg font-bold text-orange-accent">20 000 ₸</p>
+                      <p className="text-lg font-bold text-orange-accent">40 000 ₸</p>
                     </label>
 
                     <label className="flex items-center p-4 border-2 rounded-card cursor-pointer hover:border-orange-accent transition" style={{ borderColor: formData.service === 'full' ? '#FF6B24' : '#EDE5DD' }}>
@@ -110,10 +109,10 @@ export default function BookingPage() {
                         className="w-5 h-5"
                       />
                       <div className="ml-4 flex-grow">
-                        <p className="font-semibold text-text-primary">Полный подкаст</p>
-                        <p className="text-sm text-text-secondary">Съёмка до 90 минут + профессиональный монтаж</p>
+                        <p className="font-semibold text-text-primary">Контент</p>
+                        <p className="text-sm text-text-secondary">90 минут + монтаж + контент для социальных сетей</p>
                       </div>
-                      <p className="text-lg font-bold text-orange-accent">30 000 ₸</p>
+                      <p className="text-lg font-bold text-orange-accent">60 000 ₸</p>
                     </label>
                   </div>
 

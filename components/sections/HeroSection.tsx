@@ -3,47 +3,56 @@ import { RoomImage } from '@/components/RoomImage';
 
 export function HeroSection() {
   return (
-    <section className="py-16 md:py-32 bg-gradient-to-b from-bg-light to-bg-card">
-      <div className="container-max">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <section className="py-20 md:py-48 bg-white relative overflow-hidden">
+      {/* Subtle gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-orange-accent/5 via-transparent to-transparent pointer-events-none"></div>
+
+      <div className="container-max relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* Left column */}
           <div>
-            <div className="inline-block mb-6 px-4 py-2 bg-orange-accent/10 rounded-full text-orange-accent font-semibold text-sm">
-              SHYMKENT STUDIO · Шымкент
+            <div className="inline-block mb-8 px-4 py-2 bg-orange-accent/10 rounded-full text-orange-accent font-semibold text-sm">
+              SHYMKENT STUDIO
             </div>
 
-            <h1 className="mb-6 text-text-primary">Подкаст-студия в Шымкенте</h1>
+            <h1 className="mb-8 text-text-primary leading-tight">
+              Профессиональный подкаст начинается здесь
+            </h1>
 
-            <p className="text-xl text-text-secondary mb-8 leading-relaxed">
-              Записывайте подкасты и интервью на три камеры с профессиональным звуком. Выберите одну из трёх комнат — получите исходники или готовый эпизод с монтажом.
+            <p className="text-lg text-text-secondary mb-8 leading-relaxed max-w-lg">
+              3 камеры Sony FX30 · Shure SM7B · профессиональный свет и звук · 3 уникальные студии в Шымкенте
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 mb-8">
-              <Link href="/book" className="btn-primary text-center">
-                Забронировать запись
-              </Link>
-              <Link href="/studio-tour" className="btn-secondary text-center">
-                Бесплатный тур по студии
-              </Link>
+            {/* Price highlights */}
+            <div className="grid grid-cols-2 gap-6 mb-12">
+              <div className="bg-bg-light rounded-lg p-4">
+                <p className="text-text-secondary text-sm mb-1">Запись</p>
+                <p className="text-3xl font-bold text-orange-accent">20 000 ₸</p>
+              </div>
+              <div className="bg-bg-light rounded-lg p-4">
+                <p className="text-text-secondary text-sm mb-1">Готовый выпуск</p>
+                <p className="text-3xl font-bold text-orange-accent">40 000 ₸</p>
+              </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-6 text-text-secondary">
-              <div>
-                <p className="font-semibold text-text-primary">3 камеры Sony FX30</p>
-                <p className="text-sm">Несколько ракурсов для живого разговора</p>
-              </div>
-              <div>
-                <p className="font-semibold text-text-primary">До 4 микрофонов</p>
-                <p className="text-sm">По микрофону для каждого участника</p>
-              </div>
-              <div>
-                <p className="font-semibold text-text-primary">От 15 000 ₸/час</p>
-                <p className="text-sm">Полный пакет за 30 000 ₸</p>
-              </div>
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link href="/book" className="btn-primary text-center">
+                Забронировать студию
+              </Link>
+              <Link href="/studio-tour" className="btn-secondary text-center">
+                Бесплатный тур
+              </Link>
             </div>
           </div>
 
-          <div className="relative h-96 md:h-full min-h-96 rounded-lg overflow-hidden">
-            <RoomImage src="/images/rooms/small.jpg" alt="Подкаст-студия SHYMKENT STUDIO" className="h-96" priority />
+          {/* Right column - Hero image */}
+          <div className="relative">
+            <div className="relative h-96 md:h-full min-h-96 rounded-2xl overflow-hidden shadow-lg">
+              <RoomImage src="/images/rooms/small.jpg" alt="Подкаст-студия SHYMKENT STUDIO" className="h-full" priority />
+            </div>
+            {/* Decorative accent */}
+            <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-orange-accent/10 rounded-full blur-2xl pointer-events-none"></div>
           </div>
         </div>
       </div>

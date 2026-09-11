@@ -4,122 +4,208 @@ import Link from 'next/link';
 
 const pricingOptions = [
   {
-    name: 'Запись без монтажа',
-    price: '15 000',
-    period: '/ час',
-    description: 'Съёмка на 3 камеры, до 4 микрофонов',
-    features: [
-      'Съёмка на 3 камеры Sony FX30',
-      'До 4 микрофонов Shure SM7B',
-      'Передача исходников в течение 24 часов',
-      'Доступны 60, 90 и 120 минут',
-    ],
-    highlighted: false,
-  },
-  {
-    name: 'Монтаж эпизода',
+    name: 'Запись',
     price: '20 000',
-    period: '/ эпизод',
-    description: 'Профессиональный монтаж со звуком',
+    description: 'Профессиональная запись подкаста',
+    duration: '60 минут',
     features: [
-      'Монтаж одного эпизода (до 90 мин)',
-      '2 правки монтажа бесплатно',
-      'Готовность через 3 рабочих дня',
-      'Работаем пн-пт (сб-вс отдых)',
+      'До 3 камер Sony FX30',
+      'До 4 микрофонов Shure SM7B',
+      'Профессиональный свет',
+      'Запись звука в высоком качестве',
+      'Техническое сопровождение',
+      'Передача исходных материалов',
     ],
+    addOn: 'Дополнительные 30 минут: +10 000 ₸',
     highlighted: false,
   },
   {
-    name: 'Полный подкаст',
-    price: '30 000',
-    period: '/ эпизод',
-    description: 'Съёмка + профессиональный монтаж',
+    name: 'Выпуск',
+    price: '40 000',
+    description: 'Готовый эпизод для публикации',
+    duration: 'До 90 минут + полный монтаж',
+    badge: 'Выбирают чаще всего',
     features: [
-      'До 90 минут съёмки на 3 камеры',
-      'До 4 микрофонов Shure SM7B',
-      'Полный монтаж одного эпизода',
-      '2 правки монтажа бесплатно',
-      'Готовность через 3 рабочих дня',
+      'До 90 минут студийного времени',
+      'До 3 камер Sony FX30',
+      'До 4 Shure SM7B микрофонов',
+      'Профессиональный свет',
+      'Запись и multicam монтаж',
+      'Обработка звука и цветокоррекция',
+      'Intro/outro клиента',
+      'Базовая графика и имя гостя',
+      'До 2 раундов небольших правок',
+      'Готовый файл для публикации',
     ],
     highlighted: true,
+  },
+  {
+    name: 'Контент',
+    price: '60 000',
+    description: 'Контент для всех социальных сетей',
+    duration: '90 минут + контент для соцсетей',
+    features: [
+      'Всё из пакета «Выпуск» плюс:',
+      '3 вертикальных Reels / Shorts',
+      '1 YouTube thumbnail профессионального уровня',
+      'Подготовка полного выпуска для YouTube',
+      'Вертикальные ролики 9:16 для Instagram / TikTok / Shorts',
+      'Базовая графика и оформление',
+      'До 2 раундов небольших правок',
+    ],
+    tagline: 'Записали один раз — получили контент для всех площадок',
+    highlighted: false,
   },
 ];
 
 export function PricingSection() {
   return (
-    <section className="py-16 md:py-32 bg-bg-card">
+    <section id="pricing" className="py-20 md:py-32 bg-white">
       <div className="container-max">
+        {/* Section header */}
         <div className="text-center mb-16">
-          <h2 className="mb-4 text-text-primary">Стоимость записи</h2>
-          <p className="text-xl text-text-secondary">Выберите подходящий пакет или комбинируйте услуги</p>
+          <h2 className="mb-4 text-text-primary">Выберите ваш пакет</h2>
+          <p className="text-lg text-text-secondary max-w-2xl mx-auto">
+            Все пакеты включают профессиональное оборудование, опытный персонал и высочайшее качество звука
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        {/* Pricing cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
           {pricingOptions.map((option) => (
             <div
               key={option.name}
-              className={`card p-8 flex flex-col h-full transition-all ${
+              className={`relative rounded-2xl overflow-hidden transition-all duration-300 ${
                 option.highlighted
-                  ? 'md:scale-105 border-orange-accent border-2 shadow-lg'
-                  : 'border border-border-light'
-              }`}
+                  ? 'md:scale-105 ring-2 ring-orange-accent shadow-xl'
+                  : 'bg-bg-light border border-border-light shadow-sm'
+              } ${!option.highlighted ? 'bg-bg-light' : 'bg-white'}`}
             >
-              {option.highlighted && (
-                <div className="inline-block mb-4 px-3 py-1 bg-orange-accent text-white rounded-full text-xs font-semibold w-fit">
-                  Съёмка + монтаж
+              {/* Badge for highlighted card */}
+              {option.badge && (
+                <div className="absolute top-0 right-0 left-0 bg-orange-accent text-white text-xs font-bold py-2 px-4 text-center">
+                  {option.badge}
                 </div>
               )}
 
-              <h3 className="text-2xl font-bold mb-2 text-text-primary">{option.name}</h3>
+              <div className={`p-8 pt-${option.badge ? '16' : '8'} flex flex-col h-full`}>
+                {/* Title and price */}
+                <div className="mb-8">
+                  <h3 className="text-2xl font-bold text-text-primary mb-2">{option.name}</h3>
+                  <p className="text-text-secondary text-sm mb-6">{option.description}</p>
 
-              <div className="mb-4">
-                <span className="text-5xl font-bold text-orange-accent">{option.price}</span>
-                <span className="text-text-secondary ml-2">{option.period}</span>
+                  <div className="mb-2">
+                    <span className="text-5xl font-bold text-orange-accent">{option.price}</span>
+                    <span className="text-text-secondary ml-2 text-sm">₸</span>
+                  </div>
+                  <p className="text-xs text-text-secondary">{option.duration}</p>
+                </div>
+
+                {/* Tagline for Контент package */}
+                {option.tagline && (
+                  <p className="text-sm italic text-text-secondary mb-8 pb-8 border-b border-border-light">
+                    "{option.tagline}"
+                  </p>
+                )}
+
+                {/* Features */}
+                <ul className="space-y-3 mb-8 flex-grow">
+                  {option.features.map((feature) => (
+                    <li key={feature} className="flex items-start gap-3 text-text-secondary text-sm">
+                      <svg className="w-4 h-4 text-orange-accent mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Add-on info for Запись package */}
+                {option.addOn && (
+                  <p className="text-xs text-text-secondary mb-6 pb-6 border-t border-border-light pt-6">
+                    {option.addOn}
+                  </p>
+                )}
+
+                {/* CTA Button */}
+                <Link
+                  href="/book"
+                  className={`text-center py-3 px-6 rounded-lg font-semibold transition ${
+                    option.highlighted ? 'btn-primary' : 'btn-secondary'
+                  }`}
+                >
+                  Забронировать
+                </Link>
               </div>
-
-              <p className="text-text-secondary mb-8 flex-grow">{option.description}</p>
-
-              <ul className="space-y-3 mb-8">
-                {option.features.map((feature) => (
-                  <li key={feature} className="flex items-start gap-3 text-text-secondary">
-                    <svg className="w-5 h-5 text-orange-accent mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <Link href="/book" className={`text-center py-3 px-6 rounded-card font-semibold transition ${
-                option.highlighted
-                  ? 'btn-primary'
-                  : 'btn-secondary'
-              }`}>
-                Выбрать
-              </Link>
             </div>
           ))}
         </div>
 
-        <div className="bg-bg-light rounded-lg p-8 border border-border-light">
-          <h3 className="font-bold text-lg mb-4 text-text-primary">Экономия с полным пакетом</h3>
+        {/* Subscriptions section */}
+        <div className="bg-bg-light rounded-2xl p-12 border border-border-light">
+          <h3 className="text-2xl font-bold text-text-primary mb-2">Записываетесь регулярно?</h3>
+          <p className="text-text-secondary mb-8">
+            Абонементы для блогеров, экспертов и регулярных шоу
+          </p>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div>
-              <p className="text-text-secondary mb-2">При заказе отдельно:</p>
-              <p className="text-2xl font-bold text-text-primary">
-                <span className="line-through text-text-secondary">42 500 ₸</span>
-              </p>
-              <p className="text-sm text-text-secondary mt-2">
-                Запись 60 мин (15 000 ₸) × 1.5 = 22 500 ₸<br />
-                + Монтаж эпизода = 20 000 ₸
-              </p>
+            <div className="bg-white rounded-xl p-8 border border-border-light">
+              <h4 className="font-bold text-lg text-text-primary mb-4">Базовый</h4>
+              <p className="text-3xl font-bold text-orange-accent mb-6">140 000 ₸<span className="text-sm text-text-secondary ml-2">/ месяц</span></p>
+              <ul className="space-y-2 text-sm text-text-secondary mb-6">
+                <li className="flex items-center gap-2">
+                  <svg className="w-4 h-4 text-orange-accent" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                  4 записи в месяц по 90 минут
+                </li>
+                <li className="flex items-center gap-2">
+                  <svg className="w-4 h-4 text-orange-accent" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                  Монтаж 4 полных выпусков
+                </li>
+              </ul>
+              <Link href="/book" className="btn-secondary w-full text-center">
+                Выбрать
+              </Link>
             </div>
-            <div>
-              <p className="text-text-secondary mb-2">Полный пакет до 90 минут:</p>
-              <p className="text-2xl font-bold text-orange-accent">30 000 ₸</p>
-              <p className="text-sm text-orange-accent mt-2">
-                ✓ Экономия: 12 500 ₸
-              </p>
+
+            <div className="bg-white rounded-xl p-8 border border-orange-accent border-2 ring-2 ring-orange-accent/20">
+              <div className="inline-block mb-4 px-3 py-1 bg-orange-accent text-white rounded-full text-xs font-bold">
+                Рекомендуется
+              </div>
+              <h4 className="font-bold text-lg text-text-primary mb-4">Премиум</h4>
+              <p className="text-3xl font-bold text-orange-accent mb-6">200 000 ₸<span className="text-sm text-text-secondary ml-2">/ месяц</span></p>
+              <ul className="space-y-2 text-sm text-text-secondary mb-6">
+                <li className="flex items-center gap-2">
+                  <svg className="w-4 h-4 text-orange-accent" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                  4 записи по 90 минут
+                </li>
+                <li className="flex items-center gap-2">
+                  <svg className="w-4 h-4 text-orange-accent" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                  Монтаж 4 выпусков
+                </li>
+                <li className="flex items-center gap-2">
+                  <svg className="w-4 h-4 text-orange-accent" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                  12 Reels / Shorts
+                </li>
+                <li className="flex items-center gap-2">
+                  <svg className="w-4 h-4 text-orange-accent" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                  4 YouTube thumbnails
+                </li>
+              </ul>
+              <Link href="/book" className="btn-primary w-full text-center">
+                Выбрать
+              </Link>
             </div>
           </div>
         </div>

@@ -9,7 +9,7 @@ html {
 }
 
 body {
-  @apply bg-bg-light text-text-primary;
+  @apply bg-white text-text-primary;
 }
 
 /* Поддержка отключения анимации */
@@ -22,11 +22,11 @@ body {
 
 /* Пользовательские компоненты */
 .btn-primary {
-  @apply px-6 py-3 bg-orange-accent text-white rounded-card font-semibold hover:bg-orange-light transition-colors;
+  @apply px-6 py-3 bg-orange-accent text-white rounded-lg font-semibold hover:bg-orange-light transition-colors active:scale-95;
 }
 
 .btn-secondary {
-  @apply px-6 py-3 bg-white text-orange-accent border-2 border-orange-accent rounded-card font-semibold hover:bg-bg-light transition-colors;
+  @apply px-6 py-3 bg-white text-orange-accent border-2 border-orange-accent rounded-lg font-semibold hover:bg-bg-light transition-colors active:scale-95;
 }
 
 .btn-ghost {
@@ -38,7 +38,7 @@ body {
 }
 
 .card {
-  @apply bg-bg-card rounded-card border border-border-light shadow-sm hover:shadow-md transition-shadow;
+  @apply bg-bg-card rounded-2xl border border-border-light shadow-sm hover:shadow-md transition-all;
 }
 
 .gradient-accent {
@@ -50,13 +50,44 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  @apply text-4xl sm:text-5xl lg:text-6xl leading-tight;
+  @apply text-4xl sm:text-5xl lg:text-6xl leading-tight tracking-tight;
 }
 
 h2 {
-  @apply text-3xl sm:text-4xl lg:text-5xl leading-tight;
+  @apply text-3xl sm:text-4xl lg:text-5xl leading-tight tracking-tight;
 }
 
 h3 {
   @apply text-2xl sm:text-3xl leading-tight;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.slide-in {
+  animation: slideIn 0.4s ease-out;
 }

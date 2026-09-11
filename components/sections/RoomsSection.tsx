@@ -4,28 +4,28 @@ import { RoomImage } from '@/components/RoomImage';
 const rooms = [
   {
     id: 'small',
-    name: 'Маленькая подкаст-комната',
+    name: 'Маленькая комната',
     capacity: '2 человека',
     size: '3 × 4 м',
-    description: 'Интимная комната для интервью один-на-один или дуэта. Идеально для фокусированного разговора с чистым звуком.',
+    description: 'Интимное пространство для один-на-один интервью с идеальной акустикой.',
     image: '/images/rooms/small.jpg',
     slug: 'small',
   },
   {
     id: 'large',
-    name: 'Большая подкаст-зона',
+    name: 'Большая студия',
     capacity: '4 человека',
     size: '3 × 6 м',
-    description: 'Просторная комната для групповых обсуждений и интервью с несколькими гостями. Элегантный дизайн с профессиональным оборудованием.',
+    description: 'Просторная зона для групповых дискуссий и многолюдных записей.',
     image: '/images/rooms/large.jpg',
     slug: 'large',
   },
   {
     id: 'lounge',
-    name: 'Холл / Living Room',
+    name: 'Living Room',
     capacity: '3 человека',
     size: '3 × 5 м',
-    description: 'Уютная зона с релаксирующей атмосферой и круглым мраморным столом. Идеально для естественного и живого разговора.',
+    description: 'Релаксирующая атмосфера с мраморным столом для естественных разговоров.',
     image: '/images/rooms/lounge.jpg',
     slug: 'lounge',
   },
@@ -33,33 +33,42 @@ const rooms = [
 
 export function RoomsSection() {
   return (
-    <section className="py-16 md:py-32 bg-bg-light">
+    <section id="rooms" className="py-20 md:py-32 bg-bg-light">
       <div className="container-max">
         <div className="text-center mb-16">
-          <h2 className="mb-4 text-text-primary">Три комнаты. Выберите свою атмосферу</h2>
-          <p className="text-xl text-text-secondary">Каждая комната создана для разных форматов записи</p>
+          <h2 className="mb-4 text-text-primary">Три пространства</h2>
+          <p className="text-lg text-text-secondary">Выберите студию, которая подходит вам</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {rooms.map((room) => (
-            <div key={room.id} className="card p-6 md:p-8 flex flex-col h-full hover:shadow-lg transition-shadow">
-              <div className="h-48 rounded-card mb-6 overflow-hidden">
-                <RoomImage src={room.image} alt={room.name} className="h-48" />
+            <Link key={room.id} href={`/rooms/${room.slug}`}>
+              <div className="group cursor-pointer">
+                <div className="h-60 rounded-2xl mb-6 overflow-hidden bg-bg-card shadow-sm group-hover:shadow-lg transition-all duration-300">
+                  <RoomImage
+                    src={room.image}
+                    alt={room.name}
+                    className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+
+                <h3 className="text-xl font-bold mb-2 text-text-primary">{room.name}</h3>
+
+                <div className="mb-4 flex items-center gap-4 text-sm">
+                  <span className="text-orange-accent font-semibold">{room.capacity}</span>
+                  <span className="text-text-secondary">{room.size}</span>
+                </div>
+
+                <p className="text-text-secondary mb-6 line-clamp-2">{room.description}</p>
+
+                <div className="inline-flex items-center gap-2 text-orange-accent font-semibold hover:gap-3 transition-all">
+                  Подробнее
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
               </div>
-
-              <h3 className="text-2xl font-bold mb-2 text-text-primary">{room.name}</h3>
-
-              <div className="mb-4">
-                <p className="text-orange-accent font-semibold">{room.capacity}</p>
-                <p className="text-sm text-text-secondary">{room.size}</p>
-              </div>
-
-              <p className="text-text-secondary mb-8 flex-grow">{room.description}</p>
-
-              <Link href={`/rooms/${room.slug}`} className="btn-secondary text-center">
-                Посмотреть комнату
-              </Link>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

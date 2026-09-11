@@ -6,75 +6,80 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-text-primary text-white py-12">
+    <footer className="bg-bg-light border-t border-border-light py-16">
       <div className="container-max">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-12">
           <div>
-            <h3 className="font-bold mb-4">SHYMKENT STUDIO</h3>
-            <p className="text-sm text-gray-400">Подкаст-студия в Шымкенте</p>
+            <Link href="/" className="flex items-center gap-2 mb-4">
+              <div className="w-8 h-8 bg-orange-accent rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-sm">◉</span>
+              </div>
+              <span className="font-bold text-text-primary text-sm">SHYMKENT</span>
+            </Link>
+            <p className="text-xs text-text-secondary">Профессиональная подкаст-студия в Шымкенте</p>
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4 text-sm">Навигация</h4>
-            <ul className="space-y-2 text-sm text-gray-400">
+            <h4 className="font-semibold mb-4 text-sm text-text-primary">Сайт</h4>
+            <ul className="space-y-2 text-xs text-text-secondary">
               <li>
-                <Link href="/rooms" className="hover:text-white transition">
-                  Комнаты
+                <Link href="/#rooms" className="hover:text-text-primary transition">
+                  Студии
                 </Link>
               </li>
               <li>
-                <Link href="/pricing" className="hover:text-white transition">
+                <Link href="/#pricing" className="hover:text-text-primary transition">
                   Цены
                 </Link>
               </li>
               <li>
-                <Link href="/book" className="hover:text-white transition">
-                  Бронирование
+                <Link href="/book" className="hover:text-text-primary transition">
+                  Забронировать
                 </Link>
               </li>
             </ul>
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4 text-sm">Контакты</h4>
-            <ul className="space-y-2 text-sm text-gray-400">
+            <h4 className="font-semibold mb-4 text-sm text-text-primary">Контакты</h4>
+            <ul className="space-y-2 text-xs text-text-secondary">
               <li>
-                <a href="tel:+77005030501" className="hover:text-white transition">
-                  +7 700 503 05 01
+                <a href="tel:+77005030501" className="hover:text-text-primary transition">
+                  +7 700 503 0501
                 </a>
               </li>
               <li>
-                <a href="mailto:salem@shymkent.studio" className="hover:text-white transition">
+                <a href="mailto:salem@shymkent.studio" className="hover:text-text-primary transition break-all">
                   salem@shymkent.studio
                 </a>
               </li>
               <li>
-                <a href="https://instagram.com/shymkent.studio" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">
-                  Instagram
+                <a href="https://instagram.com/shymkent.studio" target="_blank" rel="noopener noreferrer" className="hover:text-orange-accent transition">
+                  @shymkent.studio
                 </a>
               </li>
             </ul>
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4 text-sm">Информация</h4>
-            <ul className="space-y-2 text-sm text-gray-400">
+            <h4 className="font-semibold mb-4 text-sm text-text-primary">Документы</h4>
+            <ul className="space-y-2 text-xs text-text-secondary">
               <li>
-                <Link href="/privacy" className="hover:text-white transition">
-                  Политика конфиденциальности
+                <Link href="/privacy" className="hover:text-text-primary transition">
+                  Конфиденциальность
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="hover:text-white transition">
-                  Условия бронирования
+                <Link href="/terms" className="hover:text-text-primary transition">
+                  Условия услуг
                 </Link>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-gray-700 pt-8">
-          <p className="text-center text-sm text-gray-400">
+        <div className="border-t border-border-light pt-8">
+          <p className="text-center text-xs text-text-secondary">
             © {currentYear} SHYMKENT STUDIO. Все права защищены.
           </p>
         </div>
