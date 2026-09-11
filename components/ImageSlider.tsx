@@ -68,7 +68,10 @@ export function ImageSlider({ images, alt, className = 'h-96' }: ImageSliderProp
 
       {/* Previous button */}
       <button
-        onClick={goToPrevious}
+        onClick={(e) => {
+          e.stopPropagation();
+          goToPrevious();
+        }}
         className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-text-primary rounded-full p-3 transition-all opacity-0 group-hover:opacity-100 z-10"
         aria-label="Предыдущая фотография"
       >
@@ -79,7 +82,10 @@ export function ImageSlider({ images, alt, className = 'h-96' }: ImageSliderProp
 
       {/* Next button */}
       <button
-        onClick={goToNext}
+        onClick={(e) => {
+          e.stopPropagation();
+          goToNext();
+        }}
         className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-text-primary rounded-full p-3 transition-all opacity-0 group-hover:opacity-100 z-10"
         aria-label="Следующая фотография"
       >
@@ -94,7 +100,10 @@ export function ImageSlider({ images, alt, className = 'h-96' }: ImageSliderProp
           {images.map((_, index) => (
             <button
               key={index}
-              onClick={() => setCurrentIndex(index)}
+              onClick={(e) => {
+                e.stopPropagation();
+                setCurrentIndex(index);
+              }}
               className={`w-2 h-2 rounded-full transition-all ${
                 index === currentIndex ? 'bg-orange-accent w-6' : 'bg-white/60 hover:bg-white/80'
               }`}
