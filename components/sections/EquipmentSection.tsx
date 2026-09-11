@@ -1,47 +1,54 @@
 'use client';
 
+import { useLanguage } from '@/components/LanguageContext';
+import { getTranslation } from '@/lib/translations';
+
 export function EquipmentSection() {
-  const stats = [
+  const { language } = useLanguage();
+
+  const getStats = () => [
     {
       number: '3×',
-      label: 'Sony FX30',
+      labelKey: 'trust.sony',
     },
     {
       number: '4×',
-      label: 'Shure SM7B',
+      labelKey: 'trust.shure',
     },
     {
       number: '3',
-      label: 'уникальные студии',
+      labelKey: 'trust.studios',
     },
     {
       number: '4K',
-      label: 'Video',
+      labelKey: 'trust.video',
     },
     {
       number: '∞',
-      label: 'Профессиональный свет',
+      labelKey: 'trust.light',
     },
     {
       number: '✓',
-      label: 'Готовый multicam production',
+      labelKey: 'trust.production',
     },
   ];
+
+  const stats = getStats();
 
   return (
     <section className="py-20 md:py-32 bg-white">
       <div className="container-max">
         <div className="text-center mb-16">
-          <h2 className="mb-6 text-text-primary">На чём вы можете быть уверены</h2>
+          <h2 className="mb-6 text-text-primary">{getTranslation(language, 'trust.title')}</h2>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
           {stats.map((stat) => (
-            <div key={stat.label} className="text-center">
+            <div key={stat.labelKey} className="text-center">
               <div className="text-5xl md:text-6xl font-bold text-orange-accent mb-3">
                 {stat.number}
               </div>
-              <p className="text-text-secondary font-medium">{stat.label}</p>
+              <p className="text-text-secondary font-medium">{getTranslation(language, stat.labelKey)}</p>
             </div>
           ))}
         </div>
