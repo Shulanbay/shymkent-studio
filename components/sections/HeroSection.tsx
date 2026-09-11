@@ -26,21 +26,9 @@ export function HeroSection() {
           {getTranslation(language, 'hero.title')}
         </h1>
 
-        <p className="text-lg text-white/80 mb-12 leading-relaxed max-w-2xl">
+        <p className="text-lg text-white/80 mb-16 leading-relaxed max-w-2xl">
           {getTranslation(language, 'hero.description')}
         </p>
-
-        {/* Price highlights */}
-        <div className="grid grid-cols-2 gap-6 mb-12">
-          <div className="bg-bg-light rounded-lg p-4">
-            <p className="text-text-secondary text-sm mb-1">{getTranslation(language, 'hero.starter')}</p>
-            <p className="text-3xl font-bold text-orange-accent">20 000 ₸</p>
-          </div>
-          <div className="bg-bg-light rounded-lg p-4">
-            <p className="text-text-secondary text-sm mb-1">{getTranslation(language, 'hero.pro')}</p>
-            <p className="text-3xl font-bold text-orange-accent">40 000 ₸</p>
-          </div>
-        </div>
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4">

@@ -10,27 +10,27 @@ export function Header() {
   const { language, setLanguage } = useLanguage();
 
   return (
-    <header className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur border-b border-border-light z-50">
+    <header className="fixed top-0 left-0 right-0 bg-gray-900/95 backdrop-blur border-b border-gray-800 z-50">
       <div className="container-max">
         <div className="flex items-center justify-between h-20">
           <Link href="/" className="flex items-center gap-3">
             <div className="w-9 h-9 bg-orange-accent rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-lg">◉</span>
             </div>
-            <span className="hidden sm:inline font-bold text-text-primary text-sm">SHYMKENT STUDIO</span>
+            <span className="hidden sm:inline font-bold text-white text-sm">SHYMKENT STUDIO</span>
           </Link>
 
           <nav className="hidden md:flex items-center gap-12">
-            <Link href="/#rooms" className="text-sm text-text-secondary hover:text-text-primary transition">
+            <Link href="/#rooms" className="text-sm text-gray-300 hover:text-white transition">
               {getTranslation(language, 'header.studios')}
             </Link>
-            <Link href="/#pricing" className="text-sm text-text-secondary hover:text-text-primary transition">
+            <Link href="/#pricing" className="text-sm text-gray-300 hover:text-white transition">
               {getTranslation(language, 'header.pricing')}
             </Link>
-            <Link href="/#how-it-works" className="text-sm text-text-secondary hover:text-text-primary transition">
+            <Link href="/#how-it-works" className="text-sm text-gray-300 hover:text-white transition">
               {getTranslation(language, 'header.process')}
             </Link>
-            <Link href="/contacts" className="text-sm text-text-secondary hover:text-text-primary transition">
+            <Link href="/contacts" className="text-sm text-gray-300 hover:text-white transition">
               {getTranslation(language, 'header.contacts')}
             </Link>
           </nav>
@@ -64,11 +64,11 @@ export function Header() {
               {getTranslation(language, 'header.book')}
             </Link>
             <button
-              className="md:hidden p-2 hover:bg-bg-light rounded-lg transition"
+              className="md:hidden p-2 hover:bg-gray-800 rounded-lg transition"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle menu"
             >
-              <svg className="w-6 h-6 text-text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
@@ -76,17 +76,17 @@ export function Header() {
         </div>
 
         {mobileMenuOpen && (
-          <nav className="md:hidden py-4 border-t border-border-light bg-bg-light">
-            <Link href="/#rooms" className="block py-2 text-sm text-text-secondary hover:text-text-primary">
+          <nav className="md:hidden py-4 border-t border-gray-800 bg-gray-800">
+            <Link href="/#rooms" className="block py-2 text-sm text-gray-300 hover:text-white">
               {getTranslation(language, 'header.studios')}
             </Link>
-            <Link href="/#pricing" className="block py-2 text-sm text-text-secondary hover:text-text-primary">
+            <Link href="/#pricing" className="block py-2 text-sm text-gray-300 hover:text-white">
               {getTranslation(language, 'header.pricing')}
             </Link>
-            <Link href="/#how-it-works" className="block py-2 text-sm text-text-secondary hover:text-text-primary">
+            <Link href="/#how-it-works" className="block py-2 text-sm text-gray-300 hover:text-white">
               {getTranslation(language, 'header.process')}
             </Link>
-            <Link href="/contacts" className="block py-2 text-sm text-text-secondary hover:text-text-primary">
+            <Link href="/contacts" className="block py-2 text-sm text-gray-300 hover:text-white">
               {getTranslation(language, 'header.contacts')}
             </Link>
             <Link href="/book" className="block py-3 mt-3 btn-primary text-center text-sm">
