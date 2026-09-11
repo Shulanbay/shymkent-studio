@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useLanguage } from '@/components/LanguageContext';
 import { getTranslation } from '@/lib/translations';
 
-const getPricingOptions = (language: string) => [
+const getPricingOptions = () => [
   {
     name: 'Starter',
     subtitleKey: 'pricingPlan.starterSubtitle',
@@ -65,7 +65,7 @@ const getPricingOptions = (language: string) => [
 
 export function PricingSection() {
   const { language } = useLanguage();
-  const pricingOptions = getPricingOptions(language);
+  const pricingOptions = getPricingOptions();
 
   return (
     <section id="pricing" className="py-20 md:py-32 bg-white">
