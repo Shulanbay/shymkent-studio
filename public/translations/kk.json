@@ -114,6 +114,25 @@
   "footer": {
     "description": "Шымкентте кәсіби подкаст-студия"
   },
+  "subscription": {
+    "title": "Тұрақты жазасыз бе?",
+    "subtitle": "Блогерлер, сарапты және тұрақты шоу үшін абонементтер",
+    "basicTitle": "Базалық",
+    "basicPrice": "140 000 ₸",
+    "basicPriceText": "/ ай",
+    "basicFeature1": "Ай есесінде 4 жазба 90 минут",
+    "basicFeature2": "4 толық эпизод монтажы",
+    "basicButton": "Таңдау",
+    "premiumTitle": "Премиум",
+    "premiumPrice": "200 000 ₸",
+    "premiumPriceText": "/ ай",
+    "recommended": "Ұсынамалы",
+    "premiumFeature1": "90 минут 4 жазба",
+    "premiumFeature2": "4 эпизод монтажы",
+    "premiumFeature3": "12 Reels / Shorts",
+    "premiumFeature4": "4 YouTube миниатюрасы",
+    "premiumButton": "Таңдау"
+  },
   "pricingPlan": {
     "starterSubtitle": "Тек жазба",
     "starterDesc": "Кәсіби подкаст жазбасы",

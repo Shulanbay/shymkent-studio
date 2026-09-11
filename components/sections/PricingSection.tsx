@@ -152,68 +152,68 @@ export function PricingSection() {
 
         {/* Subscriptions section */}
         <div className="bg-bg-light rounded-2xl p-12 border border-border-light">
-          <h3 className="text-2xl font-bold text-text-primary mb-2">Записываетесь регулярно?</h3>
+          <h3 className="text-2xl font-bold text-text-primary mb-2">{getTranslation(language, 'subscription.title')}</h3>
           <p className="text-text-secondary mb-8">
-            Абонементы для блогеров, экспертов и регулярных шоу
+            {getTranslation(language, 'subscription.subtitle')}
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="bg-white rounded-xl p-8 border border-border-light">
-              <h4 className="font-bold text-lg text-text-primary mb-4">Базовый</h4>
-              <p className="text-3xl font-bold text-orange-accent mb-6">140 000 ₸<span className="text-sm text-text-secondary ml-2">/ месяц</span></p>
+              <h4 className="font-bold text-lg text-text-primary mb-4">{getTranslation(language, 'subscription.basicTitle')}</h4>
+              <p className="text-3xl font-bold text-orange-accent mb-6">{getTranslation(language, 'subscription.basicPrice')}<span className="text-sm text-text-secondary ml-2">{getTranslation(language, 'subscription.basicPriceText')}</span></p>
               <ul className="space-y-2 text-sm text-text-secondary mb-6">
                 <li className="flex items-center gap-2">
                   <svg className="w-4 h-4 text-orange-accent" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
-                  4 записи в месяц по 90 минут
+                  {getTranslation(language, 'subscription.basicFeature1')}
                 </li>
                 <li className="flex items-center gap-2">
                   <svg className="w-4 h-4 text-orange-accent" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
-                  Монтаж 4 полных выпусков
+                  {getTranslation(language, 'subscription.basicFeature2')}
                 </li>
               </ul>
               <Link href="/book" className="btn-secondary w-full text-center">
-                Выбрать
+                {getTranslation(language, 'subscription.basicButton')}
               </Link>
             </div>
 
             <div className="bg-white rounded-xl p-8 border border-orange-accent border-2 ring-2 ring-orange-accent/20">
               <div className="inline-block mb-4 px-3 py-1 bg-orange-accent text-white rounded-full text-xs font-bold">
-                Рекомендуется
+                {getTranslation(language, 'subscription.recommended')}
               </div>
-              <h4 className="font-bold text-lg text-text-primary mb-4">Премиум</h4>
-              <p className="text-3xl font-bold text-orange-accent mb-6">200 000 ₸<span className="text-sm text-text-secondary ml-2">/ месяц</span></p>
+              <h4 className="font-bold text-lg text-text-primary mb-4">{getTranslation(language, 'subscription.premiumTitle')}</h4>
+              <p className="text-3xl font-bold text-orange-accent mb-6">{getTranslation(language, 'subscription.premiumPrice')}<span className="text-sm text-text-secondary ml-2">{getTranslation(language, 'subscription.premiumPriceText')}</span></p>
               <ul className="space-y-2 text-sm text-text-secondary mb-6">
                 <li className="flex items-center gap-2">
                   <svg className="w-4 h-4 text-orange-accent" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
-                  4 записи по 90 минут
+                  {getTranslation(language, 'subscription.premiumFeature1')}
                 </li>
                 <li className="flex items-center gap-2">
                   <svg className="w-4 h-4 text-orange-accent" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
-                  Монтаж 4 выпусков
+                  {getTranslation(language, 'subscription.premiumFeature2')}
                 </li>
                 <li className="flex items-center gap-2">
                   <svg className="w-4 h-4 text-orange-accent" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
-                  12 Reels / Shorts
+                  {getTranslation(language, 'subscription.premiumFeature3')}
                 </li>
                 <li className="flex items-center gap-2">
                   <svg className="w-4 h-4 text-orange-accent" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
-                  4 YouTube thumbnails
+                  {getTranslation(language, 'subscription.premiumFeature4')}
                 </li>
               </ul>
               <Link href="/book" className="btn-primary w-full text-center">
-                Выбрать
+                {getTranslation(language, 'subscription.premiumButton')}
               </Link>
             </div>
           </div>
