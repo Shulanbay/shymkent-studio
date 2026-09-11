@@ -49,7 +49,7 @@ export function RoomsSection() {
   const { language } = useLanguage();
 
   return (
-    <section id="rooms" className="py-20 md:py-32 bg-bg-light">
+    <section id="rooms" className="py-20 md:py-32 bg-white">
       <div className="container-max">
         <div className="text-center mb-16">
           <h2 className="mb-4 text-text-primary">{getTranslation(language, 'rooms.title')}</h2>

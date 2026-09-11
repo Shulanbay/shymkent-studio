@@ -25,11 +25,11 @@ export function ExamplesSection() {
   ];
 
   return (
-    <section className="py-20 md:py-32 bg-bg-light">
+    <section className="py-20 md:py-32 bg-gray-900">
       <div className="container-max">
         <div className="text-center mb-16">
-          <h2 className="mb-4 text-text-primary">{getTranslation(language, 'examples.title')}</h2>
-          <p className="text-lg text-text-secondary">{getTranslation(language, 'examples.subtitle')}</p>
+          <h2 className="mb-4 text-white">{getTranslation(language, 'examples.title')}</h2>
+          <p className="text-lg text-gray-300">{getTranslation(language, 'examples.subtitle')}</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -44,7 +44,7 @@ export function ExamplesSection() {
                   allowFullScreen
                 />
               </div>
-              <p className="mt-4 font-semibold text-text-primary">{getTranslation(language, example.titleKey)}</p>
+              <p className="mt-4 font-semibold text-white">{getTranslation(language, example.titleKey)}</p>
             </div>
           ))}
         </div>
