@@ -1,20 +1,20 @@
 'use client';
 
 import Link from 'next/link';
-import { AudioWave } from '@/components/AudioWave';
+import { VideoWave } from '@/components/VideoWave';
 import { useLanguage } from '@/components/LanguageContext';
 import { getTranslation } from '@/lib/translations';
 
 export function HeroSection() {
   const { language } = useLanguage();
   return (
-    <section className="py-20 md:py-48 bg-white relative overflow-hidden">
-      {/* Subtle gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-orange-accent/5 via-transparent to-transparent pointer-events-none"></div>
+    <section className="py-20 md:py-48 bg-black relative overflow-hidden">
+      {/* Dark background for video wave effect */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-black pointer-events-none"></div>
 
-      {/* Animated audio wave background */}
-      <div className="absolute inset-0 opacity-30 pointer-events-none z-0">
-        <AudioWave />
+      {/* Animated video wave background */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        <VideoWave />
       </div>
 
       <div className="container-max relative z-10 flex flex-col items-center justify-center text-center">
@@ -22,11 +22,11 @@ export function HeroSection() {
           SHYMKENT STUDIO
         </div>
 
-        <h1 className="mb-8 text-text-primary leading-tight max-w-3xl">
+        <h1 className="mb-8 text-white leading-tight max-w-3xl">
           {getTranslation(language, 'hero.title')}
         </h1>
 
-        <p className="text-lg text-text-secondary mb-12 leading-relaxed max-w-2xl">
+        <p className="text-lg text-white/80 mb-12 leading-relaxed max-w-2xl">
           {getTranslation(language, 'hero.description')}
         </p>
 
