@@ -1,6 +1,8 @@
 'use client';
 
 import Link from 'next/link';
+import { useLanguage } from '@/components/LanguageContext';
+import { getTranslation } from '@/lib/translations';
 
 const pricingOptions = [
   {
@@ -62,14 +64,16 @@ const pricingOptions = [
 ];
 
 export function PricingSection() {
+  const { language } = useLanguage();
+
   return (
     <section id="pricing" className="py-20 md:py-32 bg-white">
       <div className="container-max">
         {/* Section header */}
         <div className="text-center mb-16">
-          <h2 className="mb-4 text-text-primary">Выберите ваш пакет</h2>
+          <h2 className="mb-4 text-text-primary">{getTranslation(language, 'pricing.title')}</h2>
           <p className="text-lg text-text-secondary max-w-2xl mx-auto">
-            Все пакеты включают профессиональное оборудование, опытный персонал и высочайшее качество звука
+            {getTranslation(language, 'pricing.subtitle')}
           </p>
         </div>
 
@@ -138,7 +142,7 @@ export function PricingSection() {
                     option.highlighted ? 'btn-primary' : 'btn-secondary'
                   }`}
                 >
-                  Забронировать
+                  {getTranslation(language, 'pricing.book')}
                 </Link>
               </div>
             </div>

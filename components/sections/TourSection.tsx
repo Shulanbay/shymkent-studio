@@ -1,6 +1,11 @@
+'use client';
+
 import Link from 'next/link';
+import { useLanguage } from '@/components/LanguageContext';
+import { getTranslation } from '@/lib/translations';
 
 export function TourSection() {
+  const { language } = useLanguage();
   return (
     <section className="py-20 md:py-32 bg-gradient-to-r from-orange-accent to-orange-light relative overflow-hidden">
       {/* Decorative elements */}
@@ -10,14 +15,14 @@ export function TourSection() {
 
       <div className="container-max relative z-10">
         <div className="max-w-2xl mx-auto text-center text-white">
-          <h2 className="mb-6 text-white">Приходите на экскурсию</h2>
+          <h2 className="mb-6 text-white">{getTranslation(language, 'tour.title')}</h2>
 
           <p className="text-lg mb-10 text-white/95 leading-relaxed">
-            Увидьте студии своими глазами, познакомьтесь с оборудованием и обсудите вашу идею с командой. Экскурсия абсолютно бесплатная.
+            {getTranslation(language, 'tour.subtitle')}
           </p>
 
           <Link href="/studio-tour" className="inline-block px-8 py-4 bg-white text-orange-accent rounded-lg font-semibold hover:bg-bg-light transition-colors">
-            Забронировать бесплатный тур
+            {getTranslation(language, 'tour.button')}
           </Link>
         </div>
       </div>

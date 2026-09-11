@@ -1,4 +1,10 @@
+'use client';
+
+import { useLanguage } from '@/components/LanguageContext';
+import { getTranslation } from '@/lib/translations';
+
 export function EquipmentSection() {
+  const { language } = useLanguage();
   const stats = [
     {
       number: '3×',
