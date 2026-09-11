@@ -1,9 +1,12 @@
 'use client';
 
 import Link from 'next/link';
+import { useLanguage } from '@/components/LanguageContext';
+import { getTranslation } from '@/lib/translations';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
+  const { language } = useLanguage();
 
   return (
     <footer className="bg-bg-light border-t border-border-light py-16">
@@ -16,7 +19,7 @@ export function Footer() {
               </div>
               <span className="font-bold text-text-primary text-sm">SHYMKENT</span>
             </Link>
-            <p className="text-xs text-text-secondary">Профессиональная подкаст-студия в Шымкенте</p>
+            <p className="text-xs text-text-secondary">{getTranslation(language, 'footer.description')}</p>
           </div>
 
           <div>

@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import { useLanguage } from '@/components/LanguageContext';
+import { getTranslation } from '@/lib/translations';
 
 const faqItems = [
   {
@@ -43,13 +45,14 @@ const faqItems = [
 
 export function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const { language } = useLanguage();
 
   return (
     <section className="py-20 md:py-32 bg-white">
       <div className="container-max">
         <div className="text-center mb-16">
-          <h2 className="mb-4 text-text-primary">Часто задаваемые вопросы</h2>
-          <p className="text-lg text-text-secondary">Всё, что нужно знать перед бронированием</p>
+          <h2 className="mb-4 text-text-primary">{getTranslation(language, 'faq.title')}</h2>
+          <p className="text-lg text-text-secondary">{getTranslation(language, 'faq.subtitle')}</p>
         </div>
 
         <div className="max-w-3xl mx-auto space-y-3">

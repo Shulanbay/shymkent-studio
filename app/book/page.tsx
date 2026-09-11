@@ -2,8 +2,11 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useLanguage } from '@/components/LanguageContext';
+import { getTranslation } from '@/lib/translations';
 
 export default function BookingPage() {
+  const { language } = useLanguage();
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     service: 'full',
@@ -56,7 +59,7 @@ export default function BookingPage() {
   return (
     <div className="pt-20 min-h-screen bg-bg-light">
       <div className="container-max py-16 md:py-32">
-        <h1 className="mb-12">Забронировать запись</h1>
+        <h1 className="mb-12">{getTranslation(language, 'booking.title')}</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Основная форма */}
