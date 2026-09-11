@@ -8,7 +8,12 @@ const rooms = [
     capacity: '2 человека',
     size: '3 × 4 м',
     description: 'Интимное пространство для один-на-один интервью с идеальной акустикой.',
-    images: ['/images/rooms/small.jpg', '/images/rooms/small.jpg', '/images/rooms/small.jpg'],
+    images: [
+      '/images/rooms/small.jpg',
+      '/images/rooms/small2.jpg',
+      '/images/rooms/small3.jpg',
+      '/images/rooms/small4.jpg',
+    ],
     slug: 'small',
   },
   {
@@ -17,7 +22,12 @@ const rooms = [
     capacity: '4 человека',
     size: '3 × 6 м',
     description: 'Просторная зона для групповых дискуссий и многолюдных записей.',
-    images: ['/images/rooms/large.jpg', '/images/rooms/large.jpg', '/images/rooms/large.jpg'],
+    images: [
+      '/images/rooms/large.jpg',
+      '/images/rooms/large2.jpg',
+      '/images/rooms/large3.jpg',
+      '/images/rooms/large4.jpg',
+    ],
     slug: 'large',
   },
   {
@@ -26,7 +36,7 @@ const rooms = [
     capacity: '3 человека',
     size: '3 × 5 м',
     description: 'Релаксирующая атмосфера с мраморным столом для естественных разговоров.',
-    images: ['/images/rooms/lounge.jpg', '/images/rooms/lounge.jpg', '/images/rooms/lounge.jpg'],
+    images: ['/images/rooms/lounge.jpg'],
     slug: 'lounge',
   },
 ];
