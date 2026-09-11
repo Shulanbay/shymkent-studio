@@ -4,67 +4,68 @@ import Link from 'next/link';
 import { useLanguage } from '@/components/LanguageContext';
 import { getTranslation } from '@/lib/translations';
 
-const pricingOptions = [
+const getPricingOptions = (language: string) => [
   {
     name: 'Starter',
-    subtitle: 'Только запись',
+    subtitleKey: 'pricingPlan.starterSubtitle',
     price: '20 000',
-    description: 'Профессиональная запись подкаста',
-    duration: '60 минут',
-    features: [
-      'До 3 камер Sony FX30',
-      'До 4 микрофонов Shure SM7B',
-      'Профессиональный свет',
-      'Запись звука в высоком качестве',
-      'Техническое сопровождение',
-      'Передача исходных материалов',
+    descriptionKey: 'pricingPlan.starterDesc',
+    durationKey: 'pricingPlan.starterDuration',
+    featureKeys: [
+      'pricingPlan.starterFeature1',
+      'pricingPlan.starterFeature2',
+      'pricingPlan.starterFeature3',
+      'pricingPlan.starterFeature4',
+      'pricingPlan.starterFeature5',
+      'pricingPlan.starterFeature6',
     ],
-    addOn: 'Дополнительные 30 минут: +10 000 ₸',
+    addOnKey: 'pricingPlan.starterAddOn',
     highlighted: false,
   },
   {
     name: 'Pro',
-    subtitle: 'Запись + монтаж',
+    subtitleKey: 'pricingPlan.proSubtitle',
     price: '40 000',
-    description: 'Готовый эпизод для публикации',
-    duration: 'До 90 минут + полный монтаж',
-    badge: 'Выбирают чаще всего',
-    features: [
-      'До 90 минут студийного времени',
-      'До 3 камер Sony FX30',
-      'До 4 Shure SM7B микрофонов',
-      'Профессиональный свет',
-      'Запись и multicam монтаж',
-      'Обработка звука и цветокоррекция',
-      'Intro/outro клиента',
-      'Базовая графика и имя гостя',
-      'До 2 раундов небольших правок',
-      'Готовый файл для публикации',
+    descriptionKey: 'pricingPlan.proDesc',
+    durationKey: 'pricingPlan.proDuration',
+    badgeKey: 'pricingPlan.proBadge',
+    featureKeys: [
+      'pricingPlan.proFeature1',
+      'pricingPlan.proFeature2',
+      'pricingPlan.proFeature3',
+      'pricingPlan.proFeature4',
+      'pricingPlan.proFeature5',
+      'pricingPlan.proFeature6',
+      'pricingPlan.proFeature7',
+      'pricingPlan.proFeature8',
+      'pricingPlan.proFeature9',
+      'pricingPlan.proFeature10',
     ],
     highlighted: true,
   },
   {
     name: 'Premium',
-    subtitle: 'Запись + монтаж + Reels',
+    subtitleKey: 'pricingPlan.premiumSubtitle',
     price: '60 000',
-    description: 'Контент для всех социальных сетей',
-    duration: '90 минут + контент для соцсетей',
-    features: [
-      'Всё из пакета Pro плюс:',
-      '3 вертикальных Reels / Shorts',
-      '1 YouTube thumbnail профессионального уровня',
-      'Подготовка полного выпуска для YouTube',
-      'Вертикальные ролики 9:16 для Instagram / TikTok / Shorts',
-      'Базовая графика и оформление',
-      'До 2 раундов небольших правок',
+    descriptionKey: 'pricingPlan.premiumDesc',
+    durationKey: 'pricingPlan.premiumDuration',
+    featureKeys: [
+      'pricingPlan.premiumFeature1',
+      'pricingPlan.premiumFeature2',
+      'pricingPlan.premiumFeature3',
+      'pricingPlan.premiumFeature4',
+      'pricingPlan.premiumFeature5',
+      'pricingPlan.premiumFeature6',
+      'pricingPlan.premiumFeature7',
     ],
-    tagline: 'Записали один раз — получили контент для всех площадок',
+    taglineKey: 'pricingPlan.premiumTagline',
     highlighted: false,
   },
 ];
 
 export function PricingSection() {
   const { language } = useLanguage();
+  const pricingOptions = getPricingOptions(language);
 
   return (
     <section id="pricing" className="py-20 md:py-32 bg-white">
@@ -89,49 +90,49 @@ export function PricingSection() {
               } ${!option.highlighted ? 'bg-bg-light' : 'bg-white'}`}
             >
               {/* Badge for highlighted card */}
-              {option.badge && (
+              {option.badgeKey && (
                 <div className="absolute top-0 right-0 left-0 bg-orange-accent text-white text-xs font-bold py-2 px-4 text-center">
-                  {option.badge}
+                  {getTranslation(language, option.badgeKey)}
                 </div>
               )}
 
-              <div className={`p-8 pt-${option.badge ? '16' : '8'} flex flex-col h-full`}>
+              <div className={`p-8 pt-${option.badgeKey ? '16' : '8'} flex flex-col h-full`}>
                 {/* Title and price */}
                 <div className="mb-8">
                   <h3 className="text-2xl font-bold text-text-primary mb-1">{option.name}</h3>
-                  {option.subtitle && <p className="text-orange-accent text-sm font-semibold mb-4">{option.subtitle}</p>}
-                  <p className="text-text-secondary text-sm mb-6">{option.description}</p>
+                  {option.subtitleKey && <p className="text-orange-accent text-sm font-semibold mb-4">{getTranslation(language, option.subtitleKey)}</p>}
+                  <p className="text-text-secondary text-sm mb-6">{getTranslation(language, option.descriptionKey)}</p>
 
                   <div className="mb-2">
                     <span className="text-5xl font-bold text-orange-accent">{option.price}</span>
                     <span className="text-text-secondary ml-2 text-sm">₸</span>
                   </div>
-                  <p className="text-xs text-text-secondary">{option.duration}</p>
+                  <p className="text-xs text-text-secondary">{getTranslation(language, option.durationKey)}</p>
                 </div>
 
                 {/* Tagline for Контент package */}
-                {option.tagline && (
+                {option.taglineKey && (
                   <p className="text-sm italic text-text-secondary mb-8 pb-8 border-b border-border-light">
-                    &ldquo;{option.tagline}&rdquo;
+                    &ldquo;{getTranslation(language, option.taglineKey)}&rdquo;
                   </p>
                 )}
 
                 {/* Features */}
                 <ul className="space-y-3 mb-8 flex-grow">
-                  {option.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-3 text-text-secondary text-sm">
+                  {option.featureKeys.map((featureKey) => (
+                    <li key={featureKey} className="flex items-start gap-3 text-text-secondary text-sm">
                       <svg className="w-4 h-4 text-orange-accent mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                       </svg>
-                      <span>{feature}</span>
+                      <span>{getTranslation(language, featureKey)}</span>
                     </li>
                   ))}
                 </ul>
 
                 {/* Add-on info for Запись package */}
-                {option.addOn && (
+                {option.addOnKey && (
                   <p className="text-xs text-text-secondary mb-6 pb-6 border-t border-border-light pt-6">
-                    {option.addOn}
+                    {getTranslation(language, option.addOnKey)}
                   </p>
                 )}
 
