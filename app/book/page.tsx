@@ -156,7 +156,7 @@ export default function BookingPage() {
                       {getTranslation(language, 'booking.back')}
                     </button>
                     <button onClick={() => setStep(3)} className="btn-primary flex-grow">
-                      Далее
+                      {getTranslation(language, 'booking.next')}
                     </button>
                   </div>
                 </div>
@@ -242,10 +242,10 @@ export default function BookingPage() {
 
                   <div className="flex gap-4 mt-8">
                     <button onClick={() => setStep(2)} className="btn-secondary flex-grow">
-                      Назад
+                      {getTranslation(language, 'booking.back')}
                     </button>
                     <button onClick={() => setStep(4)} className="btn-primary flex-grow">
-                      Далее
+                      {getTranslation(language, 'booking.next')}
                     </button>
                   </div>
                 </div>
@@ -342,7 +342,7 @@ export default function BookingPage() {
 
                   <div className="flex gap-4 mt-8">
                     <button onClick={() => setStep(3)} className="btn-secondary flex-grow">
-                      Назад
+                      {getTranslation(language, 'booking.back')}
                     </button>
                     <button onClick={() => setStep(5)} disabled={!isFormValid()} className={`btn-primary flex-grow ${!isFormValid() ? 'opacity-50 cursor-not-allowed' : ''}`}>
                       {getTranslation(language, 'booking.checkout')}
@@ -358,43 +358,43 @@ export default function BookingPage() {
 
                   <div className="space-y-4 mb-8 p-6 bg-bg-light rounded-card">
                     <div className="flex justify-between border-b border-border-light pb-3">
-                      <span className="text-text-secondary">Услуга:</span>
+                      <span className="text-text-secondary">{getTranslation(language, 'booking.service')}:</span>
                       <span className="font-semibold text-text-primary">
-                        {formData.service === 'recording' && 'Запись без монтажа'}
-                        {formData.service === 'editing' && 'Монтаж эпизода'}
-                        {formData.service === 'full' && 'Полный подкаст'}
+                        {formData.service === 'recording' && getTranslation(language, 'booking.recording')}
+                        {formData.service === 'editing' && getTranslation(language, 'booking.editing')}
+                        {formData.service === 'full' && getTranslation(language, 'booking.full')}
                       </span>
                     </div>
                     <div className="flex justify-between border-b border-border-light pb-3">
-                      <span className="text-text-secondary">Комната:</span>
+                      <span className="text-text-secondary">{getTranslation(language, 'booking.room')}:</span>
                       <span className="font-semibold text-text-primary">
                         {getTranslation(language, rooms.find(r => r.value === formData.room)?.labelKey || '')}
                       </span>
                     </div>
                     <div className="flex justify-between border-b border-border-light pb-3">
-                      <span className="text-text-secondary">Дата и время:</span>
+                      <span className="text-text-secondary">{getTranslation(language, 'booking.dateAndTime')}:</span>
                       <span className="font-semibold text-text-primary">
-                        {new Date(formData.date).toLocaleDateString('ru-RU')} в {formData.time}
+                        {new Date(formData.date).toLocaleDateString(language === 'kk' ? 'kk-KZ' : 'ru-RU')} в {formData.time}
                       </span>
                     </div>
                     {(formData.service === 'recording' || formData.service === 'full') && (
                       <div className="flex justify-between border-b border-border-light pb-3">
-                        <span className="text-text-secondary">Длительность:</span>
-                        <span className="font-semibold text-text-primary">{formData.duration} минут</span>
+                        <span className="text-text-secondary">{getTranslation(language, 'booking.duration')}:</span>
+                        <span className="font-semibold text-text-primary">{formData.duration} {getTranslation(language, 'booking.minutes')}</span>
                       </div>
                     )}
                     <div className="flex justify-between border-b border-border-light pb-3">
-                      <span className="text-text-secondary">Участников:</span>
+                      <span className="text-text-secondary">{getTranslation(language, 'booking.participants')}:</span>
                       <span className="font-semibold text-text-primary">{formData.participants}</span>
                     </div>
                     <div className="flex justify-between pt-3">
-                      <span className="text-lg font-semibold text-text-primary">Итого:</span>
+                      <span className="text-lg font-semibold text-text-primary">{getTranslation(language, 'booking.total')}:</span>
                       <span className="text-2xl font-bold text-orange-accent">{calculatePrice().toLocaleString()} ₸</span>
                     </div>
                   </div>
 
                   <div className="p-4 bg-orange-accent/10 rounded-card border border-orange-accent/20 mb-6">
-                    <p className="text-sm text-orange-accent font-semibold">⚠ Требуется 100% предоплата через Kaspi</p>
+                    <p className="text-sm text-orange-accent font-semibold">{getTranslation(language, 'booking.prepayment')}</p>
                   </div>
 
                   <div className="flex gap-4">
@@ -419,9 +419,9 @@ export default function BookingPage() {
                 <div>
                   <p className="text-sm text-text-secondary">{getTranslation(language, 'booking.service')}</p>
                   <p className="font-semibold text-text-primary">
-                    {formData.service === 'recording' && 'Запись без монтажа'}
-                    {formData.service === 'editing' && 'Монтаж эпизода'}
-                    {formData.service === 'full' && 'Полный подкаст'}
+                    {formData.service === 'recording' && getTranslation(language, 'booking.recording')}
+                    {formData.service === 'editing' && getTranslation(language, 'booking.editing')}
+                    {formData.service === 'full' && getTranslation(language, 'booking.full')}
                   </p>
                 </div>
 
@@ -436,25 +436,25 @@ export default function BookingPage() {
 
                 {(step >= 3) && formData.date && (
                   <div>
-                    <p className="text-sm text-text-secondary">Дата</p>
+                    <p className="text-sm text-text-secondary">{getTranslation(language, 'booking.date')}</p>
                     <p className="font-semibold text-text-primary">
-                      {new Date(formData.date).toLocaleDateString('ru-RU')}
+                      {new Date(formData.date).toLocaleDateString(language === 'kk' ? 'kk-KZ' : 'ru-RU')}
                     </p>
                   </div>
                 )}
               </div>
 
               <div>
-                <p className="text-sm text-text-secondary mb-2">Стоимость</p>
+                <p className="text-sm text-text-secondary mb-2">{getTranslation(language, 'booking.cost')}</p>
                 <p className="text-3xl font-bold text-orange-accent">
                   {calculatePrice().toLocaleString()} ₸
                 </p>
               </div>
 
               <div className="mt-6 p-4 bg-bg-light rounded-card text-sm text-text-secondary">
-                <p className="mb-2">✓ 100% предоплата</p>
-                <p className="mb-2">✓ Подтверждение на WhatsApp</p>
-                <p>✓ Отмена до 24 часов</p>
+                <p className="mb-2">{getTranslation(language, 'booking.prepaymentCheck')}</p>
+                <p className="mb-2">{getTranslation(language, 'booking.whatsappConfirm')}</p>
+                <p>{getTranslation(language, 'booking.cancelWithin24')}</p>
               </div>
             </div>
           </div>

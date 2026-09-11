@@ -77,6 +77,7 @@
     "service": "Қызмет",
     "room": "Бөлме",
     "date": "Күні",
+    "dateAndTime": "Күні және уақыты",
     "duration": "Ұзақтығы",
     "participants": "Қатысушылар",
     "total": "Барлығы",
@@ -93,7 +94,8 @@
     "person1": "1 адам",
     "person2": "2 адам",
     "person3": "3 адам",
-    "person4": "4 адам"
+    "person4": "4 адам",
+    "minutes": "минут"
   },
   "process": {
     "title": "Басынан аяғына процесс",
