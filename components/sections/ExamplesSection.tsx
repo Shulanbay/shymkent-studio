@@ -1,23 +1,21 @@
 'use client';
 
-import Image from 'next/image';
-
 export function ExamplesSection() {
   const examples = [
     {
       id: 1,
       title: 'Интервью в маленькой комнате',
-      thumbnail: 'https://via.placeholder.com/400x225?text=Интервью',
+      videoId: 'PnKCeCr6LaI',
     },
     {
       id: 2,
       title: 'Групповое обсуждение',
-      thumbnail: 'https://via.placeholder.com/400x225?text=Групповое',
+      videoId: 'nBtUqOjT424',
     },
     {
       id: 3,
       title: 'Съёмка в Living Room',
-      thumbnail: 'https://via.placeholder.com/400x225?text=Living+Room',
+      videoId: 'K_XuHRHJR4E',
     },
   ];
 
@@ -31,21 +29,15 @@ export function ExamplesSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {examples.map((example) => (
-            <div key={example.id} className="group relative rounded-2xl overflow-hidden cursor-pointer">
-              <div className="bg-border-light aspect-video flex items-center justify-center overflow-hidden relative">
-                <Image
-                  src={example.thumbnail}
-                  alt={example.title}
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-300"
+            <div key={example.id} className="group relative rounded-2xl overflow-hidden">
+              <div className="bg-border-light aspect-video overflow-hidden rounded-2xl">
+                <iframe
+                  src={`https://www.youtube.com/embed/${example.videoId}`}
+                  title={example.title}
+                  className="w-full h-full"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
                 />
-                <button className="absolute inset-0 flex items-center justify-center bg-black/40 group-hover:bg-black/50 transition-colors">
-                  <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <svg className="w-8 h-8 text-orange-accent ml-1" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
-                    </svg>
-                  </div>
-                </button>
               </div>
               <p className="mt-4 font-semibold text-text-primary">{example.title}</p>
             </div>
