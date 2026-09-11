@@ -1,20 +1,25 @@
 'use client';
 
+import { useLanguage } from '@/components/LanguageContext';
+import { getTranslation } from '@/lib/translations';
+
 export function ExamplesSection() {
+  const { language } = useLanguage();
+
   const examples = [
     {
       id: 1,
-      title: 'Интервью в маленькой комнате',
+      titleKey: 'examples.video1',
       videoId: 'PnKCeCr6LaI',
     },
     {
       id: 2,
-      title: 'Групповое обсуждение',
+      titleKey: 'examples.video2',
       videoId: 'nBtUqOjT424',
     },
     {
       id: 3,
-      title: 'Съёмка в Living Room',
+      titleKey: 'examples.video3',
       videoId: 'K_XuHRHJR4E',
     },
   ];
@@ -23,8 +28,8 @@ export function ExamplesSection() {
     <section className="py-20 md:py-32 bg-bg-light">
       <div className="container-max">
         <div className="text-center mb-16">
-          <h2 className="mb-4 text-text-primary">Портфолио</h2>
-          <p className="text-lg text-text-secondary">Примеры записей, снятых в Shymkent Studio</p>
+          <h2 className="mb-4 text-text-primary">{getTranslation(language, 'examples.title')}</h2>
+          <p className="text-lg text-text-secondary">{getTranslation(language, 'examples.subtitle')}</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -33,13 +38,13 @@ export function ExamplesSection() {
               <div className="bg-border-light aspect-video overflow-hidden rounded-2xl">
                 <iframe
                   src={`https://www.youtube.com/embed/${example.videoId}`}
-                  title={example.title}
+                  title={getTranslation(language, example.titleKey)}
                   className="w-full h-full"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                 />
               </div>
-              <p className="mt-4 font-semibold text-text-primary">{example.title}</p>
+              <p className="mt-4 font-semibold text-text-primary">{getTranslation(language, example.titleKey)}</p>
             </div>
           ))}
         </div>

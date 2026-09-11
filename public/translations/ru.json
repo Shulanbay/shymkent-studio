@@ -20,7 +20,13 @@
     "small": "Маленькая комната",
     "large": "Большая студия",
     "lounge": "Living Room",
-    "moreInfo": "Подробнее"
+    "moreInfo": "Подробнее",
+    "capacitySmall": "2 человека",
+    "capacityLarge": "4 человека",
+    "capacityLounge": "3 человека",
+    "sizeSmall": "3 × 4 м",
+    "sizeLarge": "3 × 6 м",
+    "sizeLounge": "3 × 5 м"
   },
   "pricing": {
     "title": "Выберите ваш пакет",
@@ -43,6 +49,21 @@
     "next": "Далее",
     "back": "Назад",
     "book": "Забронировать"
+  },
+  "examples": {
+    "title": "Портфолио",
+    "subtitle": "Примеры записей, снятых в Shymkent Studio",
+    "video1": "Интервью в маленькой комнате",
+    "video2": "Групповое обсуждение",
+    "video3": "Съёмка в Living Room"
+  },
+  "roomsDescriptions": {
+    "smallTitle": "Маленькая комната",
+    "smallDesc": "Интимное пространство для один-на-один интервью с идеальной акустикой.",
+    "largeTitle": "Большая студия",
+    "largeDesc": "Просторная зона для групповых дискуссий и многолюдных записей.",
+    "loungeTitle": "Living Room",
+    "loungeDesc": "Релаксирующая атмосфера с мраморным столом для естественных разговоров."
   },
   "process": {
     "title": "Процесс от начала до конца",
