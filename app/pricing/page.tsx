@@ -103,7 +103,7 @@ export default function PricingPage() {
 
                   {option.tagline && (
                     <p className="text-sm italic text-text-secondary mb-8 pb-8 border-b border-border-light">
-                      "{option.tagline}"
+                      &ldquo;{option.tagline}&rdquo;
                     </p>
                   )}
 

@@ -1,5 +1,7 @@
 'use client';
 
+import Image from 'next/image';
+
 export function ExamplesSection() {
   const examples = [
     {
@@ -30,11 +32,12 @@ export function ExamplesSection() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {examples.map((example) => (
             <div key={example.id} className="group relative rounded-2xl overflow-hidden cursor-pointer">
-              <div className="bg-border-light aspect-video flex items-center justify-center overflow-hidden">
-                <img
+              <div className="bg-border-light aspect-video flex items-center justify-center overflow-hidden relative">
+                <Image
                   src={example.thumbnail}
                   alt={example.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-300"
                 />
                 <button className="absolute inset-0 flex items-center justify-center bg-black/40 group-hover:bg-black/50 transition-colors">
                   <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
