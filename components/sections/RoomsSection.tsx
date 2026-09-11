@@ -63,7 +63,7 @@ export function RoomsSection() {
                 <div className="mb-6 shadow-sm group-hover:shadow-lg transition-all duration-300">
                   <ImageSlider
                     images={room.images}
-                    alt={room.name}
+                    alt={getTranslation(language, room.titleKey)}
                     className="h-64 rounded-2xl"
                   />
                 </div>
