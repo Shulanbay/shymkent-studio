@@ -26,11 +26,11 @@ export function HeroSection() {
             {/* Price highlights */}
             <div className="grid grid-cols-2 gap-6 mb-12">
               <div className="bg-bg-light rounded-lg p-4">
-                <p className="text-text-secondary text-sm mb-1">Запись</p>
+                <p className="text-text-secondary text-sm mb-1">Starter</p>
                 <p className="text-3xl font-bold text-orange-accent">20 000 ₸</p>
               </div>
               <div className="bg-bg-light rounded-lg p-4">
-                <p className="text-text-secondary text-sm mb-1">Готовый выпуск</p>
+                <p className="text-text-secondary text-sm mb-1">Pro</p>
                 <p className="text-3xl font-bold text-orange-accent">40 000 ₸</p>
               </div>
             </div>

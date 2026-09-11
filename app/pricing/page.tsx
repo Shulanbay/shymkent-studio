@@ -8,7 +8,8 @@ export const metadata = {
 export default function PricingPage() {
   const pricingOptions = [
     {
-      name: 'Запись',
+      name: 'Starter',
+      subtitle: 'Только запись',
       price: '20 000',
       description: 'Профессиональная запись подкаста',
       duration: '60 минут',
@@ -24,7 +25,8 @@ export default function PricingPage() {
       highlighted: false,
     },
     {
-      name: 'Выпуск',
+      name: 'Pro',
+      subtitle: 'Запись + монтаж',
       price: '40 000',
       description: 'Готовый эпизод для публикации',
       duration: 'До 90 минут + полный монтаж',
@@ -44,12 +46,13 @@ export default function PricingPage() {
       highlighted: true,
     },
     {
-      name: 'Контент',
+      name: 'Premium',
+      subtitle: 'Запись + монтаж + Reels',
       price: '60 000',
       description: 'Контент для всех социальных сетей',
       duration: '90 минут + контент для соцсетей',
       features: [
-        'Всё из пакета «Выпуск» плюс:',
+        'Всё из пакета Pro плюс:',
         '3 вертикальных Reels / Shorts',
         '1 YouTube thumbnail профессионального уровня',
         'Подготовка полного выпуска для YouTube',
@@ -91,7 +94,8 @@ export default function PricingPage() {
 
                 <div className={`p-8 pt-${option.badge ? '16' : '8'} flex flex-col h-full`}>
                   <div className="mb-8">
-                    <h3 className="text-2xl font-bold text-text-primary mb-2">{option.name}</h3>
+                    <h3 className="text-2xl font-bold text-text-primary mb-1">{option.name}</h3>
+                    {option.subtitle && <p className="text-orange-accent text-sm font-semibold mb-4">{option.subtitle}</p>}
                     <p className="text-text-secondary text-sm mb-6">{option.description}</p>
 
                     <div className="mb-2">

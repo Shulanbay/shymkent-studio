@@ -77,7 +77,7 @@ export default function BookingPage() {
                         className="w-5 h-5"
                       />
                       <div className="ml-4 flex-grow">
-                        <p className="font-semibold text-text-primary">Запись</p>
+                        <p className="font-semibold text-text-primary">Starter - Только запись</p>
                         <p className="text-sm text-text-secondary">60 минут съёмки на 3 камеры, исходники через 24 часа</p>
                       </div>
                       <p className="text-lg font-bold text-orange-accent">20 000 ₸</p>
@@ -93,7 +93,7 @@ export default function BookingPage() {
                         className="w-5 h-5"
                       />
                       <div className="ml-4 flex-grow">
-                        <p className="font-semibold text-text-primary">Выпуск</p>
+                        <p className="font-semibold text-text-primary">Pro - Запись + монтаж</p>
                         <p className="text-sm text-text-secondary">До 90 минут + профессиональный монтаж + обработка звука</p>
                       </div>
                       <p className="text-lg font-bold text-orange-accent">40 000 ₸</p>
@@ -109,7 +109,7 @@ export default function BookingPage() {
                         className="w-5 h-5"
                       />
                       <div className="ml-4 flex-grow">
-                        <p className="font-semibold text-text-primary">Контент</p>
+                        <p className="font-semibold text-text-primary">Premium - Запись + монтаж + Reels</p>
                         <p className="text-sm text-text-secondary">90 минут + монтаж + контент для социальных сетей</p>
                       </div>
                       <p className="text-lg font-bold text-orange-accent">60 000 ₸</p>
