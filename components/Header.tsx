@@ -37,10 +37,10 @@ export function Header() {
 
           <div className="flex items-center gap-2 md:gap-3">
             {/* Language switcher */}
-            <div className="flex items-center gap-1 border border-border-light rounded-lg p-0.5">
+            <div className="flex items-center gap-0.5 bg-bg-light rounded-full p-1">
               <button
                 onClick={() => setLanguage('ru')}
-                className={`px-2 py-1 text-xs font-medium rounded transition ${
+                className={`px-3 py-1.5 text-xs font-medium rounded-full transition ${
                   language === 'ru'
                     ? 'bg-orange-accent text-white'
                     : 'text-text-secondary hover:text-text-primary'
@@ -50,7 +50,7 @@ export function Header() {
               </button>
               <button
                 onClick={() => setLanguage('kk')}
-                className={`px-2 py-1 text-xs font-medium rounded transition ${
+                className={`px-3 py-1.5 text-xs font-medium rounded-full transition ${
                   language === 'kk'
                     ? 'bg-orange-accent text-white'
                     : 'text-text-secondary hover:text-text-primary'
