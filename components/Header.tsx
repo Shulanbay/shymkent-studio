@@ -37,13 +37,13 @@ export function Header() {
 
           <div className="flex items-center gap-2 md:gap-3">
             {/* Language switcher */}
-            <div className="flex items-center gap-0.5 bg-bg-light rounded-full p-1">
+            <div className="flex items-center gap-0.5 bg-gray-800 rounded-full p-1">
               <button
                 onClick={() => setLanguage('ru')}
                 className={`px-3 py-1.5 text-xs font-medium rounded-full transition ${
                   language === 'ru'
                     ? 'bg-orange-accent text-white'
-                    : 'text-text-secondary hover:text-text-primary'
+                    : 'text-gray-400 hover:text-gray-300'
                 }`}
               >
                 РУ
@@ -53,7 +53,7 @@ export function Header() {
                 className={`px-3 py-1.5 text-xs font-medium rounded-full transition ${
                   language === 'kk'
                     ? 'bg-orange-accent text-white'
-                    : 'text-text-secondary hover:text-text-primary'
+                    : 'text-gray-400 hover:text-gray-300'
                 }`}
               >
                 КК
@@ -76,7 +76,7 @@ export function Header() {
         </div>
 
         {mobileMenuOpen && (
-          <nav className="md:hidden py-4 border-t border-gray-700 bg-gray-800">
+          <nav className="md:hidden py-4 border-t border-gray-700 bg-black">
             <Link href="/#rooms" className="block py-2 text-sm text-gray-300 hover:text-white">
               {getTranslation(language, 'header.studios')}
             </Link>
