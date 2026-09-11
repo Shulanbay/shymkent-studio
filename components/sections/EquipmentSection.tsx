@@ -41,7 +41,7 @@ export function EquipmentSection() {
               <div className="text-5xl md:text-6xl font-bold text-orange-accent mb-3">
                 {stat.number}
               </div>
-              <p className="text-gray-300 font-medium">{stat.label}</p>
+              <p className="text-text-secondary font-medium">{stat.label}</p>
             </div>
           ))}
         </div>
