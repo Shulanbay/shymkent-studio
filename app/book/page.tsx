@@ -50,11 +50,13 @@ export default function BookingPage() {
     );
   };
 
-  const rooms = [
-    { value: 'large', label: 'Большая подкаст-зона (4 чел)', price: 0 },
-    { value: 'small', label: 'Маленькая подкаст-комната (2 чел)', price: 0 },
-    { value: 'lounge', label: 'Холл / Living Room (3 чел)', price: 0 },
+  const getRooms = () => [
+    { value: 'large', labelKey: 'booking.largeRoom', price: 0 },
+    { value: 'small', labelKey: 'booking.smallRoom', price: 0 },
+    { value: 'lounge', labelKey: 'booking.loungeRoom', price: 0 },
   ];
+
+  const rooms = getRooms();
 
   return (
     <div className="pt-20 min-h-screen bg-bg-light">
@@ -68,7 +70,7 @@ export default function BookingPage() {
               {/* Шаг 1: Выбор услуги */}
               {step === 1 && (
                 <div>
-                  <h2 className="text-2xl font-bold mb-6 text-text-primary">Шаг 1: Выберите услугу</h2>
+                  <h2 className="text-2xl font-bold mb-6 text-text-primary">{getTranslation(language, 'booking.step1Title')}</h2>
                   <div className="space-y-4">
                     <label className="flex items-center p-4 border-2 rounded-card cursor-pointer hover:border-orange-accent transition" style={{ borderColor: formData.service === 'recording' ? '#FF6B24' : '#EDE5DD' }}>
                       <input
@@ -80,8 +82,8 @@ export default function BookingPage() {
                         className="w-5 h-5"
                       />
                       <div className="ml-4 flex-grow">
-                        <p className="font-semibold text-text-primary">Starter - Только запись</p>
-                        <p className="text-sm text-text-secondary">60 минут съёмки на 3 камеры, исходники через 24 часа</p>
+                        <p className="font-semibold text-text-primary">{getTranslation(language, 'booking.starterLabel')}</p>
+                        <p className="text-sm text-text-secondary">{getTranslation(language, 'booking.starterDesc')}</p>
                       </div>
                       <p className="text-lg font-bold text-orange-accent">20 000 ₸</p>
                     </label>
@@ -96,8 +98,8 @@ export default function BookingPage() {
                         className="w-5 h-5"
                       />
                       <div className="ml-4 flex-grow">
-                        <p className="font-semibold text-text-primary">Pro - Запись + монтаж</p>
-                        <p className="text-sm text-text-secondary">До 90 минут + профессиональный монтаж + обработка звука</p>
+                        <p className="font-semibold text-text-primary">{getTranslation(language, 'booking.proLabel')}</p>
+                        <p className="text-sm text-text-secondary">{getTranslation(language, 'booking.proDesc')}</p>
                       </div>
                       <p className="text-lg font-bold text-orange-accent">40 000 ₸</p>
                     </label>
@@ -112,8 +114,8 @@ export default function BookingPage() {
                         className="w-5 h-5"
                       />
                       <div className="ml-4 flex-grow">
-                        <p className="font-semibold text-text-primary">Premium - Запись + монтаж + Reels</p>
-                        <p className="text-sm text-text-secondary">90 минут + монтаж + контент для социальных сетей</p>
+                        <p className="font-semibold text-text-primary">{getTranslation(language, 'booking.premiumLabel')}</p>
+                        <p className="text-sm text-text-secondary">{getTranslation(language, 'booking.premiumDesc')}</p>
                       </div>
                       <p className="text-lg font-bold text-orange-accent">60 000 ₸</p>
                     </label>
@@ -121,7 +123,7 @@ export default function BookingPage() {
 
                   <div className="flex gap-4 mt-8">
                     <button onClick={() => setStep(2)} className="btn-primary flex-grow">
-                      Далее
+                      {getTranslation(language, 'booking.next')}
                     </button>
                   </div>
                 </div>
@@ -130,7 +132,7 @@ export default function BookingPage() {
               {/* Шаг 2: Выбор комнаты */}
               {step === 2 && (
                 <div>
-                  <h2 className="text-2xl font-bold mb-6 text-text-primary">Шаг 2: Выберите комнату</h2>
+                  <h2 className="text-2xl font-bold mb-6 text-text-primary">{getTranslation(language, 'booking.step2Title')}</h2>
                   <div className="space-y-4">
                     {rooms.map((room) => (
                       <label key={room.value} className="flex items-center p-4 border-2 rounded-card cursor-pointer hover:border-orange-accent transition" style={{ borderColor: formData.room === room.value ? '#FF6B24' : '#EDE5DD' }}>
@@ -143,7 +145,7 @@ export default function BookingPage() {
                           className="w-5 h-5"
                         />
                         <div className="ml-4 flex-grow">
-                          <p className="font-semibold text-text-primary">{room.label}</p>
+                          <p className="font-semibold text-text-primary">{getTranslation(language, room.labelKey)}</p>
                         </div>
                       </label>
                     ))}
@@ -151,7 +153,7 @@ export default function BookingPage() {
 
                   <div className="flex gap-4 mt-8">
                     <button onClick={() => setStep(1)} className="btn-secondary flex-grow">
-                      Назад
+                      {getTranslation(language, 'booking.back')}
                     </button>
                     <button onClick={() => setStep(3)} className="btn-primary flex-grow">
                       Далее
@@ -163,11 +165,11 @@ export default function BookingPage() {
               {/* Шаг 3: Дата и время */}
               {step === 3 && (
                 <div>
-                  <h2 className="text-2xl font-bold mb-6 text-text-primary">Шаг 3: Дата и время</h2>
+                  <h2 className="text-2xl font-bold mb-6 text-text-primary">{getTranslation(language, 'booking.step3Title')}</h2>
 
                   <div className="space-y-6">
                     <div>
-                      <label className="block font-semibold text-text-primary mb-2">Дата съёмки</label>
+                      <label className="block font-semibold text-text-primary mb-2">{getTranslation(language, 'booking.recordingDate')}</label>
                       <input
                         type="date"
                         name="date"
@@ -179,7 +181,7 @@ export default function BookingPage() {
                     </div>
 
                     <div>
-                      <label className="block font-semibold text-text-primary mb-2">Время (Шымкент, UTC+5) - 24-часовой формат</label>
+                      <label className="block font-semibold text-text-primary mb-2">{getTranslation(language, 'booking.recordingTime')}</label>
                       <div className="flex gap-2">
                         <div className="flex-1">
                           <input
@@ -223,16 +225,16 @@ export default function BookingPage() {
 
                     {(formData.service === 'recording' || formData.service === 'full') && (
                       <div>
-                        <label className="block font-semibold text-text-primary mb-2">Длительность съёмки</label>
+                        <label className="block font-semibold text-text-primary mb-2">{getTranslation(language, 'booking.recordingDuration')}</label>
                         <select
                           name="duration"
                           value={formData.duration}
                           onChange={handleInputChange}
                           className="w-full px-4 py-3 border border-border-light rounded-card focus:outline-none focus:ring-2 focus:ring-orange-accent"
                         >
-                          <option value="60">60 минут</option>
-                          <option value="90">90 минут</option>
-                          <option value="120">120 минут</option>
+                          <option value="60">60 {getTranslation(language, 'process.subtitle').split(' ')[0]}</option>
+                          <option value="90">90 {getTranslation(language, 'process.subtitle').split(' ')[0]}</option>
+                          <option value="120">120 {getTranslation(language, 'process.subtitle').split(' ')[0]}</option>
                         </select>
                       </div>
                     )}
@@ -252,69 +254,69 @@ export default function BookingPage() {
               {/* Шаг 4: Контакты */}
               {step === 4 && (
                 <div>
-                  <h2 className="text-2xl font-bold mb-6 text-text-primary">Шаг 4: Ваши контакты</h2>
+                  <h2 className="text-2xl font-bold mb-6 text-text-primary">{getTranslation(language, 'booking.step4Title')}</h2>
 
                   <div className="space-y-6">
                     <div>
-                      <label className="block font-semibold text-text-primary mb-2">Имя *</label>
+                      <label className="block font-semibold text-text-primary mb-2">{getTranslation(language, 'booking.nameLabel')}</label>
                       <input
                         type="text"
                         name="name"
                         value={formData.name}
                         onChange={handleInputChange}
-                        placeholder="Ваше имя"
+                        placeholder={getTranslation(language, 'booking.namePlaceholder')}
                         className="w-full px-4 py-3 border border-border-light rounded-card focus:outline-none focus:ring-2 focus:ring-orange-accent"
                         required
                       />
                     </div>
 
                     <div>
-                      <label className="block font-semibold text-text-primary mb-2">Телефон / WhatsApp *</label>
+                      <label className="block font-semibold text-text-primary mb-2">{getTranslation(language, 'booking.phoneLabel')}</label>
                       <input
                         type="tel"
                         name="phone"
                         value={formData.phone}
                         onChange={handleInputChange}
-                        placeholder="+7 700 123 45 67"
+                        placeholder={getTranslation(language, 'booking.phonePlaceholder')}
                         className="w-full px-4 py-3 border border-border-light rounded-card focus:outline-none focus:ring-2 focus:ring-orange-accent"
                         required
                       />
                     </div>
 
                     <div>
-                      <label className="block font-semibold text-text-primary mb-2">Email</label>
+                      <label className="block font-semibold text-text-primary mb-2">{getTranslation(language, 'booking.emailLabel')}</label>
                       <input
                         type="email"
                         name="email"
                         value={formData.email}
                         onChange={handleInputChange}
-                        placeholder="your@email.com"
+                        placeholder={getTranslation(language, 'booking.emailPlaceholder')}
                         className="w-full px-4 py-3 border border-border-light rounded-card focus:outline-none focus:ring-2 focus:ring-orange-accent"
                       />
                     </div>
 
                     <div>
-                      <label className="block font-semibold text-text-primary mb-2">Количество участников</label>
+                      <label className="block font-semibold text-text-primary mb-2">{getTranslation(language, 'booking.participantsLabel')}</label>
                       <select
                         name="participants"
                         value={formData.participants}
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border border-border-light rounded-card focus:outline-none focus:ring-2 focus:ring-orange-accent"
                       >
-                        <option value="1">1 человек</option>
-                        <option value="2">2 человека</option>
-                        <option value="3">3 человека</option>
-                        <option value="4">4 человека</option>
+                        <option value="1">{getTranslation(language, 'booking.person1')}</option>
+                        <option value="2">{getTranslation(language, 'booking.person2')}</option>
+                        <option value="3">{getTranslation(language, 'booking.person3')}</option>
+                        <option value="4">{getTranslation(language, 'booking.person4')}</option>
                       </select>
                     </div>
 
                     <div>
-                      <label className="block font-semibold text-text-primary mb-2">Комментарий (опционально)</label>
+                      <label className="block font-semibold text-text-primary mb-2">{getTranslation(language, 'booking.commentLabel')}</label>
                       <textarea
                         name="comment"
                         value={formData.comment}
                         onChange={handleInputChange}
-                        placeholder="Расскажите о вашем проекте, формате подкаста и любых особых требованиях..."
+                        placeholder={getTranslation(language, 'booking.commentPlaceholder')}
                         className="w-full px-4 py-3 border border-border-light rounded-card focus:outline-none focus:ring-2 focus:ring-orange-accent min-h-24"
                       />
                     </div>
@@ -329,7 +331,11 @@ export default function BookingPage() {
                         required
                       />
                       <span className="text-sm text-text-secondary">
-                        Я согласен с <Link href="/terms" className="text-orange-accent hover:underline">условиями бронирования</Link> и <Link href="/privacy" className="text-orange-accent hover:underline">политикой конфиденциальности</Link> *
+                        {getTranslation(language, 'booking.agreeTerms').replace('условиями бронирования', '').replace('политикой конфиденциальности', '').includes('Я согласен') ? (
+                          <>
+                            Я согласен с <Link href="/terms" className="text-orange-accent hover:underline">{getTranslation(language, 'footer.terms')}</Link> и <Link href="/privacy" className="text-orange-accent hover:underline">{getTranslation(language, 'footer.privacy')}</Link> *
+                          </>
+                        ) : getTranslation(language, 'booking.agreeTerms')}
                       </span>
                     </label>
                   </div>
@@ -339,7 +345,7 @@ export default function BookingPage() {
                       Назад
                     </button>
                     <button onClick={() => setStep(5)} disabled={!isFormValid()} className={`btn-primary flex-grow ${!isFormValid() ? 'opacity-50 cursor-not-allowed' : ''}`}>
-                      Перейти к оплате
+                      {getTranslation(language, 'booking.checkout')}
                     </button>
                   </div>
                 </div>
@@ -348,7 +354,7 @@ export default function BookingPage() {
               {/* Шаг 5: Итоговая проверка */}
               {step === 5 && (
                 <div>
-                  <h2 className="text-2xl font-bold mb-6 text-text-primary">Проверьте заказ</h2>
+                  <h2 className="text-2xl font-bold mb-6 text-text-primary">{getTranslation(language, 'booking.step5Title')}</h2>
 
                   <div className="space-y-4 mb-8 p-6 bg-bg-light rounded-card">
                     <div className="flex justify-between border-b border-border-light pb-3">
@@ -362,7 +368,7 @@ export default function BookingPage() {
                     <div className="flex justify-between border-b border-border-light pb-3">
                       <span className="text-text-secondary">Комната:</span>
                       <span className="font-semibold text-text-primary">
-                        {rooms.find(r => r.value === formData.room)?.label}
+                        {getTranslation(language, rooms.find(r => r.value === formData.room)?.labelKey || '')}
                       </span>
                     </div>
                     <div className="flex justify-between border-b border-border-light pb-3">
@@ -396,7 +402,7 @@ export default function BookingPage() {
                       Назад
                     </button>
                     <button className="btn-primary flex-grow">
-                      Перейти к оплате Kaspi
+                      {getTranslation(language, 'booking.checkoutKaspi')}
                     </button>
                   </div>
                 </div>
@@ -407,11 +413,11 @@ export default function BookingPage() {
           {/* Боковая панель со сводкой */}
           <div className="lg:col-span-1">
             <div className="sticky top-24 bg-white rounded-card p-6 border border-border-light">
-              <h3 className="font-bold text-text-primary mb-4">Сводка заказа</h3>
+              <h3 className="font-bold text-text-primary mb-4">{getTranslation(language, 'booking.orderSummary')}</h3>
 
               <div className="space-y-4 mb-6 pb-6 border-b border-border-light">
                 <div>
-                  <p className="text-sm text-text-secondary">Услуга</p>
+                  <p className="text-sm text-text-secondary">{getTranslation(language, 'booking.service')}</p>
                   <p className="font-semibold text-text-primary">
                     {formData.service === 'recording' && 'Запись без монтажа'}
                     {formData.service === 'editing' && 'Монтаж эпизода'}
@@ -421,9 +427,9 @@ export default function BookingPage() {
 
                 {(step >= 2) && (
                   <div>
-                    <p className="text-sm text-text-secondary">Комната</p>
+                    <p className="text-sm text-text-secondary">{getTranslation(language, 'booking.room')}</p>
                     <p className="font-semibold text-text-primary">
-                      {rooms.find(r => r.value === formData.room)?.label.split('(')[0].trim()}
+                      {getTranslation(language, rooms.find(r => r.value === formData.room)?.labelKey || '').split('(')[0].trim()}
                     </p>
                   </div>
                 )}
