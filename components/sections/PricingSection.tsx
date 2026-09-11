@@ -67,12 +67,12 @@ export function PricingSection() {
   const { language } = useLanguage();
 
   return (
-    <section id="pricing" className="py-20 md:py-32 bg-black">
+    <section id="pricing" className="py-20 md:py-32 bg-white">
       <div className="container-max">
         {/* Section header */}
         <div className="text-center mb-16">
-          <h2 className="mb-4 text-white">{getTranslation(language, 'pricing.title')}</h2>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+          <h2 className="mb-4 text-text-primary">{getTranslation(language, 'pricing.title')}</h2>
+          <p className="text-lg text-text-secondary max-w-2xl mx-auto">
             {getTranslation(language, 'pricing.subtitle')}
           </p>
         </div>
@@ -98,20 +98,20 @@ export function PricingSection() {
               <div className={`p-8 pt-${option.badge ? '16' : '8'} flex flex-col h-full`}>
                 {/* Title and price */}
                 <div className="mb-8">
-                  <h3 className="text-2xl font-bold text-white mb-1">{option.name}</h3>
+                  <h3 className="text-2xl font-bold text-text-primary mb-1">{option.name}</h3>
                   {option.subtitle && <p className="text-orange-accent text-sm font-semibold mb-4">{option.subtitle}</p>}
-                  <p className="text-gray-300 text-sm mb-6">{option.description}</p>
+                  <p className="text-text-secondary text-sm mb-6">{option.description}</p>
 
                   <div className="mb-2">
                     <span className="text-5xl font-bold text-orange-accent">{option.price}</span>
-                    <span className="text-gray-300 ml-2 text-sm">₸</span>
+                    <span className="text-text-secondary ml-2 text-sm">₸</span>
                   </div>
-                  <p className="text-xs text-gray-400">{option.duration}</p>
+                  <p className="text-xs text-text-secondary">{option.duration}</p>
                 </div>
 
                 {/* Tagline for Контент package */}
                 {option.tagline && (
-                  <p className="text-sm italic text-gray-300 mb-8 pb-8 border-b border-gray-700">
+                  <p className="text-sm italic text-text-secondary mb-8 pb-8 border-b border-border-light">
                     &ldquo;{option.tagline}&rdquo;
                   </p>
                 )}
@@ -119,7 +119,7 @@ export function PricingSection() {
                 {/* Features */}
                 <ul className="space-y-3 mb-8 flex-grow">
                   {option.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-3 text-gray-300 text-sm">
+                    <li key={feature} className="flex items-start gap-3 text-text-secondary text-sm">
                       <svg className="w-4 h-4 text-orange-accent mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                       </svg>
@@ -130,7 +130,7 @@ export function PricingSection() {
 
                 {/* Add-on info for Запись package */}
                 {option.addOn && (
-                  <p className="text-xs text-gray-400 mb-6 pb-6 border-t border-gray-700 pt-6">
+                  <p className="text-xs text-text-secondary mb-6 pb-6 border-t border-border-light pt-6">
                     {option.addOn}
                   </p>
                 )}
@@ -150,17 +150,17 @@ export function PricingSection() {
         </div>
 
         {/* Subscriptions section */}
-        <div className="bg-gray-900 rounded-2xl p-12 border border-gray-800">
-          <h3 className="text-2xl font-bold text-white mb-2">Записываетесь регулярно?</h3>
-          <p className="text-gray-300 mb-8">
+        <div className="bg-bg-light rounded-2xl p-12 border border-border-light">
+          <h3 className="text-2xl font-bold text-text-primary mb-2">Записываетесь регулярно?</h3>
+          <p className="text-text-secondary mb-8">
             Абонементы для блогеров, экспертов и регулярных шоу
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-gray-800 rounded-xl p-8 border border-gray-700">
-              <h4 className="font-bold text-lg text-white mb-4">Базовый</h4>
-              <p className="text-3xl font-bold text-orange-accent mb-6">140 000 ₸<span className="text-sm text-gray-400 ml-2">/ месяц</span></p>
-              <ul className="space-y-2 text-sm text-gray-300 mb-6">
+            <div className="bg-white rounded-xl p-8 border border-border-light">
+              <h4 className="font-bold text-lg text-text-primary mb-4">Базовый</h4>
+              <p className="text-3xl font-bold text-orange-accent mb-6">140 000 ₸<span className="text-sm text-text-secondary ml-2">/ месяц</span></p>
+              <ul className="space-y-2 text-sm text-text-secondary mb-6">
                 <li className="flex items-center gap-2">
                   <svg className="w-4 h-4 text-orange-accent" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
@@ -179,13 +179,13 @@ export function PricingSection() {
               </Link>
             </div>
 
-            <div className="bg-gray-800 rounded-xl p-8 border border-orange-accent border-2 ring-2 ring-orange-accent/20">
+            <div className="bg-white rounded-xl p-8 border border-orange-accent border-2 ring-2 ring-orange-accent/20">
               <div className="inline-block mb-4 px-3 py-1 bg-orange-accent text-white rounded-full text-xs font-bold">
                 Рекомендуется
               </div>
-              <h4 className="font-bold text-lg text-white mb-4">Премиум</h4>
-              <p className="text-3xl font-bold text-orange-accent mb-6">200 000 ₸<span className="text-sm text-gray-400 ml-2">/ месяц</span></p>
-              <ul className="space-y-2 text-sm text-gray-300 mb-6">
+              <h4 className="font-bold text-lg text-text-primary mb-4">Премиум</h4>
+              <p className="text-3xl font-bold text-orange-accent mb-6">200 000 ₸<span className="text-sm text-text-secondary ml-2">/ месяц</span></p>
+              <ul className="space-y-2 text-sm text-text-secondary mb-6">
                 <li className="flex items-center gap-2">
                   <svg className="w-4 h-4 text-orange-accent" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />

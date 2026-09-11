@@ -29,10 +29,10 @@ export function EquipmentSection() {
   ];
 
   return (
-    <section className="py-20 md:py-32 bg-black">
+    <section className="py-20 md:py-32 bg-white">
       <div className="container-max">
         <div className="text-center mb-16">
-          <h2 className="mb-6 text-white">На чём вы можете быть уверены</h2>
+          <h2 className="mb-6 text-text-primary">На чём вы можете быть уверены</h2>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
