@@ -1,9 +1,6 @@
 'use client';
 
-import { useLanguage } from '@/components/LanguageContext';
-
 export function EquipmentSection() {
-  const { language } = useLanguage();
   const stats = [
     {
       number: '3×',
