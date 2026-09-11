@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { useLanguage } from './LanguageContext';
+import { getTranslation } from '@/lib/translations';
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -21,16 +22,16 @@ export function Header() {
 
           <nav className="hidden md:flex items-center gap-12">
             <Link href="/#rooms" className="text-sm text-text-secondary hover:text-text-primary transition">
-              Студии
+              {getTranslation(language, 'header.studios')}
             </Link>
             <Link href="/#pricing" className="text-sm text-text-secondary hover:text-text-primary transition">
-              Цены
+              {getTranslation(language, 'header.pricing')}
             </Link>
             <Link href="/#how-it-works" className="text-sm text-text-secondary hover:text-text-primary transition">
-              Процесс
+              {getTranslation(language, 'header.process')}
             </Link>
             <Link href="/contacts" className="text-sm text-text-secondary hover:text-text-primary transition">
-              Контакты
+              {getTranslation(language, 'header.contacts')}
             </Link>
           </nav>
 
@@ -60,7 +61,7 @@ export function Header() {
             </div>
 
             <Link href="/book" className="btn-primary hidden sm:block text-sm px-5 py-2">
-              Забронировать
+              {getTranslation(language, 'header.book')}
             </Link>
             <button
               className="md:hidden p-2 hover:bg-bg-light rounded-lg transition"
@@ -77,19 +78,19 @@ export function Header() {
         {mobileMenuOpen && (
           <nav className="md:hidden py-4 border-t border-border-light bg-bg-light">
             <Link href="/#rooms" className="block py-2 text-sm text-text-secondary hover:text-text-primary">
-              Студии
+              {getTranslation(language, 'header.studios')}
             </Link>
             <Link href="/#pricing" className="block py-2 text-sm text-text-secondary hover:text-text-primary">
-              Цены
+              {getTranslation(language, 'header.pricing')}
             </Link>
             <Link href="/#how-it-works" className="block py-2 text-sm text-text-secondary hover:text-text-primary">
-              Процесс
+              {getTranslation(language, 'header.process')}
             </Link>
             <Link href="/contacts" className="block py-2 text-sm text-text-secondary hover:text-text-primary">
-              Контакты
+              {getTranslation(language, 'header.contacts')}
             </Link>
             <Link href="/book" className="block py-3 mt-3 btn-primary text-center text-sm">
-              Забронировать
+              {getTranslation(language, 'header.book')}
             </Link>
           </nav>
         )}

@@ -1,5 +1,9 @@
+'use client';
+
 import Link from 'next/link';
 import { ImageSlider } from '@/components/ImageSlider';
+import { useLanguage } from '@/components/LanguageContext';
+import { getTranslation } from '@/lib/translations';
 
 const rooms = [
   {
@@ -42,12 +46,14 @@ const rooms = [
 ];
 
 export function RoomsSection() {
+  const { language } = useLanguage();
+
   return (
     <section id="rooms" className="py-20 md:py-32 bg-bg-light">
       <div className="container-max">
         <div className="text-center mb-16">
-          <h2 className="mb-4 text-text-primary">Три пространства</h2>
-          <p className="text-lg text-text-secondary">Выберите студию, которая подходит вам (свайпайте для просмотра)</p>
+          <h2 className="mb-4 text-text-primary">{getTranslation(language, 'rooms.title')}</h2>
+          <p className="text-lg text-text-secondary">{getTranslation(language, 'rooms.subtitle')}</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -72,7 +78,7 @@ export function RoomsSection() {
                 <p className="text-text-secondary mb-6 line-clamp-2">{room.description}</p>
 
                 <div className="inline-flex items-center gap-2 text-orange-accent font-semibold hover:gap-3 transition-all">
-                  Подробнее
+                  {getTranslation(language, 'rooms.moreInfo')}
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>

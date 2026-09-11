@@ -1,7 +1,12 @@
+'use client';
+
 import Link from 'next/link';
 import { RoomImage } from '@/components/RoomImage';
+import { useLanguage } from '@/components/LanguageContext';
+import { getTranslation } from '@/lib/translations';
 
 export function HeroSection() {
+  const { language } = useLanguage();
   return (
     <section className="py-20 md:py-48 bg-white relative overflow-hidden">
       {/* Subtle gradient background */}
@@ -16,21 +21,21 @@ export function HeroSection() {
             </div>
 
             <h1 className="mb-8 text-text-primary leading-tight">
-              Профессиональный подкаст начинается здесь
+              {getTranslation(language, 'hero.title')}
             </h1>
 
             <p className="text-lg text-text-secondary mb-8 leading-relaxed max-w-lg">
-              3 камеры Sony FX30 · Shure SM7B · профессиональный свет и звук · 3 уникальные студии в Шымкенте
+              {getTranslation(language, 'hero.description')}
             </p>
 
             {/* Price highlights */}
             <div className="grid grid-cols-2 gap-6 mb-12">
               <div className="bg-bg-light rounded-lg p-4">
-                <p className="text-text-secondary text-sm mb-1">Starter</p>
+                <p className="text-text-secondary text-sm mb-1">{getTranslation(language, 'hero.starter')}</p>
                 <p className="text-3xl font-bold text-orange-accent">20 000 ₸</p>
               </div>
               <div className="bg-bg-light rounded-lg p-4">
-                <p className="text-text-secondary text-sm mb-1">Pro</p>
+                <p className="text-text-secondary text-sm mb-1">{getTranslation(language, 'hero.pro')}</p>
                 <p className="text-3xl font-bold text-orange-accent">40 000 ₸</p>
               </div>
             </div>
@@ -38,10 +43,10 @@ export function HeroSection() {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
               <Link href="/book" className="btn-primary text-center">
-                Забронировать студию
+                {getTranslation(language, 'hero.bookStudio')}
               </Link>
               <Link href="/studio-tour" className="btn-secondary text-center">
-                Бесплатный тур
+                {getTranslation(language, 'hero.freeTour')}
               </Link>
             </div>
           </div>
