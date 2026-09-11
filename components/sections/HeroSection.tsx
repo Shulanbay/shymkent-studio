@@ -13,7 +13,7 @@ export function HeroSection() {
       <div className="absolute inset-0 bg-gradient-to-b from-orange-accent/5 via-transparent to-transparent pointer-events-none"></div>
 
       {/* Animated audio wave background */}
-      <div className="absolute inset-0 opacity-30 pointer-events-none">
+      <div className="absolute inset-0 opacity-30 pointer-events-none z-0">
         <AudioWave />
       </div>
 

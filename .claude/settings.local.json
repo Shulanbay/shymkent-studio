@@ -18,7 +18,9 @@
       "Bash(mv livingroom1.PNG lounge.jpg)",
       "Bash(mv big2.png large2.jpg)",
       "Bash(mv big3.png large3.jpg)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(node -e \"const kk = require\\('./public/translations/kk.json'\\); const ru = require\\('./public/translations/ru.json'\\); console.log\\('✓ kk.json valid'\\); console.log\\('✓ ru.json valid'\\); const keysKK = Object.keys\\(kk\\); const keysRU = Object.keys\\(ru\\); console.log\\('Keys match:', JSON.stringify\\(keysKK\\) === JSON.stringify\\(keysRU.sort\\(\\)\\) && JSON.stringify\\(keysKK.sort\\(\\)\\) ? '✓' : '⚠️'\\)\")",
+      "Bash(node -e ' *)"
     ]
   }
 }
