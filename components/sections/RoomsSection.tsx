@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { RoomImage } from '@/components/RoomImage';
+import { ImageSlider } from '@/components/ImageSlider';
 
 const rooms = [
   {
@@ -8,7 +8,7 @@ const rooms = [
     capacity: '2 человека',
     size: '3 × 4 м',
     description: 'Интимное пространство для один-на-один интервью с идеальной акустикой.',
-    image: '/images/rooms/small.jpg',
+    images: ['/images/rooms/small.jpg', '/images/rooms/small.jpg', '/images/rooms/small.jpg'],
     slug: 'small',
   },
   {
@@ -17,7 +17,7 @@ const rooms = [
     capacity: '4 человека',
     size: '3 × 6 м',
     description: 'Просторная зона для групповых дискуссий и многолюдных записей.',
-    image: '/images/rooms/large.jpg',
+    images: ['/images/rooms/large.jpg', '/images/rooms/large.jpg', '/images/rooms/large.jpg'],
     slug: 'large',
   },
   {
@@ -26,7 +26,7 @@ const rooms = [
     capacity: '3 человека',
     size: '3 × 5 м',
     description: 'Релаксирующая атмосфера с мраморным столом для естественных разговоров.',
-    image: '/images/rooms/lounge.jpg',
+    images: ['/images/rooms/lounge.jpg', '/images/rooms/lounge.jpg', '/images/rooms/lounge.jpg'],
     slug: 'lounge',
   },
 ];
@@ -37,18 +37,18 @@ export function RoomsSection() {
       <div className="container-max">
         <div className="text-center mb-16">
           <h2 className="mb-4 text-text-primary">Три пространства</h2>
-          <p className="text-lg text-text-secondary">Выберите студию, которая подходит вам</p>
+          <p className="text-lg text-text-secondary">Выберите студию, которая подходит вам (свайпайте для просмотра)</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {rooms.map((room) => (
             <Link key={room.id} href={`/rooms/${room.slug}`}>
               <div className="group cursor-pointer">
-                <div className="h-60 rounded-2xl mb-6 overflow-hidden bg-bg-card shadow-sm group-hover:shadow-lg transition-all duration-300">
-                  <RoomImage
-                    src={room.image}
+                <div className="mb-6 shadow-sm group-hover:shadow-lg transition-all duration-300">
+                  <ImageSlider
+                    images={room.images}
                     alt={room.name}
-                    className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="h-64 rounded-2xl"
                   />
                 </div>
 
