@@ -22,7 +22,7 @@ body {
 
 /* Пользовательские компоненты */
 .btn-primary {
-  @apply px-6 py-3 bg-orange-accent text-white rounded-lg font-semibold hover:bg-orange-light transition-colors active:scale-95;
+  @apply px-6 py-3 bg-gradient-orange text-white rounded-lg font-semibold shadow-lg shadow-orange-accent/30 hover:shadow-xl hover:shadow-orange-accent/40 transition-all active:scale-95;
 }
 
 .btn-secondary {
