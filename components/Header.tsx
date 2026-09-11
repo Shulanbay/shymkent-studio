@@ -10,7 +10,7 @@ export function Header() {
   const { language, setLanguage } = useLanguage();
 
   return (
-    <header className="fixed top-0 left-0 right-0 bg-gray-900 backdrop-blur border-b border-gray-800 z-50">
+    <header className="fixed top-0 left-0 right-0 bg-black backdrop-blur border-b border-gray-700 z-50">
       <div className="container-max">
         <div className="flex items-center justify-between h-20">
           <Link href="/" className="flex items-center gap-3">
@@ -76,7 +76,7 @@ export function Header() {
         </div>
 
         {mobileMenuOpen && (
-          <nav className="md:hidden py-4 border-t border-gray-800 bg-gray-800">
+          <nav className="md:hidden py-4 border-t border-gray-700 bg-gray-800">
             <Link href="/#rooms" className="block py-2 text-sm text-gray-300 hover:text-white">
               {getTranslation(language, 'header.studios')}
             </Link>

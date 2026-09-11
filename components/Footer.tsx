@@ -9,7 +9,7 @@ export function Footer() {
   const { language } = useLanguage();
 
   return (
-    <footer className="bg-gray-900 border-t border-gray-800 py-16">
+    <footer className="bg-black border-t border-gray-700 py-16">
       <div className="container-max">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-12">
           <div>
@@ -81,7 +81,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-gray-800 pt-8">
+        <div className="border-t border-gray-700 pt-8">
           <p className="text-center text-xs text-gray-400">
             © {currentYear} SHYMKENT STUDIO. Все права защищены.
           </p>

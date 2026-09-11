@@ -67,7 +67,7 @@ export function PricingSection() {
   const { language } = useLanguage();
 
   return (
-    <section id="pricing" className="py-20 md:py-32 bg-gray-900">
+    <section id="pricing" className="py-20 md:py-32 bg-black">
       <div className="container-max">
         {/* Section header */}
         <div className="text-center mb-16">

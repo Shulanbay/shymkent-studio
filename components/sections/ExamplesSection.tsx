@@ -25,7 +25,7 @@ export function ExamplesSection() {
   ];
 
   return (
-    <section className="py-20 md:py-32 bg-gray-900">
+    <section className="py-20 md:py-32 bg-black">
       <div className="container-max">
         <div className="text-center mb-16">
           <h2 className="mb-4 text-white">{getTranslation(language, 'examples.title')}</h2>
