@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { RoomImage } from '@/components/RoomImage';
+import { AudioWave } from '@/components/AudioWave';
 import { useLanguage } from '@/components/LanguageContext';
 import { getTranslation } from '@/lib/translations';
 
@@ -13,6 +14,11 @@ export function HeroSection() {
       <div className="absolute inset-0 bg-gradient-to-b from-orange-accent/5 via-transparent to-transparent pointer-events-none"></div>
 
       <div className="container-max relative z-10">
+        {/* Animated audio wave - full width */}
+        <div className="mb-16">
+          <AudioWave />
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left column */}
           <div>
@@ -24,7 +30,7 @@ export function HeroSection() {
               {getTranslation(language, 'hero.title')}
             </h1>
 
-            <p className="text-lg text-text-secondary mb-8 leading-relaxed max-w-lg">
+            <p className="text-lg text-text-secondary mb-12 leading-relaxed max-w-lg">
               {getTranslation(language, 'hero.description')}
             </p>
 
