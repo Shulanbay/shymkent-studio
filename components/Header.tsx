@@ -10,7 +10,7 @@ export function Header() {
   const { language, setLanguage } = useLanguage();
 
   return (
-    <header className="fixed top-0 left-0 right-0 bg-gray-900/95 backdrop-blur border-b border-gray-800 z-50">
+    <header className="fixed top-0 left-0 right-0 bg-gray-900 backdrop-blur border-b border-gray-800 z-50">
       <div className="container-max">
         <div className="flex items-center justify-between h-20">
           <Link href="/" className="flex items-center gap-3">
