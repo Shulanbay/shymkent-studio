@@ -180,14 +180,45 @@ export default function BookingPage() {
 
                     <div>
                       <label className="block font-semibold text-text-primary mb-2">Время (Шымкент, UTC+5) - 24-часовой формат</label>
-                      <input
-                        type="time"
-                        name="time"
-                        value={formData.time}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 border border-border-light rounded-card focus:outline-none focus:ring-2 focus:ring-orange-accent"
-                        lang="en-GB"
-                      />
+                      <div className="flex gap-2">
+                        <div className="flex-1">
+                          <input
+                            type="number"
+                            placeholder="ЧЧ"
+                            min="0"
+                            max="23"
+                            value={formData.time.split(':')[0] || ''}
+                            onChange={(e) => {
+                              const hour = e.target.value.padStart(2, '0');
+                              const minute = formData.time.split(':')[1] || '00';
+                              setFormData(prev => ({
+                                ...prev,
+                                time: hour && minute ? `${hour}:${minute}` : ''
+                              }));
+                            }}
+                            className="w-full px-4 py-3 border border-border-light rounded-card focus:outline-none focus:ring-2 focus:ring-orange-accent"
+                          />
+                        </div>
+                        <div className="flex items-center text-text-primary font-bold">:</div>
+                        <div className="flex-1">
+                          <input
+                            type="number"
+                            placeholder="МИ"
+                            min="0"
+                            max="59"
+                            value={formData.time.split(':')[1] || ''}
+                            onChange={(e) => {
+                              const hour = formData.time.split(':')[0] || '00';
+                              const minute = e.target.value.padStart(2, '0');
+                              setFormData(prev => ({
+                                ...prev,
+                                time: hour && minute ? `${hour}:${minute}` : ''
+                              }));
+                            }}
+                            className="w-full px-4 py-3 border border-border-light rounded-card focus:outline-none focus:ring-2 focus:ring-orange-accent"
+                          />
+                        </div>
+                      </div>
                     </div>
 
                     {(formData.service === 'recording' || formData.service === 'full') && (
