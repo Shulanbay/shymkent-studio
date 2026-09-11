@@ -22,7 +22,13 @@ body {
 
 /* Пользовательские компоненты */
 .btn-primary {
-  @apply px-6 py-3 bg-gradient-orange text-white rounded-lg font-semibold shadow-lg shadow-orange-accent/30 hover:shadow-xl hover:shadow-orange-accent/40 transition-all active:scale-95;
+  @apply px-6 py-3 text-white rounded-lg font-semibold transition-all active:scale-95;
+  background: linear-gradient(135deg, #FF6B24 0%, #FF9A44 100%);
+  box-shadow: 0 4px 15px rgba(255, 107, 36, 0.3);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 6px 20px rgba(255, 107, 36, 0.4);
 }
 
 .btn-secondary {
