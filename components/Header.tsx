@@ -2,9 +2,11 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { useLanguage } from './LanguageContext';
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { language, setLanguage } = useLanguage();
 
   return (
     <header className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur border-b border-border-light z-50">
@@ -32,7 +34,31 @@ export function Header() {
             </Link>
           </nav>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 md:gap-3">
+            {/* Language switcher */}
+            <div className="flex items-center gap-1 border border-border-light rounded-lg p-0.5">
+              <button
+                onClick={() => setLanguage('ru')}
+                className={`px-2 py-1 text-xs font-medium rounded transition ${
+                  language === 'ru'
+                    ? 'bg-orange-accent text-white'
+                    : 'text-text-secondary hover:text-text-primary'
+                }`}
+              >
+                РУ
+              </button>
+              <button
+                onClick={() => setLanguage('kk')}
+                className={`px-2 py-1 text-xs font-medium rounded transition ${
+                  language === 'kk'
+                    ? 'bg-orange-accent text-white'
+                    : 'text-text-secondary hover:text-text-primary'
+                }`}
+              >
+                КК
+              </button>
+            </div>
+
             <Link href="/book" className="btn-primary hidden sm:block text-sm px-5 py-2">
               Забронировать
             </Link>
