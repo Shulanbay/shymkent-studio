@@ -23,28 +23,28 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4 text-sm text-white">Сайт</h4>
+            <h4 className="font-semibold mb-4 text-sm text-white">{getTranslation(language, 'footer.siteTitle')}</h4>
             <ul className="space-y-2 text-xs text-gray-400">
               <li>
                 <Link href="/#rooms" className="hover:text-white transition">
-                  Студии
+                  {getTranslation(language, 'footer.studios')}
                 </Link>
               </li>
               <li>
                 <Link href="/#pricing" className="hover:text-white transition">
-                  Цены
+                  {getTranslation(language, 'footer.pricing')}
                 </Link>
               </li>
               <li>
                 <Link href="/book" className="hover:text-white transition">
-                  Забронировать
+                  {getTranslation(language, 'footer.book')}
                 </Link>
               </li>
             </ul>
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4 text-sm text-white">Контакты</h4>
+            <h4 className="font-semibold mb-4 text-sm text-white">{getTranslation(language, 'footer.contactsTitle')}</h4>
             <ul className="space-y-2 text-xs text-gray-400">
               <li>
                 <a href="tel:+77005030501" className="hover:text-white transition">
@@ -65,16 +65,16 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4 text-sm text-white">Документы</h4>
+            <h4 className="font-semibold mb-4 text-sm text-white">{getTranslation(language, 'footer.docsTitle')}</h4>
             <ul className="space-y-2 text-xs text-gray-400">
               <li>
                 <Link href="/privacy" className="hover:text-white transition">
-                  Конфиденциальность
+                  {getTranslation(language, 'footer.privacy')}
                 </Link>
               </li>
               <li>
                 <Link href="/terms" className="hover:text-white transition">
-                  Условия услуг
+                  {getTranslation(language, 'footer.terms')}
                 </Link>
               </li>
             </ul>
@@ -83,7 +83,7 @@ export function Footer() {
 
         <div className="pt-8">
           <p className="text-center text-xs text-gray-400">
-            © {currentYear} SHYMKENT STUDIO. Все права защищены.
+            {getTranslation(language, 'footer.copyright').replace('{year}', currentYear.toString())}
           </p>
         </div>
       </div>
