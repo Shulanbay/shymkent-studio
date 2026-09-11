@@ -49,7 +49,7 @@ export function HeroSection() {
           {/* Right column - Hero image */}
           <div className="relative">
             <div className="relative h-96 md:h-full min-h-96 rounded-2xl overflow-hidden shadow-lg">
-              <RoomImage src="/images/rooms/small.jpg" alt="Подкаст-студия SHYMKENT STUDIO" className="h-full" priority />
+              <RoomImage src="/images/rooms/small4.jpg" alt="Подкаст-студия SHYMKENT STUDIO" className="h-full w-full object-cover" priority />
             </div>
             {/* Decorative accent */}
             <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-orange-accent/10 rounded-full blur-2xl pointer-events-none"></div>

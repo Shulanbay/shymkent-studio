@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
-import { RoomImage } from '@/components/RoomImage';
+import { ImageSlider } from '@/components/ImageSlider';
 
 const roomsData: Record<string, any> = {
   small: {
@@ -7,21 +7,31 @@ const roomsData: Record<string, any> = {
     capacity: '2 человека',
     size: '3 × 4 м',
     description: 'Интимная комната для интервью один-на-один или дуэта.',
-    image: '/images/rooms/small.jpg',
+    images: [
+      '/images/rooms/small.jpg',
+      '/images/rooms/small2.jpg',
+      '/images/rooms/small3.jpg',
+      '/images/rooms/small4.jpg',
+    ],
   },
   large: {
     name: 'Большая подкаст-зона',
     capacity: '4 человека',
     size: '3 × 6 м',
     description: 'Просторная комната для групповых обсуждений и интервью с несколькими гостями.',
-    image: '/images/rooms/large.jpg',
+    images: [
+      '/images/rooms/large.jpg',
+      '/images/rooms/large2.jpg',
+      '/images/rooms/large3.jpg',
+      '/images/rooms/large4.jpg',
+    ],
   },
   lounge: {
     name: 'Холл / Living Room',
     capacity: '3 человека',
     size: '3 × 5 м',
     description: 'Уютная зона с релаксирующей атмосферой для естественного разговора.',
-    image: '/images/rooms/lounge.jpg',
+    images: ['/images/rooms/lounge.jpg'],
   },
 };
 
@@ -40,8 +50,8 @@ export default function RoomDetailPage({ params }: { params: { slug: string } })
           <p className="text-xl text-text-secondary mb-12">{room.description}</p>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="h-96 rounded-card overflow-hidden">
-              <RoomImage src={room.image} alt={room.name} className="h-96" priority />
+            <div className="shadow-lg">
+              <ImageSlider images={room.images} alt={room.name} className="h-96 rounded-2xl" />
             </div>
 
             <div>
