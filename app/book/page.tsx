@@ -176,13 +176,14 @@ export default function BookingPage() {
                     </div>
 
                     <div>
-                      <label className="block font-semibold text-text-primary mb-2">Время (Шымкент, UTC+5)</label>
+                      <label className="block font-semibold text-text-primary mb-2">Время (Шымкент, UTC+5) - 24-часовой формат</label>
                       <input
                         type="time"
                         name="time"
                         value={formData.time}
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 border border-border-light rounded-card focus:outline-none focus:ring-2 focus:ring-orange-accent"
+                        lang="en-GB"
                       />
                     </div>
 
