@@ -1,57 +1,37 @@
 'use client';
 
 import { useLanguage } from '@/components/LanguageContext';
-import { getTranslation } from '@/lib/translations';
+
+const STATS = [
+  { number: '3×', labelKey: 'trust.sony' },
+  { number: '4×', labelKey: 'trust.shure' },
+  { number: '3', labelKey: 'trust.studios' },
+  { number: '4K', labelKey: 'trust.video' },
+  { number: '✓', labelKey: 'trust.light' },
+  { number: '✓', labelKey: 'trust.production' },
+];
 
 export function EquipmentSection() {
-  const { language } = useLanguage();
-
-  const getStats = () => [
-    {
-      number: '3×',
-      labelKey: 'trust.sony',
-    },
-    {
-      number: '4×',
-      labelKey: 'trust.shure',
-    },
-    {
-      number: '3',
-      labelKey: 'trust.studios',
-    },
-    {
-      number: '4K',
-      labelKey: 'trust.video',
-    },
-    {
-      number: '∞',
-      labelKey: 'trust.light',
-    },
-    {
-      number: '✓',
-      labelKey: 'trust.production',
-    },
-  ];
-
-  const stats = getStats();
-
+  const { t } = useLanguage();
   return (
-    <section className="py-20 md:py-32 bg-white">
+    <section className="py-20 md:py-32 bg-white" aria-labelledby="equipment-title">
       <div className="container-max">
-        <div className="text-center mb-16">
-          <h2 className="mb-6 text-text-primary">{getTranslation(language, 'trust.title')}</h2>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
-          {stats.map((stat) => (
-            <div key={stat.labelKey} className="text-center">
-              <div className="text-5xl md:text-6xl font-bold text-orange-accent mb-3">
+        <h2 id="equipment-title" className="text-center mb-12 md:mb-16 text-text-primary">
+          {t('trust.title')}
+        </h2>
+        <ul className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
+          {STATS.map((stat) => (
+            <li key={stat.labelKey} className="text-center">
+              <p className="text-5xl md:text-6xl font-bold text-orange-accent mb-3" aria-hidden="true">
                 {stat.number}
-              </div>
-              <p className="text-text-secondary font-medium">{getTranslation(language, stat.labelKey)}</p>
-            </div>
+              </p>
+              <p className="text-text-secondary font-medium">
+                <span className="sr-only">{stat.number !== '✓' ? `${stat.number} ` : ''}</span>
+                {t(stat.labelKey)}
+              </p>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );

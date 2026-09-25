@@ -1,0 +1,484 @@
+// SHYMKENT STUDIO — primary data store.
+// All timestamps are stored as timestamptz (UTC instants). Business logic
+// interprets them in the Asia/Almaty time zone.
+// Money is stored as integer tenge (KZT has no minor units in practice).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Enums ────────────────────────────────────────────────────────────────────
+
+enum Role {
+  OWNER
+  ADMIN
+  MANAGER
+  OPERATOR
+  EDITOR
+}
+
+enum Locale {
+  RU
+  KK
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  TOUR_SCHEDULED
+  OFFER_SENT
+  WON
+  LOST
+}
+
+enum BookingStatus {
+  REQUESTED
+  CONTACTED
+  PENDING_PAYMENT
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+  NO_SHOW
+}
+
+enum BookingPaymentStatus {
+  UNPAID
+  PARTIALLY_PAID
+  PAID
+  REFUNDED
+}
+
+enum PaymentMethod {
+  KASPI
+  CASH
+  BANK_TRANSFER
+  OTHER
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
+
+enum ProductionTaskType {
+  PREPARATION
+  RECORDING
+  EDITING
+  THUMBNAIL
+  SHORTS
+  REVIEW
+  DELIVERY
+  PUBLISHING
+}
+
+enum ProductionTaskStatus {
+  TODO
+  IN_PROGRESS
+  REVIEW
+  DONE
+}
+
+enum IntegrationJobStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+enum PaymentKind {
+  PAYMENT
+  REFUND
+  REVERSAL
+}
+
+enum TaskPriority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
+
+enum TourStatus {
+  NEW
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+  NO_SHOW
+}
+
+// ─── Staff & auth ─────────────────────────────────────────────────────────────
+
+model User {
+  id           String    @id @default(cuid())
+  name         String
+  /// Always stored lower-cased.
+  email        String    @unique
+  /// Argon2id hash. Null for accounts that can only sign in via OAuth (not used yet).
+  passwordHash String?
+  role         Role      @default(OPERATOR)
+  active       Boolean   @default(true)
+  lastLoginAt  DateTime? @db.Timestamptz(3)
+  createdAt    DateTime  @default(now()) @db.Timestamptz(3)
+  updatedAt    DateTime  @updatedAt @db.Timestamptz(3)
+
+  sessions         Session[]
+  assignedLeads    Lead[]           @relation("LeadAssignee")
+  assignedBookings Booking[]        @relation("BookingAssignee")
+  assignedTasks    ProductionTask[] @relation("TaskAssignee")
+  recordedPayments Payment[]        @relation("PaymentRecorder")
+  activity         ActivityLog[]
+  taskComments     TaskComment[]
+}
+
+model Session {
+  id         String   @id @default(cuid())
+  /// SHA-256 of the random session token. The raw token only lives in the cookie.
+  tokenHash  String   @unique
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt  DateTime @db.Timestamptz(3)
+  lastUsedAt DateTime @default(now()) @db.Timestamptz(3)
+  userAgent  String?
+  createdAt  DateTime @default(now()) @db.Timestamptz(3)
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+// ─── CRM ──────────────────────────────────────────────────────────────────────
+
+model Client {
+  id              String   @id @default(cuid())
+  name            String
+  /// Phone as entered by the client (for display).
+  phone           String
+  /// E.164 form (+77XXXXXXXXX). Used for de-duplication.
+  normalizedPhone String   @unique
+  email           String?
+  company         String?
+  source          String?
+  notes           String?
+  locale          Locale   @default(RU)
+  createdAt       DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt       DateTime @updatedAt @db.Timestamptz(3)
+
+  leads        Lead[]
+  bookings     Booking[]
+  tourRequests TourRequest[]
+
+  @@index([email])
+}
+
+model Lead {
+  id             String       @id @default(cuid())
+  clientId       String
+  client         Client       @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  status         LeadStatus   @default(NEW)
+  source         String?
+  assignedToId   String?
+  assignedTo     User?        @relation("LeadAssignee", fields: [assignedToId], references: [id], onDelete: SetNull)
+  lostReason     String?
+  notes          String?
+  title          String?
+  /// Expected deal size in KZT (whole tenge).
+  expectedAmount Int?
+  nextContactAt  DateTime?    @db.Timestamptz(3)
+  /// A lead created from a tour request / booking is linked 1:1 (idempotent auto-creation).
+  tourRequestId  String?      @unique
+  tourRequest    TourRequest? @relation(fields: [tourRequestId], references: [id], onDelete: SetNull)
+  bookingId      String?      @unique
+  booking        Booking?     @relation(fields: [bookingId], references: [id], onDelete: SetNull)
+  closedAt       DateTime?    @db.Timestamptz(3)
+  createdAt      DateTime     @default(now()) @db.Timestamptz(3)
+  updatedAt      DateTime     @updatedAt @db.Timestamptz(3)
+
+  @@index([status])
+  @@index([clientId])
+  @@index([assignedToId])
+  @@index([nextContactAt])
+  @@index([createdAt])
+}
+
+// ─── Catalog ──────────────────────────────────────────────────────────────────
+
+model Room {
+  id                  String   @id @default(cuid())
+  slug                String   @unique
+  nameRu              String
+  nameKk              String
+  active              Boolean  @default(true)
+  capacity            Int
+  /// Hex colour used in the CRM calendar.
+  color               String
+  /// Google Calendar event colorId ("1"–"11").
+  googleColorId       String?
+  bufferBeforeMinutes Int      @default(0)
+  bufferAfterMinutes  Int      @default(0)
+  sortOrder           Int      @default(0)
+  createdAt           DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt           DateTime @updatedAt @db.Timestamptz(3)
+
+  bookings Booking[]
+}
+
+model Service {
+  id               String   @id @default(cuid())
+  slug             String   @unique
+  nameRu           String
+  nameKk           String
+  descriptionRu    String
+  descriptionKk    String
+  /// Price in KZT for defaultDuration.
+  basePrice        Int
+  /// Studio time in minutes included in basePrice.
+  defaultDuration  Int
+  /// Longest bookable duration. Equal to defaultDuration when extension is not allowed.
+  maxDuration      Int
+  /// Extension step (e.g. 30 min) and its price (e.g. 10 000 ₸). Null = no extension.
+  extraStepMinutes Int?
+  extraStepPrice   Int?
+  active           Boolean  @default(true)
+  sortOrder        Int      @default(0)
+  createdAt        DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt        DateTime @updatedAt @db.Timestamptz(3)
+
+  bookings Booking[]
+}
+
+// ─── Bookings & money ─────────────────────────────────────────────────────────
+
+model Booking {
+  id                    String               @id @default(cuid())
+  /// Human-facing sequential number (shown as SS-000123).
+  bookingNumber         Int                  @unique @default(autoincrement())
+  clientId              String
+  client                Client               @relation(fields: [clientId], references: [id], onDelete: Restrict)
+  roomId                String
+  room                  Room                 @relation(fields: [roomId], references: [id], onDelete: Restrict)
+  serviceId             String
+  service               Service              @relation(fields: [serviceId], references: [id], onDelete: Restrict)
+  startAt               DateTime             @db.Timestamptz(3)
+  endAt                 DateTime             @db.Timestamptz(3)
+  /// startAt − room.bufferBefore and endAt + room.bufferAfter, frozen at write time.
+  /// Covered by a PostgreSQL exclusion constraint (see migration) so two active
+  /// bookings can never occupy the same room at the same time.
+  blockedFrom           DateTime             @db.Timestamptz(3)
+  blockedUntil          DateTime             @db.Timestamptz(3)
+  participants          Int
+  comment               String?
+  status                BookingStatus        @default(REQUESTED)
+  source                String?
+  locale                Locale               @default(RU)
+  totalAmount           Int
+  paidAmount            Int                  @default(0)
+  paymentStatus         BookingPaymentStatus @default(UNPAID)
+  assignedToId          String?
+  assignedTo            User?                @relation("BookingAssignee", fields: [assignedToId], references: [id], onDelete: SetNull)
+  googleCalendarEventId String?
+  internalNotes         String?
+  /// Links to Google Drive / delivered materials.
+  materialsUrl          String?
+  /// Payment link (e.g. Kaspi invoice) entered by staff for this booking.
+  paymentLinkUrl        String?
+  lead                  Lead?
+  rescheduleCount       Int                  @default(0)
+  /// Client-generated key for the public form: a repeated submit returns the same booking.
+  idempotencyKey        String?              @unique
+  /// When and which version of the booking terms the client accepted.
+  termsAcceptedAt       DateTime?            @db.Timestamptz(3)
+  termsVersion          String?
+  cancelledAt           DateTime?            @db.Timestamptz(3)
+  cancellationReason    String?
+  refundAmount          Int?
+  createdAt             DateTime             @default(now()) @db.Timestamptz(3)
+  updatedAt             DateTime             @updatedAt @db.Timestamptz(3)
+
+  payments        Payment[]
+  productionTasks ProductionTask[]
+
+  @@index([roomId, startAt])
+  @@index([status])
+  @@index([startAt])
+  @@index([clientId])
+}
+
+/// Append-only financial ledger per booking. Money is whole tenge (Int, no floats).
+/// PAYMENT = money in, REFUND = money out, REVERSAL = compensating entry that
+/// cancels a mistaken PAYMENT/REFUND. Settled rows are never edited or deleted.
+model Payment {
+  id           String        @id @default(cuid())
+  bookingId    String
+  booking      Booking       @relation(fields: [bookingId], references: [id], onDelete: Restrict)
+  kind         PaymentKind   @default(PAYMENT)
+  /// Always positive.
+  amount       Int
+  /// +amount for money in, −amount for money out; Booking.paidAmount = Σ signedAmount of PAID rows.
+  signedAmount Int
+  method       PaymentMethod
+  status       PaymentStatus @default(PENDING)
+  /// The entry this REVERSAL cancels (one reversal per entry).
+  reversesId   String?       @unique
+  reverses     Payment?      @relation("PaymentReversal", fields: [reversesId], references: [id], onDelete: Restrict)
+  reversedBy   Payment?      @relation("PaymentReversal")
+  /// Link to a receipt / screenshot / bank confirmation.
+  proofUrl     String?
+  /// Provider transaction id, receipt number, etc.
+  reference    String?
+  /// Name of the payment provider adapter ("manual", "kaspi", …).
+  provider     String        @default("manual")
+  /// Payment link sent to the client (e.g. Kaspi invoice link).
+  paymentUrl   String?
+  note         String?
+  recordedById String?
+  recordedBy   User?         @relation("PaymentRecorder", fields: [recordedById], references: [id], onDelete: SetNull)
+  paidAt       DateTime?     @db.Timestamptz(3)
+  createdAt    DateTime      @default(now()) @db.Timestamptz(3)
+  updatedAt    DateTime      @updatedAt @db.Timestamptz(3)
+
+  @@index([bookingId])
+  @@index([status])
+  @@index([status, paidAt])
+}
+
+model ProductionTask {
+  id           String               @id @default(cuid())
+  bookingId    String
+  booking      Booking              @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  type         ProductionTaskType
+  title        String
+  status       ProductionTaskStatus @default(TODO)
+  assignedToId String?
+  assignedTo   User?                @relation("TaskAssignee", fields: [assignedToId], references: [id], onDelete: SetNull)
+  dueAt        DateTime?            @db.Timestamptz(3)
+  completedAt  DateTime?            @db.Timestamptz(3)
+  notes        String?
+  priority     TaskPriority         @default(NORMAL)
+  /// [{ "text": string, "done": boolean }]
+  checklist    Json?
+  materialsUrl String?
+  /// Template item that created this task; unique per booking so a template set is created once.
+  templateKey  String?
+  createdAt    DateTime             @default(now()) @db.Timestamptz(3)
+  updatedAt    DateTime             @updatedAt @db.Timestamptz(3)
+
+  comments TaskComment[]
+
+  @@unique([bookingId, templateKey])
+  @@index([bookingId])
+  @@index([assignedToId, status])
+  @@index([status, dueAt])
+}
+
+model TaskComment {
+  id        String         @id @default(cuid())
+  taskId    String
+  task      ProductionTask @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  userId    String?
+  user      User?          @relation(fields: [userId], references: [id], onDelete: SetNull)
+  body      String
+  createdAt DateTime       @default(now()) @db.Timestamptz(3)
+
+  @@index([taskId])
+}
+
+model TourRequest {
+  id                    String     @id @default(cuid())
+  /// Human-facing sequential number (shown as T-00012).
+  requestNumber         Int        @unique @default(autoincrement())
+  clientId              String
+  client                Client     @relation(fields: [clientId], references: [id], onDelete: Restrict)
+  scheduledAt           DateTime   @db.Timestamptz(3)
+  /// End of the tour slot. Tours share one host, so non-cancelled tours may not
+  /// overlap (exclusion constraint in migration).
+  scheduledEnd          DateTime   @db.Timestamptz(3)
+  format                String?
+  status                TourStatus @default(NEW)
+  locale                Locale     @default(RU)
+  source                String?
+  notes                 String?
+  idempotencyKey        String?    @unique
+  consentAt             DateTime?  @db.Timestamptz(3)
+  googleCalendarEventId String?
+  lead                  Lead?
+  createdAt             DateTime   @default(now()) @db.Timestamptz(3)
+  updatedAt             DateTime   @updatedAt @db.Timestamptz(3)
+
+  @@index([scheduledAt])
+  @@index([status])
+}
+
+// ─── System ───────────────────────────────────────────────────────────────────
+
+model ActivityLog {
+  id         String   @id @default(cuid())
+  userId     String?
+  user       User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  /// e.g. "User", "Booking", "Setting", "Auth"
+  entityType String
+  entityId   String?
+  /// e.g. "auth.login", "user.create", "settings.update"
+  action     String
+  metadata   Json?
+  createdAt  DateTime @default(now()) @db.Timestamptz(3)
+
+  @@index([entityType, entityId])
+  @@index([createdAt])
+  @@index([userId])
+}
+
+/// Transactional outbox: side effects (emails, Google Calendar, Google Sheets)
+/// are written in the same transaction as the booking/tour and processed
+/// afterwards with retries. A failed job never affects the saved booking.
+model IntegrationJob {
+  id             String               @id @default(cuid())
+  /// e.g. "booking.admin_email", "booking.calendar_sync"
+  type           String
+  entityType     String
+  entityId       String
+  /// Only identifiers — handlers load current data from the DB.
+  payload        Json?
+  status         IntegrationJobStatus @default(PENDING)
+  attempts       Int                  @default(0)
+  maxAttempts    Int                  @default(5)
+  nextAttemptAt  DateTime             @default(now()) @db.Timestamptz(3)
+  lockedAt       DateTime?            @db.Timestamptz(3)
+  /// Sanitised: no secrets or personal data.
+  lastError      String?
+  /// Provider id of a delivered side effect (email Message-ID, Calendar event id).
+  /// Set right after delivery so a retry does not deliver twice.
+  providerRef    String?
+  completedAt    DateTime?            @db.Timestamptz(3)
+  /// Prevents enqueuing the same side effect twice.
+  idempotencyKey String               @unique
+  createdAt      DateTime             @default(now()) @db.Timestamptz(3)
+  updatedAt      DateTime             @updatedAt @db.Timestamptz(3)
+
+  @@index([status, nextAttemptAt])
+  @@index([entityType, entityId])
+}
+
+/// Key/value business settings editable from the CRM
+/// (cancellation policy, working hours, integration credentials, …).
+model Setting {
+  key         String   @id
+  value       Json
+  updatedById String?
+  updatedAt   DateTime @updatedAt @db.Timestamptz(3)
+}
+
+/// Fixed-window counters for rate limiting (login, public forms).
+/// Keys contain hashes, never raw IPs or emails.
+model RateLimit {
+  key     String   @id
+  count   Int
+  resetAt DateTime @db.Timestamptz(3)
+
+  @@index([resetAt])
+}

@@ -2,15 +2,18 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import { useLanguage } from '@/components/LanguageContext';
 
 interface RoomImageProps {
   src: string;
   alt: string;
   className?: string;
   priority?: boolean;
+  sizes?: string;
 }
 
-export function RoomImage({ src, alt, className = '', priority = false }: RoomImageProps) {
+export function RoomImage({ src, alt, className = '', priority = false, sizes }: RoomImageProps) {
+  const { t } = useLanguage();
   const [imageError, setImageError] = useState(false);
 
   return (
@@ -22,15 +25,12 @@ export function RoomImage({ src, alt, className = '', priority = false }: RoomIm
           fill
           className="object-cover"
           priority={priority}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          sizes={sizes ?? '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'}
           onError={() => setImageError(true)}
         />
       ) : (
-        <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-border-light to-orange-accent/10">
-          <div className="text-center text-text-secondary p-6">
-            <p className="text-lg font-semibold mb-1">📸 Фотография комнаты</p>
-            <p className="text-sm">Загрузка фото...</p>
-          </div>
+        <div className="w-full h-full flex items-center justify-center p-6 text-center text-text-secondary text-sm" role="img" aria-label={alt}>
+          {t('common.photoUnavailable')}
         </div>
       )}
     </div>

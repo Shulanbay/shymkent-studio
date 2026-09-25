@@ -12,12 +12,15 @@ const config: Config = {
         'bg-card': '#FFFFFF',
         'text-primary': '#171717',
         'text-secondary': '#65605B',
-        'orange-accent': '#FF6B24',
-        'orange-light': '#FF9A44',
+        // Text/buttons on light backgrounds: #C84A12 keeps WCAG AA contrast (4.7:1 on white).
+        'orange-accent': '#C84A12',
+        'orange-light': '#D9480F',
+        // Bright brand orange for dark backgrounds (6.6:1 on #111) and decoration.
+        'orange-bright': '#FF6B24',
         'border-light': '#EDE5DD',
       },
       fontFamily: {
-        sans: ['Manrope', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-onest)', 'system-ui', 'sans-serif'],
       },
       borderRadius: {
         'card': '16px',

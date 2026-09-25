@@ -1,99 +1,125 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { useLanguage } from './LanguageContext';
-import { getTranslation } from '@/lib/translations';
+
+const NAV = [
+  { href: '/rooms', key: 'header.rooms' },
+  { href: '/pricing', key: 'header.pricing' },
+  { href: '/#how-it-works', key: 'header.process' },
+  { href: '/studio-tour', key: 'header.tour' },
+  { href: '/contacts', key: 'header.contacts' },
+] as const;
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { language, setLanguage } = useLanguage();
+  const { language, setLanguage, t } = useLanguage();
+  const pathname = usePathname();
+
+  // Close the mobile menu after navigation and on Escape.
+  useEffect(() => setMobileMenuOpen(false), [pathname]);
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setMobileMenuOpen(false);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [mobileMenuOpen]);
+
+  const isActive = (href: string) => !href.includes('#') && (pathname === href || pathname.startsWith(`${href}/`));
 
   return (
-    <header className="fixed top-0 left-0 right-0 bg-black backdrop-blur z-50">
+    <header className="fixed top-0 left-0 right-0 bg-black z-50">
+      <a href="#main" className="skip-link">
+        {t('common.skipToContent')}
+      </a>
       <div className="container-max">
-        <div className="flex items-center justify-between h-20">
-          <Link href="/" className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-orange-accent rounded-lg flex items-center justify-center">
+        <div className="flex items-center justify-between h-20 gap-3">
+          <Link href="/" className="flex items-center gap-3 min-h-[44px]" aria-label={t('header.home')}>
+            <span className="w-9 h-9 bg-orange-bright rounded-lg flex items-center justify-center" aria-hidden="true">
               <span className="text-white font-bold text-lg">◉</span>
-            </div>
+            </span>
             <span className="hidden sm:inline font-bold text-white text-sm">SHYMKENT STUDIO</span>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-12">
-            <Link href="/#rooms" className="text-sm text-gray-300 hover:text-white transition">
-              {getTranslation(language, 'header.studios')}
-            </Link>
-            <Link href="/#pricing" className="text-sm text-gray-300 hover:text-white transition">
-              {getTranslation(language, 'header.pricing')}
-            </Link>
-            <Link href="/#how-it-works" className="text-sm text-gray-300 hover:text-white transition">
-              {getTranslation(language, 'header.process')}
-            </Link>
-            <Link href="/contacts" className="text-sm text-gray-300 hover:text-white transition">
-              {getTranslation(language, 'header.contacts')}
-            </Link>
+          <nav className="hidden lg:flex items-center gap-8" aria-label={t('header.mainNav')}>
+            {NAV.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+                className={`text-sm transition ${isActive(item.href) ? 'text-white font-semibold' : 'text-gray-300 hover:text-white'}`}
+              >
+                {t(item.key)}
+              </Link>
+            ))}
           </nav>
 
           <div className="flex items-center gap-2 md:gap-3">
-            {/* Language switcher */}
-            <div className="flex items-center gap-0.5 bg-gray-800 rounded-full p-1">
-              <button
-                onClick={() => setLanguage('ru')}
-                className={`px-3 py-1.5 text-xs font-medium rounded-full transition ${
-                  language === 'ru'
-                    ? 'bg-orange-accent text-white'
-                    : 'text-gray-400 hover:text-gray-300'
-                }`}
-              >
-                РУ
-              </button>
-              <button
-                onClick={() => setLanguage('kk')}
-                className={`px-3 py-1.5 text-xs font-medium rounded-full transition ${
-                  language === 'kk'
-                    ? 'bg-orange-accent text-white'
-                    : 'text-gray-400 hover:text-gray-300'
-                }`}
-              >
-                КК
-              </button>
+            <div className="flex items-center gap-0.5 bg-gray-800 rounded-full p-1" role="group" aria-label={t('header.language')}>
+              {(['ru', 'kk'] as const).map((lang) => (
+                <button
+                  key={lang}
+                  type="button"
+                  lang={lang}
+                  onClick={() => setLanguage(lang)}
+                  aria-pressed={language === lang}
+                  className={`min-w-[40px] min-h-[36px] px-3 text-xs font-semibold rounded-full transition ${
+                    language === lang ? 'bg-orange-bright text-black' : 'text-gray-300 hover:text-white'
+                  }`}
+                >
+                  {lang === 'ru' ? 'РУ' : 'ҚАЗ'}
+                </button>
+              ))}
             </div>
 
-            <Link href="/book" className="btn-primary hidden sm:block text-sm px-5 py-2">
-              {getTranslation(language, 'header.book')}
+            <Link href="/book" className="btn-primary hidden sm:inline-flex text-sm !px-5 !py-2">
+              {t('header.book')}
             </Link>
             <button
-              className="md:hidden p-2 hover:bg-gray-800 rounded-lg transition"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Toggle menu"
+              type="button"
+              className="lg:hidden p-2 min-w-[44px] min-h-[44px] flex items-center justify-center hover:bg-gray-800 rounded-lg transition"
+              onClick={() => setMobileMenuOpen((open) => !open)}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-menu"
+              aria-label={mobileMenuOpen ? t('header.closeMenu') : t('header.openMenu')}
             >
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                {mobileMenuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
               </svg>
             </button>
           </div>
         </div>
 
-        {mobileMenuOpen && (
-          <nav className="md:hidden py-4 border-t border-gray-700 bg-black">
-            <Link href="/#rooms" className="block py-2 text-sm text-gray-300 hover:text-white">
-              {getTranslation(language, 'header.studios')}
-            </Link>
-            <Link href="/#pricing" className="block py-2 text-sm text-gray-300 hover:text-white">
-              {getTranslation(language, 'header.pricing')}
-            </Link>
-            <Link href="/#how-it-works" className="block py-2 text-sm text-gray-300 hover:text-white">
-              {getTranslation(language, 'header.process')}
-            </Link>
-            <Link href="/contacts" className="block py-2 text-sm text-gray-300 hover:text-white">
-              {getTranslation(language, 'header.contacts')}
-            </Link>
-            <Link href="/book" className="block py-3 mt-3 btn-primary text-center text-sm">
-              {getTranslation(language, 'header.book')}
-            </Link>
-          </nav>
-        )}
+        <nav
+          id="mobile-menu"
+          hidden={!mobileMenuOpen}
+          aria-label={t('header.mainNav')}
+          className="lg:hidden pb-4 border-t border-gray-800 bg-black"
+        >
+          <ul className="pt-2">
+            {NAV.map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  aria-current={isActive(item.href) ? 'page' : undefined}
+                  className="flex items-center min-h-[44px] text-base text-gray-200 hover:text-white"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {t(item.key)}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <Link href="/book" className="btn-primary w-full mt-3 text-sm" onClick={() => setMobileMenuOpen(false)}>
+            {t('header.book')}
+          </Link>
+        </nav>
       </div>
     </header>
   );

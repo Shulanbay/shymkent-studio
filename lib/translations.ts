@@ -12,14 +12,19 @@ export function getTranslations(lang: Language) {
   return translations[lang] || translations.ru;
 }
 
-export function getTranslation(lang: Language, path: string) {
-  const keys = path.split('.');
-  let current: any = translations[lang] || translations.ru;
-
-  for (const key of keys) {
-    current = current?.[key];
-    if (!current) return path;
+function lookup(tree: unknown, path: string): string | undefined {
+  let current: unknown = tree;
+  for (const key of path.split('.')) {
+    if (!current || typeof current !== 'object') return undefined;
+    current = (current as Record<string, unknown>)[key];
   }
+  return typeof current === 'string' ? current : undefined;
+}
 
-  return current;
+/**
+ * Text by dotted key. A key missing in Kazakh falls back to Russian, so a
+ * visitor never sees a raw key (tests check both files have the same keys).
+ */
+export function getTranslation(lang: Language, path: string): string {
+  return lookup(translations[lang] ?? translations.ru, path) ?? lookup(translations.ru, path) ?? path;
 }

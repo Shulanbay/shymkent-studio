@@ -8,3 +8,23 @@ dist
 *.log
 .idea
 .vscode
+*.tsbuildinfo
+.env
+.next-verify
+.owner-access.local
+.next-e2e
+# Database backups contain personal data — never commit them.
+backups/
+*.dump
+*.dump.sha256
+# Playwright
+/playwright-report/
+/test-results/
+/e2e/.auth/
+scripts-dist/
+.next-debug
+
+# Vercel CLI link
+.vercel
+.env*
+.owner-access.*.local

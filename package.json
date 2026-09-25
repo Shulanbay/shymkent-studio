@@ -5,23 +5,68 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:worker": "esbuild scripts/outbox-worker.ts --bundle --platform=node --target=node20 --conditions=react-server --outfile=scripts-dist/outbox-worker.js --external:@prisma/client --external:.prisma --external:googleapis --external:nodemailer --log-level=warning",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "test": "dotenv -e .env.local -e .env -- vitest run",
+    "test:unit": "vitest run --project unit",
+    "test:db": "dotenv -e .env.local -e .env -- vitest run --project integration",
+    "test:watch": "vitest --project unit",
+    "test:e2e": "dotenv -e .env.local -e .env -- playwright test",
+    "postinstall": "prisma generate",
+    "env:check": "dotenv -e .env.local -e .env -- tsx scripts/check-env.ts",
+    "db:validate": "dotenv -e .env.local -e .env -- prisma validate",
+    "db:generate": "prisma generate",
+    "db:migrate": "dotenv -e .env.local -e .env -- prisma migrate dev",
+    "db:deploy": "prisma migrate deploy",
+    "db:deploy:local": "dotenv -e .env.local -e .env -- prisma migrate deploy",
+    "db:seed": "dotenv -e .env.local -e .env -- prisma db seed",
+    "db:reset": "dotenv -e .env.local -e .env -- prisma migrate reset",
+    "db:studio": "dotenv -e .env.local -e .env -- prisma studio",
+    "db:drift": "dotenv -e .env.local -e .env -- tsx scripts/db-drift-check.ts",
+    "db:backup": "dotenv -e .env.local -e .env -- tsx scripts/db-backup.ts",
+    "db:restore-check": "dotenv -e .env.local -e .env -- tsx scripts/db-restore-check.ts",
+    "outbox:worker": "dotenv -e .env.local -e .env -- tsx --conditions=react-server scripts/outbox-worker.ts",
+    "admin:reset-password": "dotenv -e .env.local -e .env -- tsx scripts/reset-owner-password.ts"
   },
   "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "next": "^14.2.5",
-    "typescript": "^5.3.3",
-    "tailwindcss": "^3.4.1",
+    "@node-rs/argon2": "^2.2.1",
+    "@prisma/client": "^6.19.3",
+    "autoprefixer": "^10.4.17",
+    "googleapis": "^180.0.0",
+    "next": "^15.5.26",
+    "nodemailer": "^10.0.9",
     "postcss": "^8.4.32",
-    "autoprefixer": "^10.4.17"
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "server-only": "^0.0.1",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.3.3",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
-    "@types/node": "^20.10.6",
-    "@types/react": "^18.2.45",
-    "@types/react-dom": "^18.2.18",
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^22.20.4",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "dotenv-cli": "^11.0.0",
+    "esbuild": "^0.28.2",
     "eslint": "^8.56.0",
-    "eslint-config-next": "^14.2.5"
+    "eslint-config-next": "^15.5.26",
+    "prisma": "^6.19.3",
+    "tsx": "^4.23.15",
+    "vitest": "^5.0.1"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
+  "overrides": {
+    "next": {
+      "postcss": "$postcss"
+    },
+    "@prisma/config": {
+      "deepmerge-ts": "^8.0.2"
+    }
   }
 }

@@ -1,46 +1,73 @@
-@import url('https://fonts.googleapis.com/css2?family=Onest:wght@100;200;300;400;500;600;700;800;900&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 html {
   scroll-behavior: smooth;
-  font-family: 'Onest', sans-serif;
 }
 
 body {
-  @apply bg-white text-text-primary;
-  font-family: 'Onest', sans-serif;
+  @apply bg-white text-text-primary font-sans;
+}
+
+/* Visible keyboard focus everywhere (mouse clicks do not show the ring). */
+:focus-visible {
+  outline: 2px solid #c84a12;
+  outline-offset: 2px;
+}
+.bg-black :focus-visible,
+footer :focus-visible,
+header :focus-visible {
+  outline-color: #ff6b24;
 }
 
 /* Поддержка отключения анимации */
 @media (prefers-reduced-motion: reduce) {
-  * {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
     animation: none !important;
     transition: none !important;
   }
 }
 
+.skip-link {
+  @apply sr-only;
+}
+.skip-link:focus {
+  @apply not-sr-only fixed top-2 left-2 z-[100] bg-white text-text-primary px-4 py-2 rounded-lg shadow-lg;
+}
+
 /* Пользовательские компоненты */
 .btn-primary {
-  @apply px-6 py-3 text-white rounded-lg font-semibold transition-all active:scale-95;
-  background: linear-gradient(135deg, #FF6B24 0%, #FF9A44 100%);
-  box-shadow: 0 4px 15px rgba(255, 107, 36, 0.3);
+  @apply inline-flex items-center justify-center min-h-[44px] px-6 py-3 text-white rounded-lg font-semibold transition-all active:scale-95;
+  /* White text stays ≥ 4.5:1 across the whole gradient. */
+  background: linear-gradient(135deg, #c84a12 0%, #b83f0c 100%);
+  box-shadow: 0 4px 15px rgba(200, 74, 18, 0.3);
 }
 
 .btn-primary:hover {
-  box-shadow: 0 6px 20px rgba(255, 107, 36, 0.4);
+  box-shadow: 0 6px 20px rgba(200, 74, 18, 0.45);
 }
 
 .btn-secondary {
-  @apply px-6 py-3 bg-transparent text-orange-accent border-2 border-orange-accent rounded-lg font-semibold transition-all active:scale-95;
-  box-shadow: inset 0 0 0 2px transparent, 0 0 20px rgba(255, 107, 36, 0.3);
+  @apply inline-flex items-center justify-center min-h-[44px] px-6 py-3 bg-transparent text-orange-accent border-2 border-orange-accent rounded-lg font-semibold transition-all active:scale-95;
 }
 
 .btn-secondary:hover {
-  @apply border-orange-accent text-white bg-orange-accent;
-  box-shadow: inset 0 0 0 2px transparent, 0 0 30px rgba(255, 107, 36, 0.5);
+  @apply text-white bg-orange-accent;
+}
+
+/* Outline button on dark backgrounds (hero). */
+.btn-secondary-dark {
+  @apply inline-flex items-center justify-center min-h-[44px] px-6 py-3 bg-transparent text-orange-bright border-2 border-orange-bright rounded-lg font-semibold transition-all active:scale-95;
+}
+
+.btn-secondary-dark:hover {
+  @apply text-black bg-orange-bright;
 }
 
 .btn-ghost {
