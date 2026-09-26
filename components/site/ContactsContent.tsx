@@ -24,7 +24,7 @@ export function ContactsContent() {
   const hoursByDay = new Map(openingHours.map((h) => [h.day, h]));
 
   return (
-    <div className="pt-20">
+    <div>
       <section className="py-12 md:py-24 bg-bg-light">
         <div className="container-max">
           <h1 className="mb-4">{t('contactsPage.title')}</h1>

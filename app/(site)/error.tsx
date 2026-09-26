@@ -13,7 +13,7 @@ export default function SiteError({ error, reset }: { error: Error & { digest?: 
     console.error('[site] render error', error.digest ?? '');
   }, [error]);
   return (
-    <div className="pt-20">
+    <div>
       <section className="py-24 md:py-32 bg-bg-light">
         <div className="container-max text-center max-w-xl">
           <h1 className="text-3xl sm:text-4xl mb-4">{t('errorPage.title')}</h1>

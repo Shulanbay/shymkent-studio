@@ -26,7 +26,9 @@ export function middleware(request: NextRequest) {
 
   if (isPrivatePath(pathname)) {
     const hasSessionCookie = request.cookies.has(SESSION_COOKIE) || request.cookies.has(SECURE_SESSION_COOKIE);
-    if (!hasSessionCookie && pathname !== LOGIN_PATH) {
+    // The sign-in page and the email-link page (/admin/login/verify) are reachable without a session.
+    const isLoginPage = pathname === LOGIN_PATH || pathname.startsWith(`${LOGIN_PATH}/`);
+    if (!hasSessionCookie && !isLoginPage) {
       let response: NextResponse;
       if (pathname.startsWith('/api/admin')) {
         response = NextResponse.json({ error: 'Unauthorized' }, { status: 401 });

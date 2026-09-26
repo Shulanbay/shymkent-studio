@@ -365,3 +365,29 @@ export function bookingClientEmail(d: BookingEmailData, lang: Lang, policy: Poli
     contacts,
   });
 }
+
+// ─── Staff sign-in link ───────────────────────────────────────────────────────
+
+/** Email with a one-time CRM sign-in link (staff only, Russian). */
+export function loginLinkEmail(d: { name: string; url: string; ttlMinutes: number }): RenderedEmail {
+  const url = safeUrl(d.url) ?? '';
+  const subject = 'Вход в CRM SHYMKENT STUDIO';
+  const html = layout(
+    `<h2>${escapeHtml(subject)}</h2>` +
+      `<p>${escapeHtml(`Здравствуйте, ${d.name}!`)}</p>` +
+      `<p>Нажмите кнопку, чтобы войти в CRM. Ссылка действует ${d.ttlMinutes} минут и работает один раз.</p>` +
+      `<p style="margin:24px 0"><a href="${escapeHtml(url)}" style="background:#C84A12;color:#fff;padding:12px 20px;border-radius:12px;text-decoration:none;font-weight:bold">Войти в CRM</a></p>` +
+      `<p style="color:#65605B;font-size:13px">Если кнопка не работает, скопируйте ссылку в браузер:<br>${escapeHtml(url)}</p>` +
+      `<p style="color:#65605B;font-size:13px">Если вы не запрашивали вход, просто удалите это письмо — без ссылки войти в ваш аккаунт нельзя. Никому не пересылайте это письмо.</p>`,
+  );
+  const text = [
+    subject,
+    '',
+    `Здравствуйте, ${oneLine(d.name)}!`,
+    `Ссылка для входа (действует ${d.ttlMinutes} минут, один раз):`,
+    url,
+    '',
+    'Если вы не запрашивали вход, удалите это письмо. Никому его не пересылайте.',
+  ].join('\n');
+  return { subject, html, text };
+}

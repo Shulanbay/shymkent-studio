@@ -10,7 +10,7 @@ export const metadata = {
 
 export default function BookingPage() {
   return (
-    <div className="pt-20 min-h-screen bg-bg-light">
+    <div className="min-h-screen bg-bg-light">
       <div className="container-max py-12 md:py-24">
         <BookingTitle />
         {/* useSearchParams (?service=, ?room=) needs a Suspense boundary for static rendering. */}

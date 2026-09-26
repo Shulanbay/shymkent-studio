@@ -12,7 +12,7 @@ export function RoomsSection() {
   const rooms = ROOM_CONTENT.filter((room) => !catalog.live || catalog.rooms.some((r) => r.slug === room.slug));
 
   return (
-    <section id="rooms" className="py-20 md:py-32 bg-white scroll-mt-20" aria-labelledby="rooms-title">
+    <section id="rooms" className="py-20 md:py-32 bg-white scroll-mt-32" aria-labelledby="rooms-title">
       <div className="container-max">
         <div className="text-center mb-12 md:mb-16">
           <h2 id="rooms-title" className="mb-4 text-text-primary">

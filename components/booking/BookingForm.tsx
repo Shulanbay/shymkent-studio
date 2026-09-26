@@ -497,11 +497,11 @@ export function BookingForm() {
                   />
                   <span className="text-sm text-text-secondary">
                     {t('booking.agreeBefore')}
-                    <Link href="/terms" className="text-orange-accent hover:underline" target="_blank">
+                    <Link href="/terms" className="text-orange-accent underline underline-offset-2" target="_blank">
                       {t('footer.terms')}
                     </Link>
                     {t('booking.agreeBetween')}
-                    <Link href="/privacy" className="text-orange-accent hover:underline" target="_blank">
+                    <Link href="/privacy" className="text-orange-accent underline underline-offset-2" target="_blank">
                       {t('footer.privacy')}
                     </Link>
                     {t('booking.agreeAfter')}

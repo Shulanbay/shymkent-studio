@@ -34,7 +34,7 @@ function List({ items }: { items: React.ReactNode[] }) {
 
 function Shell({ title, children, updated }: { title: string; children: React.ReactNode; updated: string }) {
   return (
-    <div className="pt-20">
+    <div>
       <section className="py-12 md:py-24 bg-bg-light">
         <div className="container-max max-w-3xl">
           <h1 className="mb-8 text-3xl sm:text-4xl lg:text-5xl">{title}</h1>
@@ -50,11 +50,11 @@ function ContactLines() {
   const { contacts } = useCatalog();
   return (
     <p>
-      <a href={`mailto:${contacts.email}`} className="text-orange-accent hover:underline break-all">
+      <a href={`mailto:${contacts.email}`} className="text-orange-accent underline underline-offset-2 break-all">
         {contacts.email}
       </a>
       <br />
-      <a href={phoneHref(contacts.phone)} className="text-orange-accent hover:underline">
+      <a href={phoneHref(contacts.phone)} className="text-orange-accent underline underline-offset-2">
         {contacts.phone}
       </a>
     </p>
@@ -227,7 +227,7 @@ export function TermsContent() {
         </Section>
         <Section title="2. Бағалар">
           <p>
-            Бағалар <Link href="/pricing" className="text-orange-accent hover:underline">«Бағалар»</Link> бетінде жарияланған және брондау
+            Бағалар <Link href="/pricing" className="text-orange-accent underline underline-offset-2">«Бағалар»</Link> бетінде жарияланған және брондау
             кезінде автоматты түрде есептеледі.
             {extension &&
               ` Starter тарифінде әр басталған қосымша ${extension.minutes} минут — +${extension.price} ₸ (барлығы ${extension.max} минутқа дейін).`}
@@ -306,7 +306,7 @@ export function TermsContent() {
       <Section title="2. Цены">
         <p>
           Цены опубликованы на странице{' '}
-          <Link href="/pricing" className="text-orange-accent hover:underline">
+          <Link href="/pricing" className="text-orange-accent underline underline-offset-2">
             «Цены»
           </Link>{' '}
           и рассчитываются автоматически при бронировании.

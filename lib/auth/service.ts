@@ -1,5 +1,5 @@
 import 'server-only';
-import type { PrismaClient } from '@prisma/client';
+import type { Prisma, PrismaClient } from '@prisma/client';
 import { z } from 'zod';
 import { logActivity } from '@/lib/activity';
 import { consumeRateLimit, resetRateLimit } from '@/lib/rate-limit';
@@ -84,21 +84,7 @@ export async function authenticate(
     return { ok: false, error: 'INVALID_CREDENTIALS' };
   }
 
-  const token = generateSessionToken();
-  const now = new Date();
-  const expiresAt = new Date(now.getTime() + SESSION_IDLE_TIMEOUT_MS);
-  await db.$transaction(async (tx) => {
-    await tx.session.create({
-      data: {
-        tokenHash: hashSessionToken(token),
-        userId: user.id,
-        expiresAt,
-        userAgent: params.userAgent?.slice(0, 200) ?? null,
-      },
-    });
-    await tx.user.update({ where: { id: user.id }, data: { lastLoginAt: now } });
-    await logActivity(tx, { userId: user.id, entityType: 'Auth', entityId: user.id, action: 'auth.login' });
-  });
+  const { token, expiresAt } = await db.$transaction((tx) => startSession(tx, user.id, params.userAgent, 'password'));
   await resetRateLimit(db, accountKey);
 
   return {
@@ -107,6 +93,27 @@ export async function authenticate(
     expiresAt,
     user: { id: user.id, name: user.name, email: user.email, role: user.role },
   };
+}
+
+/**
+ * Creates a new session (fresh random token on every sign-in) and records the
+ * login. Shared by password and email-link sign-in. Call inside a transaction.
+ */
+export async function startSession(
+  tx: Prisma.TransactionClient,
+  userId: string,
+  userAgent: string | null | undefined,
+  method: 'password' | 'email_link',
+): Promise<{ token: string; expiresAt: Date }> {
+  const token = generateSessionToken();
+  const now = new Date();
+  const expiresAt = new Date(now.getTime() + SESSION_IDLE_TIMEOUT_MS);
+  await tx.session.create({
+    data: { tokenHash: hashSessionToken(token), userId, expiresAt, userAgent: userAgent?.slice(0, 200) ?? null },
+  });
+  await tx.user.update({ where: { id: userId }, data: { lastLoginAt: now } });
+  await logActivity(tx, { userId, entityType: 'Auth', entityId: userId, action: 'auth.login', metadata: { method } });
+  return { token, expiresAt };
 }
 
 export async function validateSessionToken(db: PrismaClient, token: string | undefined | null): Promise<SessionUser | null> {

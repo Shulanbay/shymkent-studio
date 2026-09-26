@@ -1,4 +1,4 @@
-import { randomUUID } from 'node:crypto';
+import { createHash, randomBytes, randomUUID } from 'node:crypto';
 import { PrismaClient } from '@prisma/client';
 import { expect, test, type Browser, type Page } from '@playwright/test';
 import { addDays, todayInStudio } from '../lib/time';
@@ -25,7 +25,7 @@ let bookedDate = '';
 let bookedTime = '';
 
 async function login(page: Page, email: string, password: string) {
-  await page.goto('/admin/login');
+  await page.goto('/admin/login?method=password');
   await page.getByLabel('Email').fill(email);
   await page.getByLabel('Пароль').fill(password);
   await page.getByRole('button', { name: 'Войти' }).click();
@@ -308,6 +308,35 @@ test('20. logout invalidates the session', async () => {
   await page.goto('/admin/bookings');
   await expect(page).toHaveURL(/\/admin\/login/);
   await replay.close();
+});
+
+test('email sign-in link: request, one-time use', async ({ browser }) => {
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  // Request: the same answer for any email, nothing is revealed.
+  await page.goto('/admin/login');
+  await page.getByLabel('Email').fill(state.ownerEmail);
+  await page.getByRole('button', { name: 'Получить ссылку для входа' }).click();
+  await expect(page.getByRole('status')).toContainText('Проверьте почту');
+  const owner = await db.user.findUniqueOrThrow({ where: { email: state.ownerEmail } });
+  expect(await db.loginToken.count({ where: { userId: owner.id, usedAt: null } })).toBe(1);
+
+  // The emailed token is only known to the mailbox (dry-run here); the test issues its own link the same way.
+  const token = randomBytes(32).toString('base64url');
+  await db.loginToken.create({
+    data: { userId: owner.id, tokenHash: createHash('sha256').update(token).digest('hex'), expiresAt: new Date(Date.now() + 10 * 60_000) },
+  });
+  await page.goto(`/admin/login/verify?token=${token}`);
+  await page.getByRole('button', { name: 'Войти в CRM' }).click();
+  await expect(page.getByRole('heading', { name: /Здравствуйте/ })).toBeVisible();
+
+  const second = await browser.newContext();
+  const again = await second.newPage();
+  await again.goto(`/admin/login/verify?token=${token}`);
+  await again.getByRole('button', { name: 'Войти в CRM' }).click();
+  await expect(again.getByRole('alert').filter({ hasText: 'устарела или уже использована' })).toBeVisible();
+  await second.close();
+  await context.close();
 });
 
 test('public pages: 404 and SEO files', async ({ page, request }) => {

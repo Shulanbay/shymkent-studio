@@ -14,7 +14,7 @@ export function RoomDetail({ slug }: { slug: string }) {
   const title = t(room.titleKey);
 
   return (
-    <div className="pt-20">
+    <div>
       <section className="py-12 md:py-24 bg-bg-light">
         <div className="container-max">
           <nav aria-label="breadcrumbs" className="text-sm text-text-secondary mb-4">

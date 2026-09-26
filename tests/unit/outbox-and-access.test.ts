@@ -91,6 +91,10 @@ describe('middleware (unauthenticated access)', () => {
   it('lets the login page through', () => {
     expect(middleware(req('/admin/login')).headers.get('location')).toBeNull();
   });
+  it('lets the email sign-in link page through without a session, but not other admin pages', () => {
+    expect(middleware(req('/admin/login/verify?token=abc')).headers.get('location')).toBeNull();
+    expect(middleware(req('/admin/loginx')).status).toBe(307);
+  });
   it('passes requests with a session cookie on to server-side validation, marked noindex', () => {
     const res = middleware(req('/admin', 'ss_admin=token'));
     expect(res.headers.get('location')).toBeNull();

@@ -6,7 +6,7 @@ import { useLanguage } from '@/components/LanguageContext';
 export function NotFoundContent() {
   const { t } = useLanguage();
   return (
-    <div className="pt-20">
+    <div>
       <section className="py-24 md:py-32 bg-bg-light">
         <div className="container-max text-center max-w-xl">
           <p className="text-6xl font-bold text-orange-accent mb-6" aria-hidden="true">

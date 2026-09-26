@@ -6,7 +6,7 @@ export const db = new PrismaClient();
 /** Removes rows created by a test file (catalog is kept). */
 export async function truncateAll() {
   await db.$executeRawUnsafe(
-    'TRUNCATE "ActivityLog", "Session", "RateLimit", "IntegrationJob", "Payment", "ProductionTask", "Booking", "TourRequest", "Lead", "Client", "User", "Setting" RESTART IDENTITY CASCADE',
+    'TRUNCATE "ActivityLog", "LoginToken", "Session", "RateLimit", "IntegrationJob", "Payment", "ProductionTask", "Booking", "TourRequest", "Lead", "Client", "User", "Setting" RESTART IDENTITY CASCADE',
   );
 }
 

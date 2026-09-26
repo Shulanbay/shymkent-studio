@@ -3,7 +3,9 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { useCatalog } from './CatalogContext';
 import { useLanguage } from './LanguageContext';
+import { phoneHref } from '@/lib/contacts';
 
 const NAV = [
   { href: '/rooms', key: 'header.rooms' },
@@ -15,6 +17,7 @@ const NAV = [
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { contacts } = useCatalog();
   const { language, setLanguage, t } = useLanguage();
   const pathname = usePathname();
 
@@ -34,6 +37,21 @@ export function Header() {
       <a href="#main" className="skip-link">
         {t('common.skipToContent')}
       </a>
+      <div className="bg-orange-accent text-white">
+        <div className="container-max flex h-9 items-center justify-center">
+          <a
+            href={phoneHref(contacts.phone)}
+            className="inline-flex min-h-9 items-center gap-2 text-sm font-semibold leading-none hover:underline"
+            aria-label={`${t('header.callUs')}: ${contacts.phone}`}
+          >
+            <svg className="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.69 2.8a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.33 1.84.56 2.8.69A2 2 0 0 1 22 16.92Z" />
+            </svg>
+            <span>{t('header.callUs')}</span>
+            <span className="whitespace-nowrap">{contacts.phone}</span>
+          </a>
+        </div>
+      </div>
       <div className="container-max">
         <div className="flex items-center justify-between h-20 gap-3">
           <Link href="/" className="flex items-center gap-3 min-h-[44px]" aria-label={t('header.home')}>

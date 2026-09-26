@@ -129,6 +129,7 @@ model User {
   updatedAt    DateTime  @updatedAt @db.Timestamptz(3)
 
   sessions         Session[]
+  loginTokens      LoginToken[]
   assignedLeads    Lead[]           @relation("LeadAssignee")
   assignedBookings Booking[]        @relation("BookingAssignee")
   assignedTasks    ProductionTask[] @relation("TaskAssignee")
@@ -147,6 +148,21 @@ model Session {
   lastUsedAt DateTime @default(now()) @db.Timestamptz(3)
   userAgent  String?
   createdAt  DateTime @default(now()) @db.Timestamptz(3)
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+/// One-time sign-in link sent by email ("magic link"). Only the SHA-256 of the
+/// token is stored; a link works once and expires after a few minutes.
+model LoginToken {
+  id        String    @id @default(cuid())
+  tokenHash String    @unique
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime  @db.Timestamptz(3)
+  usedAt    DateTime? @db.Timestamptz(3)
+  createdAt DateTime  @default(now()) @db.Timestamptz(3)
 
   @@index([userId])
   @@index([expiresAt])
