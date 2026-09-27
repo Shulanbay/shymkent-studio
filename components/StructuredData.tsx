@@ -13,7 +13,7 @@ export function buildStructuredData(catalog: PublicCatalog, siteUrl: string) {
     '@context': 'https://schema.org',
     '@type': ['ProfessionalService', 'LocalBusiness'],
     name: c.studioName,
-    description: 'Подкаст-студия в Шымкенте: запись подкастов и интервью, монтаж, контент для соцсетей.',
+    description: 'Подкаст- и видеостудия в Шымкенте: запись подкастов, интервью и видео, монтаж, контент для соцсетей. Посещение по предварительной записи.',
     url: siteUrl,
     telephone: c.phone,
     email: c.email,

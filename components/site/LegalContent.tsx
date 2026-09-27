@@ -11,7 +11,7 @@ import { policyTexts } from '@/lib/policy';
 // do with data; keep them in sync with docs/SECURITY.md when processing changes.
 // Final wording must be reviewed by a lawyer in Kazakhstan (docs/OWNER_HANDOFF.md).
 
-export const LEGAL_UPDATED = { ru: '25 сентября 2026 г.', kk: '2026 ж. 25 қыркүйек' };
+export const LEGAL_UPDATED = { ru: '26 сентября 2026 г.', kk: '2026 жылғы 26 қыркүйек' };
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -50,11 +50,11 @@ function ContactLines() {
   const { contacts } = useCatalog();
   return (
     <p>
-      <a href={`mailto:${contacts.email}`} className="text-orange-accent underline underline-offset-2 break-all">
+      <a href={`mailto:${contacts.email}`} className="text-brand-ink underline underline-offset-2 break-all">
         {contacts.email}
       </a>
       <br />
-      <a href={phoneHref(contacts.phone)} className="text-orange-accent underline underline-offset-2">
+      <a href={phoneHref(contacts.phone)} className="text-brand-ink underline underline-offset-2">
         {contacts.phone}
       </a>
     </p>
@@ -224,10 +224,11 @@ export function TermsContent() {
             Сайттағы өтінім — төлем емес және уақытқа кепілдік емес. Өтінім жібергеннен кейін сіз оның нөмірін аласыз, ал әкімші сізбен
             байланысып, уақытты растайды және төлем сілтемесін жібереді.
           </p>
+          <p>Студияға тек алдын ала жазылу арқылы келуге болады. Уақыт Шымкент уақытымен (UTC+5) көрсетіледі.</p>
         </Section>
         <Section title="2. Бағалар">
           <p>
-            Бағалар <Link href="/pricing" className="text-orange-accent underline underline-offset-2">«Бағалар»</Link> бетінде жарияланған және брондау
+            Бағалар <Link href="/pricing" className="text-brand-ink underline underline-offset-2">«Бағалар»</Link> бетінде жарияланған және брондау
             кезінде автоматты түрде есептеледі.
             {extension &&
               ` Starter тарифінде әр басталған қосымша ${extension.minutes} минут — +${extension.price} ₸ (барлығы ${extension.max} минутқа дейін).`}
@@ -302,11 +303,12 @@ export function TermsContent() {
           Заявка на сайте не является оплатой и не гарантирует время. После отправки вы получаете номер заявки, а администратор связывается с
           вами, подтверждает время и отправляет ссылку на оплату.
         </p>
+        <p>Посещение студии — только по предварительной записи. Время указывается по Шымкенту (UTC+5).</p>
       </Section>
       <Section title="2. Цены">
         <p>
           Цены опубликованы на странице{' '}
-          <Link href="/pricing" className="text-orange-accent underline underline-offset-2">
+          <Link href="/pricing" className="text-brand-ink underline underline-offset-2">
             «Цены»
           </Link>{' '}
           и рассчитываются автоматически при бронировании.

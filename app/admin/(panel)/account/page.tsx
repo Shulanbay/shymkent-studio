@@ -7,7 +7,7 @@ import { changeOwnPasswordAction } from './actions';
 export const metadata = { title: 'Мой аккаунт' };
 
 const inputClass =
-  'w-full px-3 py-2 border border-border-light rounded-xl bg-white text-sm focus:outline-none focus:ring-2 focus:ring-orange-accent';
+  'w-full px-3 py-2 border border-border-light rounded-xl bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-strong';
 
 export default async function AccountPage() {
   const user = await requireUser();

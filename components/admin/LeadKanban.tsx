@@ -86,7 +86,7 @@ export function LeadKanban({ columns, leads: initial, canManage, move }: Props) 
                 const id = e.dataTransfer.getData('text/plain');
                 if (id) apply(id, col.status);
               }}
-              className={`w-64 shrink-0 rounded-card border p-2 ${dragOver === col.status ? 'border-orange-accent bg-orange-50' : 'border-border-light bg-bg-light'}`}
+              className={`w-64 shrink-0 rounded-card border p-2 ${dragOver === col.status ? 'border-brand-strong bg-orange-50' : 'border-border-light bg-bg-light'}`}
             >
               <h2 className="text-sm font-bold px-1 py-1 flex justify-between">
                 {col.label} <span className="text-text-secondary font-normal">{items.length}</span>
@@ -158,7 +158,7 @@ export function LeadKanban({ columns, leads: initial, canManage, move }: Props) 
             <button type="button" onClick={() => dialogRef.current?.close()} className="px-3 py-1.5 rounded-xl border border-border-light text-sm">
               Отмена
             </button>
-            <button type="submit" className="px-3 py-1.5 rounded-xl bg-orange-accent text-white text-sm font-semibold">
+            <button type="submit" className="px-3 py-1.5 rounded-xl bg-brand-gradient text-on-brand text-sm font-semibold">
               Сохранить
             </button>
           </div>

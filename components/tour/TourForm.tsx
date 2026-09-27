@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useCatalog } from '@/components/CatalogContext';
 import { useLanguage } from '@/components/LanguageContext';
+import { formatLongDate } from '@/lib/contacts';
 import { formatKzPhone, formatPhoneInput, normalizeKzPhone } from '@/lib/phone';
 import { addDays, todayInStudio } from '@/lib/time';
 import { getTranslation } from '@/lib/translations';
@@ -11,7 +12,7 @@ import { getTranslation } from '@/lib/translations';
 type SlotsState = { status: 'idle' } | { status: 'loading' } | { status: 'error' } | { status: 'ready'; times: string[] };
 
 const fieldClass =
-  'w-full px-4 py-3 border border-border-light rounded-card bg-white focus:outline-none focus:ring-2 focus:ring-orange-accent';
+  'w-full px-4 py-3 border border-border-light rounded-card bg-white focus:outline-none focus:ring-2 focus:ring-brand-strong';
 
 const FORMATS = [
   ['podcast', 'tourPage.formatPodcast'],
@@ -126,7 +127,6 @@ export function TourForm() {
   }
 
   if (result) {
-    const [y, m, d] = date.split('-');
     return (
       <div className="bg-white rounded-card p-8 md:p-12 border border-border-light text-center" role="status">
         <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6" aria-hidden="true">
@@ -143,12 +143,13 @@ export function TourForm() {
         </h2>
         <p className="text-text-secondary mb-4">{t('tourPage.successText')}</p>
         <p className="text-text-secondary">{t('tourPage.successNumber')}</p>
-        <p className="text-3xl font-bold text-orange-accent mb-6 tracking-wide">{result.number}</p>
+        <p className="text-3xl font-bold text-brand-strong mb-6 tracking-wide">{result.number}</p>
         <div className="bg-bg-light p-6 rounded-card mb-8">
           <p className="text-sm text-text-secondary mb-2">{t('tourPage.successWhen')}</p>
           <p className="font-semibold text-text-primary text-lg">
-            {d}.{m}.{y}, {time}
+            {formatLongDate(date, language)}, {time}
           </p>
+          <p className="text-xs text-text-secondary mt-1">{t('booking.tzSuffix')}</p>
         </div>
         <p className="text-text-secondary mb-8">
           {t('tourPage.successNote', { phone: (normalizedPhone ? formatKzPhone(normalizedPhone) : phone).replace(/ /g, '\u00a0') })}
@@ -204,7 +205,7 @@ export function TourForm() {
             {date && slots.status === 'error' && (
               <div className="flex items-center gap-4" role="alert">
                 <p className="text-sm text-red-700">{t('booking.slotsError')}</p>
-                <button type="button" onClick={() => setReloadToken(Date.now())} className="text-sm font-semibold text-orange-accent underline">
+                <button type="button" onClick={() => setReloadToken(Date.now())} className="text-sm font-semibold text-brand-ink underline">
                   {t('booking.retry')}
                 </button>
               </div>
@@ -217,8 +218,8 @@ export function TourForm() {
                 {slots.times.map((slot) => (
                   <label
                     key={slot}
-                    className={`text-center py-2 border-2 rounded-xl cursor-pointer font-semibold focus-within:ring-2 focus-within:ring-orange-accent transition ${
-                      time === slot ? 'bg-orange-accent text-white border-orange-accent' : 'border-border-light hover:border-orange-accent'
+                    className={`text-center py-2 border-2 rounded-xl cursor-pointer font-semibold focus-within:ring-2 focus-within:ring-brand-strong transition ${
+                      time === slot ? 'bg-brand-gradient text-on-brand border-transparent' : 'border-border-light hover:border-brand'
                     }`}
                   >
                     <input type="radio" name="tour-time" value={slot} checked={time === slot} onChange={() => setTime(slot)} className="sr-only" />
@@ -297,12 +298,12 @@ export function TourForm() {
             onChange={(e) => setAgree(e.target.checked)}
             required
             aria-required="true"
-            className="w-5 h-5 mt-0.5 accent-orange-accent"
+            className="w-5 h-5 mt-0.5 accent-brand-strong"
           />
           <span className="text-sm text-text-secondary">
             {t('tourPage.agreeBefore')}
-            <Link href="/privacy" className="text-orange-accent underline underline-offset-2" target="_blank">
-              {t('footer.privacy')}
+            <Link href="/privacy" className="text-brand-ink underline underline-offset-2" target="_blank">
+              {t('tourPage.agreePrivacy')}
             </Link>
             {t('tourPage.agreeAfter')}
           </span>

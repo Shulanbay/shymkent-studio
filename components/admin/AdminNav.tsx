@@ -20,8 +20,8 @@ export function AdminNav({ items }: { items: NavItem[] }) {
               <Link
                 href={item.href}
                 aria-current={active ? 'page' : undefined}
-                className={`block whitespace-nowrap px-3 py-2 rounded-xl text-sm transition focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-accent ${
-                  active ? 'bg-orange-accent text-white font-semibold' : 'text-gray-300 hover:bg-gray-800 hover:text-white'
+                className={`block whitespace-nowrap px-3 py-2 rounded-xl text-sm transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-strong ${
+                  active ? 'bg-brand-gradient text-on-brand font-semibold' : 'text-gray-300 hover:bg-gray-800 hover:text-white'
                 }`}
               >
                 {item.label}

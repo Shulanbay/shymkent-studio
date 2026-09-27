@@ -24,8 +24,8 @@ export function SubmitButton({
 }) {
   const pending = useFormPending();
   const styles = {
-    primary: 'bg-orange-accent text-white hover:bg-orange-light',
-    secondary: 'border border-border-light bg-white hover:border-orange-accent',
+    primary: 'bg-brand-gradient text-on-brand hover:bg-brand-gradient-hover',
+    secondary: 'border border-border-light bg-white hover:border-brand',
     danger: 'border border-red-200 bg-white text-red-700 hover:bg-red-50',
   }[variant];
   return (
@@ -38,7 +38,7 @@ export function SubmitButton({
       }}
       disabled={pending}
       aria-disabled={pending}
-      className={`px-4 py-2 rounded-xl text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-accent disabled:opacity-60 ${styles}`}
+      className={`px-4 py-2 rounded-xl text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-strong disabled:opacity-60 ${styles}`}
     >
       {pending ? pendingLabel : children}
     </button>

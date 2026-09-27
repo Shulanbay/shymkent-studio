@@ -12,7 +12,7 @@ export default function GlobalError({ reset }: { error: Error & { digest?: strin
           <button
             type="button"
             onClick={reset}
-            style={{ background: '#C84A12', color: '#fff', border: 0, borderRadius: 12, padding: '12px 24px', fontSize: 16, fontWeight: 600, cursor: 'pointer' }}
+            style={{ background: 'linear-gradient(135deg, #FF8A3D 0%, #F56618 100%)', color: '#171717', border: 0, borderRadius: 12, padding: '12px 24px', fontSize: 16, fontWeight: 600, cursor: 'pointer' }}
           >
             Попробовать снова · Қайталау
           </button>

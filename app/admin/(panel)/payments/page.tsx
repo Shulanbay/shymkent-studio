@@ -37,7 +37,7 @@ export default async function PaymentsPage(props: { searchParams: Promise<Record
                 key={v}
                 href={`/admin/payments?view=${v}`}
                 aria-current={f.view === v ? 'page' : undefined}
-                className={`px-3 py-1.5 rounded-lg text-sm ${f.view === v ? 'bg-orange-accent text-white font-semibold' : 'hover:bg-bg-light'}`}
+                className={`px-3 py-1.5 rounded-lg text-sm ${f.view === v ? 'bg-brand-gradient text-on-brand font-semibold' : 'hover:bg-bg-light'}`}
               >
                 {label}
               </Link>
@@ -91,7 +91,7 @@ export default async function PaymentsPage(props: { searchParams: Promise<Record
           </>
         )}
         <div className="flex gap-2">
-          <button type="submit" className="px-4 py-2 rounded-xl text-sm font-semibold bg-orange-accent text-white">
+          <button type="submit" className="px-4 py-2 rounded-xl text-sm font-semibold bg-brand-gradient text-on-brand">
             Найти
           </button>
           <Link href={`/admin/payments?view=${f.view}`} className={linkButtonClass}>
@@ -132,7 +132,7 @@ async function PaymentsTable({ f, params }: { f: ReturnType<typeof paymentFilter
                 <tr key={p.id}>
                   <td className="px-4 py-3 whitespace-nowrap">{formatDateTime(p.paidAt ?? p.createdAt)}</td>
                   <td className="px-4 py-3">
-                    <Link href={`/admin/bookings/${p.booking.id}`} className="text-orange-accent hover:underline font-semibold">
+                    <Link href={`/admin/bookings/${p.booking.id}`} className="text-brand-ink hover:underline font-semibold">
                       {formatBookingNumber(p.booking.bookingNumber)}
                     </Link>
                     <span className="block text-xs text-text-secondary">{p.booking.client.name}</span>
@@ -185,7 +185,7 @@ async function DebtsTable({ f, params }: { f: ReturnType<typeof paymentFiltersSc
               {items.map((b) => (
                 <tr key={b.id}>
                   <td className="px-4 py-3">
-                    <Link href={`/admin/bookings/${b.id}`} className="text-orange-accent hover:underline font-semibold">
+                    <Link href={`/admin/bookings/${b.id}`} className="text-brand-ink hover:underline font-semibold">
                       {formatBookingNumber(b.bookingNumber)}
                     </Link>
                     <span className="block text-xs text-text-secondary">

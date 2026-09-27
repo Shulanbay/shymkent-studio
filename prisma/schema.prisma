@@ -352,6 +352,8 @@ model Payment {
   /// Payment link sent to the client (e.g. Kaspi invoice link).
   paymentUrl   String?
   note         String?
+  /// Idempotency key of the CRM form submission: a repeated submit returns the first entry.
+  requestKey   String?       @unique
   recordedById String?
   recordedBy   User?         @relation("PaymentRecorder", fields: [recordedById], references: [id], onDelete: SetNull)
   paidAt       DateTime?     @db.Timestamptz(3)

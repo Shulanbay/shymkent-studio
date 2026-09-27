@@ -8,6 +8,7 @@ import { ExamplesSection } from '@/components/sections/ExamplesSection';
 import { TourSection } from '@/components/sections/TourSection';
 import { FAQSection } from '@/components/sections/FAQSection';
 import { getPublicCatalog } from '@/lib/public-catalog';
+import { pageMetadata } from '@/lib/seo';
 
 const price = (value: number | undefined) => (value ?? 0).toLocaleString('ru-RU').replace(/ /g, ' ');
 
@@ -15,10 +16,10 @@ export async function generateMetadata(): Promise<Metadata> {
   const { services } = await getPublicCatalog();
   const min = services.length ? Math.min(...services.map((s) => s.basePrice)) : undefined;
   const pro = services.find((s) => s.slug === 'pro')?.basePrice;
-  return {
-    alternates: { canonical: '/' },
-    description: `Запись подкастов в Шымкенте: 3 комнаты, камеры Sony FX30 и микрофоны Shure SM7B.${min ? ` Запись от ${price(min)} ₸` : ''}${pro ? `, готовый эпизод с монтажом от ${price(pro)} ₸` : ''}. Бесплатный тур по студии.`,
-  };
+  return pageMetadata(
+    '/',
+    `Запись подкастов и видео в Шымкенте: 3 комнаты, камеры Sony FX30 и микрофоны Shure SM7B.${min ? ` Запись от ${price(min)} ₸` : ''}${pro ? `, готовый эпизод с монтажом от ${price(pro)} ₸` : ''}. Бесплатный тур по студии.`,
+  );
 }
 
 export default function Home() {

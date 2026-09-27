@@ -73,7 +73,7 @@ export function bookingAdminEmail(d: BookingEmailData): RenderedEmail {
     ['Тариф', d.serviceName],
     ['Комната', d.roomName],
     ['Дата', d.date],
-    ['Время', d.time],
+    ['Время (Шымкент)', d.time],
     ['Длительность', `${d.durationMinutes} мин`],
     ['Участников', d.participants],
     ['Сумма', money(d.total)],
@@ -93,7 +93,7 @@ export function tourAdminEmail(d: TourEmailData): RenderedEmail {
   const items: Rows = [
     ['Заявка', d.number],
     ['Дата', d.date],
-    ['Время', d.time],
+    ['Время (Шымкент)', d.time],
     ['Формат', d.format],
     ['Клиент', d.clientName],
     ['Телефон', d.clientPhone],
@@ -232,7 +232,7 @@ const COPY: Record<Lang, Record<ClientEmailKind, (v: Vars) => Copy>> = {
     reminder_2h: (v) => ({
       subject: `2 сағаттан кейін — жазбаңыз (${v.time})`,
       title: 'Жақында бастаймыз',
-      intro: `Сізді бүгін ${v.time}-да күтеміз.`,
+      intro: `Сізді бүгін күтеміз, басталу уақыты — ${v.time}.`,
     }),
     ready: (v) => ({
       subject: `${v.n} тапсырысы дайын`,
@@ -269,7 +269,7 @@ const LABELS: Record<Lang, Record<string, string>> = {
     service: 'Тариф',
     room: 'Комната',
     date: 'Дата',
-    time: 'Время',
+    time: 'Время (Шымкент, UTC+5)',
     total: 'Стоимость',
     refund: 'Сумма возврата',
     address: 'Адрес',
@@ -282,7 +282,7 @@ const LABELS: Record<Lang, Record<string, string>> = {
     service: 'Тариф',
     room: 'Бөлме',
     date: 'Күні',
-    time: 'Уақыты',
+    time: 'Уақыты (Шымкент, UTC+5)',
     total: 'Құны',
     refund: 'Қайтарылатын сома',
     address: 'Мекенжай',
@@ -331,7 +331,7 @@ export function clientEmail(kind: ClientEmailKind, lang: Lang, d: ClientEmailInp
       `<p>${escapeHtml(copy.intro)}</p>` +
       rows(items) +
       (link && copy.cta
-        ? `<p style="margin:24px 0"><a href="${escapeHtml(link)}" style="background:#C84A12;color:#fff;padding:12px 20px;border-radius:12px;text-decoration:none;font-weight:bold">${escapeHtml(copy.cta)}</a></p>`
+        ? `<p style="margin:24px 0"><a href="${escapeHtml(link)}" style="background:#FF7A1A;background-image:linear-gradient(135deg,#FF8A3D,#F56618);color:#171717;padding:12px 20px;border-radius:12px;text-decoration:none;font-weight:bold">${escapeHtml(copy.cta)}</a></p>`
         : '') +
       (policyLines.length ? `<h3>${escapeHtml(L.policy)}</h3><ul>${policyLines.map((l) => `<li>${escapeHtml(l)}</li>`).join('')}</ul>` : '') +
       `<p style="color:#65605B">${escapeHtml(contactLine)}</p>`,
@@ -376,7 +376,7 @@ export function loginLinkEmail(d: { name: string; url: string; ttlMinutes: numbe
     `<h2>${escapeHtml(subject)}</h2>` +
       `<p>${escapeHtml(`Здравствуйте, ${d.name}!`)}</p>` +
       `<p>Нажмите кнопку, чтобы войти в CRM. Ссылка действует ${d.ttlMinutes} минут и работает один раз.</p>` +
-      `<p style="margin:24px 0"><a href="${escapeHtml(url)}" style="background:#C84A12;color:#fff;padding:12px 20px;border-radius:12px;text-decoration:none;font-weight:bold">Войти в CRM</a></p>` +
+      `<p style="margin:24px 0"><a href="${escapeHtml(url)}" style="background:#FF7A1A;background-image:linear-gradient(135deg,#FF8A3D,#F56618);color:#171717;padding:12px 20px;border-radius:12px;text-decoration:none;font-weight:bold">Войти в CRM</a></p>` +
       `<p style="color:#65605B;font-size:13px">Если кнопка не работает, скопируйте ссылку в браузер:<br>${escapeHtml(url)}</p>` +
       `<p style="color:#65605B;font-size:13px">Если вы не запрашивали вход, просто удалите это письмо — без ссылки войти в ваш аккаунт нельзя. Никому не пересылайте это письмо.</p>`,
   );

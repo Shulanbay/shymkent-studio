@@ -7,7 +7,7 @@ export function TourSection() {
   const { t } = useLanguage();
   return (
     <section className="py-20 md:py-32 bg-black relative overflow-hidden" aria-labelledby="tour-title">
-      <div className="absolute -top-24 -right-24 w-96 h-96 bg-orange-bright/20 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
+      <div className="absolute -top-24 -right-24 w-96 h-96 bg-brand/20 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
       <div className="container-max relative z-10">
         <div className="max-w-2xl mx-auto text-center text-white">
           <h2 id="tour-title" className="mb-6 text-white">

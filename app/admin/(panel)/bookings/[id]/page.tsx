@@ -182,7 +182,7 @@ export default async function BookingDetailPage(props: { params: Promise<{ id: s
                     type="submit"
                     name="status"
                     value={s}
-                    className="px-4 py-2 rounded-xl text-sm font-semibold border border-border-light bg-white hover:border-orange-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-accent"
+                    className="px-4 py-2 rounded-xl text-sm font-semibold border border-border-light bg-white hover:border-brand focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-strong"
                   >
                     → {BOOKING_STATUS_LABELS[s]}
                   </button>
@@ -225,7 +225,7 @@ export default async function BookingDetailPage(props: { params: Promise<{ id: s
                         {rescheduleSlots.map((slot) => (
                           <label
                             key={slot.time}
-                            className="text-center py-1.5 border border-border-light rounded-lg text-sm cursor-pointer has-[:checked]:bg-orange-accent has-[:checked]:text-white focus-within:ring-2 focus-within:ring-orange-accent"
+                            className="text-center py-1.5 border border-border-light rounded-lg text-sm cursor-pointer has-[:checked]:bg-brand-gradient has-[:checked]:text-on-brand focus-within:ring-2 focus-within:ring-brand-strong"
                           >
                             <input type="radio" name="time" value={slot.time} required className="sr-only" />
                             {slot.time}
@@ -279,7 +279,7 @@ export default async function BookingDetailPage(props: { params: Promise<{ id: s
                 />
               </Field>
               {booking.materialsUrl && (
-                <a href={booking.materialsUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-orange-accent hover:underline break-all">
+                <a href={booking.materialsUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-brand-ink hover:underline break-all">
                   Открыть материалы ↗
                 </a>
               )}
@@ -496,7 +496,7 @@ export default async function BookingDetailPage(props: { params: Promise<{ id: s
                   ))}
                 </ul>
               )}
-              <Link href="/admin/integrations" className="text-sm text-orange-accent hover:underline mt-2 inline-block">
+              <Link href="/admin/integrations" className="text-sm text-brand-ink hover:underline mt-2 inline-block">
                 Очередь интеграций →
               </Link>
             </section>

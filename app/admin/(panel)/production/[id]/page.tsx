@@ -204,7 +204,7 @@ export default async function TaskPage(props: { params: Promise<{ id: string }> 
           </h2>
           <p className="font-semibold">
             {canOpenBooking ? (
-              <Link href={`/admin/bookings/${task.booking.id}`} className="text-orange-accent hover:underline">
+              <Link href={`/admin/bookings/${task.booking.id}`} className="text-brand-ink hover:underline">
                 {formatBookingNumber(task.booking.bookingNumber)}
               </Link>
             ) : (
@@ -218,7 +218,7 @@ export default async function TaskPage(props: { params: Promise<{ id: string }> 
           <p className="text-sm text-text-secondary">Съёмка: {formatDateTime(task.booking.startAt)}</p>
           <p className="text-sm text-text-secondary">Оплата: {PAYMENT_STATUS_LABELS[task.booking.paymentStatus]}</p>
           <p className="mt-2">
-            <Link href={`/admin/production?booking=${task.booking.id}&view=list`} className="text-sm text-orange-accent hover:underline">
+            <Link href={`/admin/production?booking=${task.booking.id}&view=list`} className="text-sm text-brand-ink hover:underline">
               Все задачи заказа →
             </Link>
           </p>

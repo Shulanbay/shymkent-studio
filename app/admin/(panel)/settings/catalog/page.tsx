@@ -32,7 +32,7 @@ function RoomForm({ room, used, disabled }: { room?: Room; used: number; disable
       <Input prefix={p} name="nameRu" label="Название (RU)" value={room?.nameRu} disabled={disabled} inputProps={{ required: true }} />
       <Input prefix={p} name="nameKk" label="Название (KK)" value={room?.nameKk} disabled={disabled} inputProps={{ required: true }} />
       <Input prefix={p} name="capacity" label="Вместимость, чел." type="number" value={room?.capacity ?? 2} disabled={disabled} inputProps={{ min: 1, max: 20 }} />
-      <Input prefix={p} name="color" label="Цвет в календаре" type="color" value={room?.color ?? '#FF6B24'} disabled={disabled} />
+      <Input prefix={p} name="color" label="Цвет в календаре" type="color" value={room?.color ?? '#FF7A1A'} disabled={disabled} />
       <Input prefix={p} name="googleColorId" label="Цвет Google (1–11)" value={room?.googleColorId ?? ''} disabled={disabled} />
       <Input prefix={p} name="bufferBeforeMinutes" label="Буфер до, мин" type="number" value={room?.bufferBeforeMinutes ?? 15} disabled={disabled} inputProps={{ min: 0, max: 120 }} />
       <Input prefix={p} name="bufferAfterMinutes" label="Буфер после, мин" type="number" value={room?.bufferAfterMinutes ?? 15} disabled={disabled} inputProps={{ min: 0, max: 120 }} />

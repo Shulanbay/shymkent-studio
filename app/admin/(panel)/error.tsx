@@ -17,7 +17,7 @@ export default function AdminError({ error, reset }: { error: Error & { digest?:
         </p>
       )}
       <div className="flex flex-wrap gap-3">
-        <button type="button" onClick={reset} className="px-4 py-2 rounded-xl text-sm font-semibold bg-orange-accent text-white">
+        <button type="button" onClick={reset} className="px-4 py-2 rounded-xl text-sm font-semibold bg-brand-gradient text-on-brand">
           Повторить
         </button>
         <Link href="/admin" className="px-4 py-2 rounded-xl text-sm font-semibold border border-border-light bg-white">

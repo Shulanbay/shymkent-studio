@@ -1,11 +1,11 @@
 import { TourForm } from '@/components/tour/TourForm';
 import { TourIntro } from '@/components/tour/TourIntro';
+import { pageMetadata } from '@/lib/seo';
 
-export const metadata = {
-  alternates: { canonical: '/studio-tour' },
-  title: 'Бесплатный тур по подкаст-студии | SHYMKENT STUDIO',
-  description: 'Запишитесь на бесплатную экскурсию по SHYMKENT STUDIO: три комнаты, оборудование и консультация по проекту.',
-};
+export const metadata = pageMetadata(
+  '/studio-tour',
+  'Запишитесь на бесплатную экскурсию по SHYMKENT STUDIO: три комнаты, оборудование и консультация по проекту.',
+);
 
 export default function StudioTourPage() {
   return (

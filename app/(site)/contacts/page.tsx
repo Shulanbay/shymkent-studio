@@ -1,10 +1,10 @@
 import { ContactsContent } from '@/components/site/ContactsContent';
+import { pageMetadata } from '@/lib/seo';
 
-export const metadata = {
-  alternates: { canonical: '/contacts' },
-  title: 'Контакты подкаст-студии в Шымкенте | SHYMKENT STUDIO',
-  description: 'Адрес, телефон, WhatsApp и время работы подкаст-студии SHYMKENT STUDIO в Шымкенте.',
-};
+export const metadata = pageMetadata(
+  '/contacts',
+  'Адрес, телефон, WhatsApp и время работы подкаст-студии SHYMKENT STUDIO в Шымкенте.',
+);
 
 export default function ContactsPage() {
   return <ContactsContent />;

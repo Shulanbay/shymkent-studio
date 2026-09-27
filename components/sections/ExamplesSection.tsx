@@ -43,7 +43,7 @@ function LiteYouTube({ videoId, title }: { videoId: string; title: string }) {
         className="w-full h-full object-cover opacity-90 group-hover/play:opacity-100 transition-opacity"
       />
       <span className="absolute inset-0 flex items-center justify-center" aria-hidden="true">
-        <span className="w-16 h-16 rounded-full bg-orange-bright text-black flex items-center justify-center shadow-lg group-hover/play:scale-105 transition-transform">
+        <span className="w-16 h-16 rounded-full bg-brand-gradient text-on-brand flex items-center justify-center shadow-lg group-hover/play:scale-105 transition-transform">
           <svg className="w-7 h-7 ml-1" viewBox="0 0 24 24" fill="currentColor">
             <path d="M8 5v14l11-7z" />
           </svg>

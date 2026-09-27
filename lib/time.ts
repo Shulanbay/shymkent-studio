@@ -3,6 +3,8 @@
 // slot times) are evaluated in Asia/Almaty via Intl, not a hard-coded offset.
 
 export const STUDIO_TZ = 'Asia/Almaty';
+/** Kazakhstan uses a single zone, UTC+5 without DST, since 1 March 2024. */
+export const STUDIO_UTC_OFFSET_MINUTES = 300;
 
 const DATE_RE = /^(\d{4})-(\d{2})-(\d{2})$/;
 const TIME_RE = /^([01]\d|2[0-3]):([0-5]\d)$/;
@@ -114,4 +116,13 @@ export function startOfIsoWeek(date: string): string {
 /** [start, end) UTC instants covering the whole local day. */
 export function studioDayRange(date: string): { start: Date; end: Date } {
   return { start: zonedTimeToUtc(date, '00:00'), end: zonedTimeToUtc(addDays(date, 1), '00:00') };
+}
+
+/**
+ * True when the runtime's time-zone database knows the current Kazakhstan offset.
+ * Runtimes with tzdata older than 2024a still treat Asia/Almaty as UTC+6, which
+ * would shift every slot by an hour — readiness reports this as an error.
+ */
+export function studioTimeZoneDataOk(now: Date = new Date()): boolean {
+  return tzOffsetMinutes(now) === STUDIO_UTC_OFFSET_MINUTES;
 }

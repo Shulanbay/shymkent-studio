@@ -30,7 +30,7 @@ export default async function AdminPanelLayout({ children }: { children: React.R
     <div className="md:flex min-h-screen">
       <aside className="bg-black text-white md:w-60 md:min-h-screen md:flex md:flex-col p-4 gap-6">
         <div className="flex items-center gap-3 mb-4 md:mb-6">
-          <div className="w-8 h-8 bg-orange-accent rounded-lg flex items-center justify-center" aria-hidden="true">
+          <div className="w-8 h-8 bg-brand-gradient rounded-lg flex items-center justify-center" aria-hidden="true">
             <span className="text-white font-bold">◉</span>
           </div>
           <span className="font-bold text-sm">SHYMKENT CRM</span>
@@ -42,7 +42,7 @@ export default async function AdminPanelLayout({ children }: { children: React.R
           <form action={logoutAction}>
             <button
               type="submit"
-              className="text-gray-300 hover:text-white underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-accent rounded"
+              className="text-gray-300 hover:text-white underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-strong rounded"
             >
               Выйти
             </button>

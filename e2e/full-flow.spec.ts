@@ -287,6 +287,8 @@ test('19. layouts work on a phone and in Kazakh', async ({ browser }) => {
   await page.getByRole('button', { name: 'ҚАЗ' }).click();
   await expect(page.locator('html')).toHaveAttribute('lang', 'kk');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Байланыс');
+  await expect(page.getByRole('link', { name: /^Қоңырау шалу/ })).toHaveAttribute('href', 'tel:+77005030501');
+  await expect(page).toHaveTitle(/байланыс деректері/i);
   await page.goto('/rooms/small');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Кіші бөлме');
 
@@ -337,6 +339,30 @@ test('email sign-in link: request, one-time use', async ({ browser }) => {
   await expect(again.getByRole('alert').filter({ hasText: 'устарела или уже использована' })).toBeVisible();
   await second.close();
   await context.close();
+});
+
+test('call bar, header offset and client-facing booking texts', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  const call = page.getByRole('link', { name: /^Позвонить/ });
+  await expect(call).toBeVisible();
+  await expect(call).toHaveAttribute('href', 'tel:+77005030501');
+  await expect(call).toContainText('+7 700 503 05 01');
+  // The fixed header never covers the page content or an anchor target.
+  const headerBottom = await page.locator('header').evaluate((h) => h.getBoundingClientRect().bottom);
+  const heroTop = await page.locator('main section').first().evaluate((s) => s.getBoundingClientRect().top);
+  expect(heroTop).toBeGreaterThanOrEqual(headerBottom - 1);
+  await page.goto('/#how-it-works');
+  await page.waitForTimeout(500);
+  const headingTop = await page.locator('#process-title').evaluate((h) => h.getBoundingClientRect().top);
+  expect(headingTop).toBeGreaterThanOrEqual(headerBottom);
+  // Booking page explains that this is a request, the payment flow and the studio time zone.
+  await page.goto('/book?service=starter');
+  await expect(page.getByText('Вы отправляете заявку — это ещё не окончательная бронь')).toBeVisible();
+  await expect(page.getByText(/Шаг 1 из 5/)).toBeVisible();
+  await page.getByRole('button', { name: 'Далее' }).click();
+  await page.getByRole('button', { name: 'Далее' }).click();
+  await expect(page.getByText('Время указано по Шымкенту (UTC+5)')).toBeVisible();
 });
 
 test('public pages: 404 and SEO files', async ({ page, request }) => {

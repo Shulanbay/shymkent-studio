@@ -185,7 +185,7 @@ export default async function CalendarPage(props: { searchParams: Promise<Record
       item.status === 'CANCELLED' ? 'opacity-50 line-through' : ''
     }`;
     return item.href ? (
-      <Link href={item.href} className={`${className} hover:ring-2 hover:ring-orange-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-accent`} style={style}>
+      <Link href={item.href} className={`${className} hover:ring-2 hover:ring-brand-strong focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-strong`} style={style}>
         {content}
       </Link>
     ) : (
@@ -206,7 +206,7 @@ export default async function CalendarPage(props: { searchParams: Promise<Record
               key={v}
               href={link({ view: v })}
               aria-current={view === v ? 'page' : undefined}
-              className={`px-3 py-1.5 rounded-lg text-sm ${view === v ? 'bg-orange-accent text-white font-semibold' : 'hover:bg-bg-light'}`}
+              className={`px-3 py-1.5 rounded-lg text-sm ${view === v ? 'bg-brand-gradient text-on-brand font-semibold' : 'hover:bg-bg-light'}`}
             >
               {v === 'day' ? 'День' : v === 'week' ? 'Неделя' : 'Список'}
             </Link>
@@ -249,7 +249,7 @@ export default async function CalendarPage(props: { searchParams: Promise<Record
               ))}
             </select>
           </Field>
-          <button type="submit" className="px-4 py-2 rounded-xl text-sm font-semibold bg-orange-accent text-white">
+          <button type="submit" className="px-4 py-2 rounded-xl text-sm font-semibold bg-brand-gradient text-on-brand">
             Показать
           </button>
         </form>

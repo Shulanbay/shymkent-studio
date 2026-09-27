@@ -93,6 +93,7 @@ export default async function IntegrationsPage(props: { searchParams: Promise<{ 
             ['База данных', readiness.checks.database === 'ok', readiness.checks.database === 'ok' ? 'доступна' : 'недоступна'],
             ['Миграции', readiness.checks.migrations === 'ok', readiness.checks.migrations === 'ok' ? 'все применены' : 'есть неприменённые — выполните npm run db:deploy'],
             ['Конфигурация', envReport.errors.length === 0, envReport.errors.length === 0 ? 'без ошибок' : `ошибок: ${envReport.errors.length}`],
+            ['Часовой пояс', readiness.checks.timezone === 'ok', readiness.checks.timezone === 'ok' ? 'Asia/Almaty, UTC+5' : 'устаревшие данные часовых поясов — обновите Node.js'],
             [
               'Очередь',
               !queueStalled,
@@ -150,7 +151,7 @@ export default async function IntegrationsPage(props: { searchParams: Promise<{ 
             key={key}
             href={`/admin/integrations?f=${key}`}
             aria-current={key === filterKey ? 'page' : undefined}
-            className={key === filterKey ? 'px-4 py-2 rounded-xl text-sm font-semibold bg-orange-accent text-white' : linkButtonClass}
+            className={key === filterKey ? 'px-4 py-2 rounded-xl text-sm font-semibold bg-brand-gradient text-on-brand' : linkButtonClass}
           >
             {f.label}
           </Link>
@@ -178,7 +179,7 @@ export default async function IntegrationsPage(props: { searchParams: Promise<{ 
                   <td className="px-4 py-3">
                     <span className="font-semibold">{JOB_LABELS[j.type as JobType] ?? j.type}</span>
                     <br />
-                    <Link href={entityHref(j)} className="text-orange-accent hover:underline text-xs">
+                    <Link href={entityHref(j)} className="text-brand-ink hover:underline text-xs">
                       Открыть {j.entityType === 'Booking' ? 'заказ' : 'тур'}
                     </Link>
                     <span className="block text-xs text-text-secondary">создана {formatDateTime(j.createdAt)}</span>

@@ -1,11 +1,11 @@
 import Link from 'next/link';
 
 export const inputClass =
-  'w-full px-3 py-2 border border-border-light rounded-xl bg-white text-sm focus:outline-none focus:ring-2 focus:ring-orange-accent disabled:bg-bg-light';
+  'w-full px-3 py-2 border border-border-light rounded-xl bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-strong disabled:bg-bg-light';
 export const labelClass = 'block text-xs font-semibold mb-1';
 export const cardClass = 'bg-white border border-border-light rounded-card p-4 md:p-5';
 export const linkButtonClass =
-  'inline-block px-4 py-2 rounded-xl text-sm font-semibold border border-border-light bg-white hover:border-orange-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-accent';
+  'inline-block px-4 py-2 rounded-xl text-sm font-semibold border border-border-light bg-white hover:border-brand focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-strong';
 
 export function Badge({ className, children }: { className: string; children: React.ReactNode }) {
   return <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap ${className}`}>{children}</span>;

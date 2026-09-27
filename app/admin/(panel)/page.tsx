@@ -48,7 +48,7 @@ function Kpi({ label, value, href, sub, alert }: { label: string; value: string 
     </>
   );
   return href ? (
-    <Link href={href} className={`${cardClass} block hover:border-orange-accent`}>
+    <Link href={href} className={`${cardClass} block hover:border-brand`}>
       {inner}
     </Link>
   ) : (
@@ -157,7 +157,7 @@ export default async function AdminDashboardPage(props: { searchParams: Promise<
           <Field id="to" label="По">
             <input id="to" name="to" type="date" defaultValue={period.key === 'custom' ? period.lastDay : ''} className={inputClass} />
           </Field>
-          <button type="submit" className="px-4 py-2 rounded-xl text-sm font-semibold bg-orange-accent text-white">
+          <button type="submit" className="px-4 py-2 rounded-xl text-sm font-semibold bg-brand-gradient text-on-brand">
             Показать
           </button>
         </form>

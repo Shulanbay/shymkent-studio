@@ -52,6 +52,10 @@ const STATUS_STYLE: Record<string, string> = {
 
 /** Payments ledger of one booking: balance, history, and the actions the role allows. */
 export function PaymentsBlock({ booking, payments, can, hasClientEmail }: Props) {
+  // One key per rendered form: a double submit is recorded once (see lib/admin/payments.ts).
+  // After a successful save the page re-renders with fresh keys.
+  const paymentKey = crypto.randomUUID();
+  const refundKey = crypto.randomUUID();
   const balance = booking.totalAmount - booking.paidAmount;
   const cancelled = booking.status === 'CANCELLED';
   const methodOptions = PAYMENT_METHODS.map((m) => (
@@ -105,7 +109,7 @@ export function PaymentsBlock({ booking, payments, can, hasClientEmail }: Props)
                 {p.note && ` · ${p.note}`}
               </p>
               {p.proofUrl && (
-                <a href={p.proofUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-orange-accent hover:underline">
+                <a href={p.proofUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-brand-ink hover:underline">
                   Подтверждение ↗
                 </a>
               )}
@@ -144,6 +148,7 @@ export function PaymentsBlock({ booking, payments, can, hasClientEmail }: Props)
           <summary className="font-semibold text-sm cursor-pointer">Добавить оплату</summary>
           <ActionForm action={recordPaymentAction} resetOnSuccess className="grid grid-cols-2 gap-2 mt-3">
             <input type="hidden" name="bookingId" value={booking.id} />
+            <input type="hidden" name="requestKey" value={paymentKey} />
             <Field id="pay-amount" label="Сумма, ₸">
               <input id="pay-amount" name="amount" type="number" min={1} max={balance} step={1} required defaultValue={balance} className={inputClass} />
             </Field>
@@ -184,6 +189,7 @@ export function PaymentsBlock({ booking, payments, can, hasClientEmail }: Props)
           <summary className="font-semibold text-sm cursor-pointer">Возврат клиенту</summary>
           <ActionForm action={refundAction} resetOnSuccess className="grid grid-cols-2 gap-2 mt-3">
             <input type="hidden" name="bookingId" value={booking.id} />
+            <input type="hidden" name="requestKey" value={refundKey} />
             <Field id="ref-amount" label={`Сумма, ₸ (не больше ${booking.paidAmount})`}>
               <input
                 id="ref-amount"
@@ -221,7 +227,7 @@ export function PaymentsBlock({ booking, payments, can, hasClientEmail }: Props)
           {booking.paymentLinkUrl && (
             <p className="text-xs mt-2 break-all">
               Текущая:{' '}
-              <a href={booking.paymentLinkUrl} target="_blank" rel="noopener noreferrer" className="text-orange-accent hover:underline">
+              <a href={booking.paymentLinkUrl} target="_blank" rel="noopener noreferrer" className="text-brand-ink hover:underline">
                 {booking.paymentLinkUrl}
               </a>
             </p>

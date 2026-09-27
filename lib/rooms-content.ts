@@ -42,17 +42,14 @@ export const ROOM_CONTENT: RoomContent[] = [
   },
 ];
 
-export const ROOM_META: Record<RoomContent['slug'], { title: string; description: string }> = {
+export const ROOM_META: Record<RoomContent['slug'], { description: string }> = {
   small: {
-    title: 'Маленькая комната для подкаста в Шымкенте',
     description: 'Комната 3 × 4 м для интервью один на один и дуэтов: камеры Sony FX30, микрофоны Shure SM7B, студийный свет.',
   },
   large: {
-    title: 'Большая студия для подкаста в Шымкенте',
     description: 'Студия 3 × 6 м для групповых подкастов до 4 человек: большой стол, камеры Sony FX30, микрофоны Shure SM7B.',
   },
   lounge: {
-    title: 'Living Room — студия для подкаста в Шымкенте',
     description: 'Living Room 3 × 5 м с круглым мраморным столом для живого разговора до 3 человек.',
   },
 };

@@ -8,7 +8,7 @@ import { ROOM_CONTENT } from '@/lib/rooms-content';
 
 function CheckIcon() {
   return (
-    <svg className="w-5 h-5 text-orange-accent flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+    <svg className="w-5 h-5 text-brand-strong flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
       <path
         fillRule="evenodd"
         d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -38,12 +38,12 @@ export function RoomsList() {
                 <article key={room.slug} className="flex flex-col">
                   <ImageSlider images={room.images} alt={title} className="h-64 mb-6" priority={index === 0} />
                   <h2 className="text-2xl md:text-3xl font-bold mb-2 text-text-primary">
-                    <Link href={`/rooms/${room.slug}`} className="hover:text-orange-accent">
+                    <Link href={`/rooms/${room.slug}`} className="hover:text-brand-ink">
                       {title}
                     </Link>
                   </h2>
                   <p className="mb-4 text-sm">
-                    <span className="text-orange-accent font-semibold">{t('roomsDescriptions.upTo').replace('{n}', String(capacity))}</span>
+                    <span className="text-brand-ink font-semibold">{t('roomsDescriptions.upTo').replace('{n}', String(capacity))}</span>
                     <span className="text-text-secondary"> · {room.size}</span>
                   </p>
                   <p className="text-text-secondary mb-6 leading-relaxed">{t(room.descKey)}</p>

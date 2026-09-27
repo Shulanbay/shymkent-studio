@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Onest } from 'next/font/google';
 import './globals.css';
+import { SITE_NAME, pageTitle } from '@/lib/page-titles';
 import { publicSiteUrl } from '@/lib/seo';
 
 // Self-hosted at build time (no request to Google from the visitor's browser).
@@ -14,13 +15,13 @@ const onest = Onest({
 
 export const metadata: Metadata = {
   metadataBase: new URL(publicSiteUrl()),
-  title: 'Подкаст-студия в Шымкенте — запись и монтаж | SHYMKENT STUDIO',
+  title: pageTitle('/', 'ru') ?? SITE_NAME,
   description:
     'Запись подкастов в Шымкенте: 3 комнаты, камеры Sony FX30 и микрофоны Shure SM7B. Запись от 20 000 ₸, готовый эпизод с монтажом от 40 000 ₸.',
   applicationName: 'SHYMKENT STUDIO',
   openGraph: {
-    title: 'Подкаст-студия в Шымкенте | SHYMKENT STUDIO',
-    description: 'Запись подкастов и интервью в Шымкенте: три комнаты, профессиональные камеры, свет и звук.',
+    title: 'Подкаст- и видеостудия в Шымкенте | SHYMKENT STUDIO',
+    description: 'Запись подкастов, интервью и видео в Шымкенте: три комнаты, профессиональные камеры, свет и звук.',
     type: 'website',
     locale: 'ru_KZ',
     alternateLocale: ['kk_KZ'],

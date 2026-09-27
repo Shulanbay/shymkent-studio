@@ -90,6 +90,27 @@ describe('payments ledger', () => {
     expect((await reload(b.id)).paidAmount).toBe(20_000);
   });
 
+  it('a repeated form submit (same request key) records the payment and the refund only once', async () => {
+    const b = await publicBooking(); // 20 000 ₸
+    const key = '7c9e6679-7425-40de-944b-e07fc1f90ae7';
+    const [first, second] = await Promise.all([
+      recordPayment(db, manager, { bookingId: b.id, amount: 5_000, method: 'KASPI', requestKey: key }),
+      recordPayment(db, manager, { bookingId: b.id, amount: 5_000, method: 'KASPI', requestKey: key }),
+    ]);
+    expect(first.payment.id).toBe(second.payment.id);
+    const again = await recordPayment(db, manager, { bookingId: b.id, amount: 5_000, method: 'KASPI', requestKey: key });
+    expect('duplicate' in again && again.jobIds).toEqual([]);
+    expect((await reload(b.id)).paidAmount).toBe(5_000);
+    // A new key is a new, legitimate payment.
+    await recordPayment(db, manager, { bookingId: b.id, amount: 5_000, method: 'KASPI', requestKey: 'a3bb189e-8bf9-4888-9912-ace4e6543002' });
+    expect((await reload(b.id)).paidAmount).toBe(10_000);
+
+    const refundKey = '16fd2706-8baf-433b-82eb-8c7fada847da';
+    await refundPayment(db, admin, { bookingId: b.id, amount: 3_000, method: 'KASPI', note: 'частичный', requestKey: refundKey });
+    await refundPayment(db, admin, { bookingId: b.id, amount: 3_000, method: 'KASPI', note: 'частичный', requestKey: refundKey });
+    expect(await reload(b.id)).toMatchObject({ paidAmount: 7_000, paymentStatus: 'PARTIALLY_PAID' });
+  });
+
   it('stores the Kaspi link and queues the payment-link email once per link', async () => {
     const b = await publicBooking();
     const first = await setPaymentLink(db, manager, { bookingId: b.id, url: 'https://kaspi.kz/pay/abc', notify: true });

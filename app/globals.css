@@ -2,8 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Brand tokens (same values as tailwind.config.ts → colors.brand). */
+:root {
+  --brand: #ff7a1a;
+  --brand-light: #ff9a4d;
+  --brand-strong: #ea580c;
+  --brand-ink: #c2410c;
+  --on-brand: #2a1608;
+  /* Soft light-to-bright gradient: pale peach → open orange. */
+  --brand-gradient: linear-gradient(80deg, #ffc38f 0%, #ff8a3d 100%);
+  --brand-gradient-hover: linear-gradient(80deg, #ffb47a 0%, #ff7a26 100%);
+  /* Wide, faint shadow instead of a hard glow. */
+  --brand-shadow: 0 4px 36px rgba(191, 90, 20, 0.18);
+  --brand-shadow-hover: 0 8px 40px rgba(191, 90, 20, 0.26);
+  --brand-tint: rgba(255, 138, 61, 0.14);
+  --brand-tint-hover: rgba(255, 138, 61, 0.24);
+  /* Fixed site header: call bar (36px) + navigation (80px). */
+  --header-height: 116px;
+}
+
 html {
   scroll-behavior: smooth;
+  /* Anchor links (/#how-it-works, FAQ) stop below the fixed header. */
+  scroll-padding-top: calc(var(--header-height) + 16px);
 }
 
 body {
@@ -12,13 +33,13 @@ body {
 
 /* Visible keyboard focus everywhere (mouse clicks do not show the ring). */
 :focus-visible {
-  outline: 2px solid #c84a12;
+  outline: 2px solid var(--brand-strong);
   outline-offset: 2px;
 }
 .bg-black :focus-visible,
 footer :focus-visible,
 header :focus-visible {
-  outline-color: #ff6b24;
+  outline-color: var(--brand-light);
 }
 
 /* Поддержка отключения анимации */
@@ -42,36 +63,55 @@ header :focus-visible {
 }
 
 /* Пользовательские компоненты */
+/* Main CTA: soft brand gradient, dark warm text (≥ 6.6:1 on every point of the gradient). */
 .btn-primary {
-  @apply inline-flex items-center justify-center min-h-[44px] px-6 py-3 text-white rounded-lg font-semibold transition-all active:scale-95;
-  /* White text stays ≥ 4.5:1 across the whole gradient. */
-  background: linear-gradient(135deg, #c84a12 0%, #b83f0c 100%);
-  box-shadow: 0 4px 15px rgba(200, 74, 18, 0.3);
+  @apply inline-flex items-center justify-center gap-2 min-h-[44px] px-7 py-3 rounded-2xl font-semibold text-[15px] transition-all duration-200 ease-in-out active:scale-[0.98];
+  color: var(--on-brand);
+  background: var(--brand-gradient);
+  box-shadow: var(--brand-shadow);
 }
 
 .btn-primary:hover {
-  box-shadow: 0 6px 20px rgba(200, 74, 18, 0.45);
+  background: var(--brand-gradient-hover);
+  box-shadow: var(--brand-shadow-hover);
 }
 
+.btn-primary:disabled,
+.btn-primary[aria-disabled='true'] {
+  @apply active:scale-100;
+  background: var(--brand-gradient);
+  box-shadow: none;
+}
+
+/* Secondary on light backgrounds: no border, a light orange tint. */
 .btn-secondary {
-  @apply inline-flex items-center justify-center min-h-[44px] px-6 py-3 bg-transparent text-orange-accent border-2 border-orange-accent rounded-lg font-semibold transition-all active:scale-95;
+  @apply inline-flex items-center justify-center gap-2 min-h-[44px] px-7 py-3 text-brand-ink rounded-2xl font-semibold text-[15px] transition-all duration-200 ease-in-out active:scale-[0.98];
+  background: var(--brand-tint);
 }
 
 .btn-secondary:hover {
-  @apply text-white bg-orange-accent;
+  background: var(--brand-tint-hover);
 }
 
-/* Outline button on dark backgrounds (hero). */
+/* Secondary on dark backgrounds (hero). */
 .btn-secondary-dark {
-  @apply inline-flex items-center justify-center min-h-[44px] px-6 py-3 bg-transparent text-orange-bright border-2 border-orange-bright rounded-lg font-semibold transition-all active:scale-95;
+  @apply inline-flex items-center justify-center gap-2 min-h-[44px] px-7 py-3 rounded-2xl font-semibold text-[15px] transition-all duration-200 ease-in-out active:scale-[0.98];
+  color: #ffc38f;
+  background: rgba(255, 154, 77, 0.14);
 }
 
 .btn-secondary-dark:hover {
-  @apply text-black bg-orange-bright;
+  background: rgba(255, 154, 77, 0.24);
 }
 
 .btn-ghost {
-  @apply px-6 py-3 text-orange-accent font-semibold hover:underline transition-colors;
+  @apply px-6 py-3 text-brand-ink font-semibold hover:underline transition-colors;
+}
+
+/* Small brand label (badges, "recommended"). */
+.badge-brand {
+  @apply inline-block font-bold text-on-brand;
+  background: var(--brand-gradient);
 }
 
 .container-max {
@@ -80,10 +120,6 @@ header :focus-visible {
 
 .card {
   @apply bg-bg-card rounded-2xl border border-border-light shadow-sm hover:shadow-md transition-all;
-}
-
-.gradient-accent {
-  @apply bg-gradient-to-r from-orange-light to-orange-accent;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -100,35 +136,4 @@ h2 {
 
 h3 {
   @apply text-2xl sm:text-3xl leading-tight;
-}
-
-/* Animations */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.fade-in-up {
-  animation: fadeInUp 0.6s ease-out;
-}
-
-.slide-in {
-  animation: slideIn 0.4s ease-out;
 }

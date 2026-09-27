@@ -22,7 +22,7 @@ export function EquipmentSection() {
         <ul className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
           {STATS.map((stat) => (
             <li key={stat.labelKey} className="text-center">
-              <p className="text-5xl md:text-6xl font-bold text-orange-accent mb-3" aria-hidden="true">
+              <p className="text-5xl md:text-6xl font-bold text-brand-strong mb-3" aria-hidden="true">
                 {stat.number}
               </p>
               <p className="text-text-secondary font-medium">

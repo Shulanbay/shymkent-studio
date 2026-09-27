@@ -19,12 +19,13 @@ export function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 md:gap-12 mb-12">
           <div>
             <Link href="/" className="flex items-center gap-2 mb-4" aria-label={t('header.home')}>
-              <span className="w-8 h-8 bg-orange-bright rounded-lg flex items-center justify-center" aria-hidden="true">
+              <span className="w-8 h-8 bg-brand-gradient rounded-lg flex items-center justify-center" aria-hidden="true">
                 <span className="text-white font-bold text-sm">◉</span>
               </span>
               <span className="font-bold text-white text-sm">{contacts.studioName}</span>
             </Link>
             <p className="text-sm text-gray-400">{t('footer.description')}</p>
+            <p className="mt-2 text-sm text-gray-400">{t('footer.byAppointment')}</p>
           </div>
 
           <nav aria-label={t('footer.siteTitle')}>

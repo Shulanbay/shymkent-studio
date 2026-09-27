@@ -81,7 +81,7 @@ export function ImageSlider({ images, alt, className = 'h-96', priority = false,
                 aria-label={t('common.goToPhoto').replace('{n}', String(index + 1))}
                 aria-current={index === currentIndex ? 'true' : undefined}
               >
-                <span className={`block h-2 rounded-full transition-all ${index === currentIndex ? 'bg-orange-bright w-6' : 'bg-white/80 w-2'}`} />
+                <span className={`block h-2 rounded-full transition-all ${index === currentIndex ? 'bg-brand w-6' : 'bg-white/80 w-2'}`} />
               </button>
             ))}
           </div>

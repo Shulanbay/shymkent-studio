@@ -35,7 +35,7 @@ const PLANS = [
 
 function Check() {
   return (
-    <svg className="w-4 h-4 text-orange-accent mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+    <svg className="w-4 h-4 text-brand-strong mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
       <path
         fillRule="evenodd"
         d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -90,20 +90,19 @@ export function PricingSection({ asPage = false }: { asPage?: boolean }) {
               <div
                 key={plan.slug}
                 className={`relative rounded-2xl overflow-hidden flex flex-col ${
-                  highlighted ? 'md:scale-105 ring-2 ring-orange-accent shadow-xl bg-white' : 'bg-bg-light border border-border-light shadow-sm'
+                  highlighted ? 'md:scale-105 ring-1 ring-brand/50 shadow-[0_4px_36px_rgba(191,90,20,0.18)] bg-white' : 'bg-bg-light border border-border-light shadow-sm'
                 }`}
               >
                 {highlighted && (
-                  <p className="bg-orange-accent text-white text-xs font-bold py-2 px-4 text-center">{t('pricingPlan.proBadge')}</p>
+                  <p className="badge-brand block text-xs py-2 px-4 text-center">{t('pricingPlan.proBadge')}</p>
                 )}
                 <div className="p-6 md:p-8 flex flex-col flex-grow">
                   <div className="mb-6">
                     <CardTitle className="text-2xl font-bold text-text-primary mb-1">{plan.name}</CardTitle>
-                    <p className="text-orange-accent text-sm font-semibold mb-4">{t(`pricingPlan.${plan.prefix}Subtitle`)}</p>
+                    <p className="text-brand-ink text-sm font-semibold mb-4">{t(`pricingPlan.${plan.prefix}Subtitle`)}</p>
                     <p className="text-text-secondary text-sm mb-6">{t(`pricingPlan.${plan.prefix}Desc`)}</p>
                     <p className="mb-2">
-                      <span className="text-4xl md:text-5xl font-bold text-orange-accent">{plan.price}</span>
-                      <span className="text-text-secondary ml-2 text-sm">₸</span>
+                      <span className="text-4xl md:text-5xl font-bold text-brand-strong whitespace-nowrap">{plan.price} ₸</span>
                     </p>
                     <p className="text-sm text-text-secondary">{plan.duration}</p>
                   </div>
@@ -144,14 +143,14 @@ export function PricingSection({ asPage = false }: { asPage?: boolean }) {
               <div
                 key={tier}
                 className={`bg-white rounded-xl p-6 md:p-8 flex flex-col ${
-                  tier === 'premium' ? 'border-2 border-orange-accent' : 'border border-border-light'
+                  tier === 'premium' ? 'ring-1 ring-brand/50 shadow-[0_4px_36px_rgba(191,90,20,0.14)]' : 'border border-border-light'
                 }`}
               >
                 {tier === 'premium' && (
-                  <p className="self-start mb-4 px-3 py-1 bg-orange-accent text-white rounded-full text-xs font-bold">{t('subscription.recommended')}</p>
+                  <p className="badge-brand self-start mb-4 px-3 py-1 rounded-full text-xs">{t('subscription.recommended')}</p>
                 )}
                 <p className="font-bold text-lg text-text-primary mb-4">{t(`subscription.${tier}Title`)}</p>
-                <p className="text-3xl font-bold text-orange-accent mb-6">
+                <p className="text-3xl font-bold text-brand-strong mb-6">
                   {t(`subscription.${tier}Price`)}
                   <span className="text-sm text-text-secondary ml-2">{t(`subscription.${tier}PriceText`)}</span>
                 </p>

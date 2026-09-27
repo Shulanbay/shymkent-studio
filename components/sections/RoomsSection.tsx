@@ -12,7 +12,7 @@ export function RoomsSection() {
   const rooms = ROOM_CONTENT.filter((room) => !catalog.live || catalog.rooms.some((r) => r.slug === room.slug));
 
   return (
-    <section id="rooms" className="py-20 md:py-32 bg-white scroll-mt-32" aria-labelledby="rooms-title">
+    <section id="rooms" className="py-20 md:py-32 bg-white" aria-labelledby="rooms-title">
       <div className="container-max">
         <div className="text-center mb-12 md:mb-16">
           <h2 id="rooms-title" className="mb-4 text-text-primary">
@@ -29,18 +29,18 @@ export function RoomsSection() {
               <article key={room.slug}>
                 <ImageSlider images={room.images} alt={title} className="h-64 mb-6 shadow-sm" sizes="(max-width: 768px) 100vw, 33vw" />
                 <h3 className="text-xl font-bold mb-2 text-text-primary">
-                  <Link href={`/rooms/${room.slug}`} className="hover:text-orange-accent">
+                  <Link href={`/rooms/${room.slug}`} className="hover:text-brand-ink">
                     {title}
                   </Link>
                 </h3>
                 <p className="mb-4 text-sm">
-                  <span className="text-orange-accent font-semibold">{t('roomsDescriptions.upTo').replace('{n}', String(capacity))}</span>
+                  <span className="text-brand-ink font-semibold">{t('roomsDescriptions.upTo').replace('{n}', String(capacity))}</span>
                   <span className="text-text-secondary"> · {room.size}</span>
                 </p>
                 <p className="text-text-secondary mb-5">{t(room.descKey)}</p>
                 <Link
                   href={`/rooms/${room.slug}`}
-                  className="inline-flex items-center gap-2 min-h-[44px] text-orange-accent font-semibold hover:gap-3 transition-all"
+                  className="inline-flex items-center gap-2 min-h-[44px] text-brand-ink font-semibold hover:gap-3 transition-all"
                 >
                   {t('rooms.moreInfo')}
                   <span className="sr-only">: {title}</span>

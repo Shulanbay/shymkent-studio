@@ -21,7 +21,7 @@ beforeEach(async () => {
 describe('readiness', () => {
   it('is ready with a migrated database and a valid configuration', async () => {
     const r = await checkReadiness(db, { ...process.env, NODE_ENV: 'test' });
-    expect(r).toEqual({ ready: true, checks: { database: 'ok', migrations: 'ok', config: 'ok' } });
+    expect(r).toEqual({ ready: true, checks: { database: 'ok', migrations: 'ok', config: 'ok', timezone: 'ok' } });
   });
   it('reports a broken configuration without exposing details', async () => {
     const r = await checkReadiness(db, { ...process.env, NODE_ENV: 'production', AUTH_URL: 'http://localhost:3000' });

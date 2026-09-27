@@ -97,7 +97,7 @@ export default async function BookingsPage(props: { searchParams: Promise<Record
           </select>
         </Field>
         <div className="flex gap-2 col-span-2 md:col-span-1">
-          <button type="submit" className="px-4 py-2 rounded-xl text-sm font-semibold bg-orange-accent text-white hover:bg-orange-light">
+          <button type="submit" className="px-4 py-2 rounded-xl text-sm font-semibold bg-brand-gradient text-on-brand hover:bg-brand-gradient-hover">
             Найти
           </button>
           <Link href="/admin/bookings" className={linkButtonClass}>
@@ -126,7 +126,7 @@ export default async function BookingsPage(props: { searchParams: Promise<Record
               {items.map((b) => (
                 <tr key={b.id} className="align-top">
                   <td className="px-4 py-3 whitespace-nowrap">
-                    <Link href={`/admin/bookings/${b.id}`} className="font-semibold text-orange-accent hover:underline">
+                    <Link href={`/admin/bookings/${b.id}`} className="font-semibold text-brand-ink hover:underline">
                       {formatBookingNumber(b.bookingNumber)}
                     </Link>
                   </td>

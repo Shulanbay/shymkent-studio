@@ -28,7 +28,7 @@ export function LoginForm({ next }: { next?: string }) {
           autoComplete="username"
           required
           maxLength={254}
-          className="w-full px-4 py-3 border border-border-light rounded-card focus:outline-none focus:ring-2 focus:ring-orange-accent"
+          className="w-full px-4 py-3 border border-border-light rounded-card focus:outline-none focus:ring-2 focus:ring-brand-strong"
           aria-invalid={Boolean(state.error)}
           aria-describedby={state.error ? 'login-error' : undefined}
         />
@@ -44,7 +44,7 @@ export function LoginForm({ next }: { next?: string }) {
           autoComplete="current-password"
           required
           maxLength={256}
-          className="w-full px-4 py-3 border border-border-light rounded-card focus:outline-none focus:ring-2 focus:ring-orange-accent"
+          className="w-full px-4 py-3 border border-border-light rounded-card focus:outline-none focus:ring-2 focus:ring-brand-strong"
           aria-invalid={Boolean(state.error)}
           aria-describedby={state.error ? 'login-error' : undefined}
         />

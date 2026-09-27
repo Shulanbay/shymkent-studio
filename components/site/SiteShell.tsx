@@ -17,7 +17,7 @@ export async function SiteShell({ children, structuredData = true }: { children:
         <CatalogProvider catalog={catalog}>
           {structuredData && <StructuredData catalog={catalog} siteUrl={publicSiteUrl()} />}
           <Header />
-          <main id="main" tabIndex={-1} className="pt-[116px] outline-none">
+          <main id="main" tabIndex={-1} className="pt-[var(--header-height)] outline-none">
             {children}
           </main>
           <Footer />

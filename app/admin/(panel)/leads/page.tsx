@@ -47,7 +47,7 @@ export default async function LeadsPage(props: { searchParams: Promise<Record<st
                 key={v}
                 href={viewLink(v)}
                 aria-current={f.view === v ? 'page' : undefined}
-                className={`px-3 py-1.5 rounded-lg text-sm ${f.view === v ? 'bg-orange-accent text-white font-semibold' : 'hover:bg-bg-light'}`}
+                className={`px-3 py-1.5 rounded-lg text-sm ${f.view === v ? 'bg-brand-gradient text-on-brand font-semibold' : 'hover:bg-bg-light'}`}
               >
                 {v === 'kanban' ? 'Канбан' : 'Таблица'}
               </Link>
@@ -110,7 +110,7 @@ export default async function LeadsPage(props: { searchParams: Promise<Record<st
           <input type="checkbox" name="overdue" value="1" defaultChecked={Boolean(f.overdue)} /> Просрочен контакт
         </label>
         <div className="flex gap-2">
-          <button type="submit" className="px-4 py-2 rounded-xl text-sm font-semibold bg-orange-accent text-white">
+          <button type="submit" className="px-4 py-2 rounded-xl text-sm font-semibold bg-brand-gradient text-on-brand">
             Найти
           </button>
           <Link href={`/admin/leads?view=${f.view}`} className={linkButtonClass}>
@@ -159,7 +159,7 @@ export default async function LeadsPage(props: { searchParams: Promise<Record<st
                   {items.map((l) => (
                     <tr key={l.id}>
                       <td className="px-4 py-3">
-                        <Link href={`/admin/leads/${l.id}`} className="font-semibold text-orange-accent hover:underline">
+                        <Link href={`/admin/leads/${l.id}`} className="font-semibold text-brand-ink hover:underline">
                           {l.client.name}
                         </Link>
                         <span className="block text-text-secondary">{l.title ?? formatKzPhone(l.client.normalizedPhone)}</span>

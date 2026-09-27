@@ -48,7 +48,7 @@ export default async function ToursPage(props: { searchParams: Promise<Record<st
           <input id="to" name="to" type="date" defaultValue={filters.to} className={inputClass} />
         </Field>
         <div className="flex gap-2 col-span-2 md:col-span-5">
-          <button type="submit" className="px-4 py-2 rounded-xl text-sm font-semibold bg-orange-accent text-white">
+          <button type="submit" className="px-4 py-2 rounded-xl text-sm font-semibold bg-brand-gradient text-on-brand">
             Найти
           </button>
           <Link href="/admin/tours" className={linkButtonClass}>
@@ -76,7 +76,7 @@ export default async function ToursPage(props: { searchParams: Promise<Record<st
               {items.map((t) => (
                 <tr key={t.id} className="align-top">
                   <td className="px-4 py-3">
-                    <Link href={`/admin/tours/${t.id}`} className="font-semibold text-orange-accent hover:underline">
+                    <Link href={`/admin/tours/${t.id}`} className="font-semibold text-brand-ink hover:underline">
                       {formatTourNumber(t.requestNumber)}
                     </Link>
                     <br />

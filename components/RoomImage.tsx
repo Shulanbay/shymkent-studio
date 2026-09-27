@@ -17,7 +17,7 @@ export function RoomImage({ src, alt, className = '', priority = false, sizes }:
   const [imageError, setImageError] = useState(false);
 
   return (
-    <div className={`relative bg-gradient-to-br from-border-light to-orange-accent/10 overflow-hidden ${className}`}>
+    <div className={`relative bg-gradient-to-br from-border-light to-brand/10 overflow-hidden ${className}`}>
       {!imageError ? (
         <Image
           src={src}

@@ -82,7 +82,7 @@ export default async function TourDetailPage(props: { params: Promise<{ id: stri
                   type="submit"
                   name="status"
                   value={s}
-                  className="px-3 py-1.5 rounded-xl text-sm font-semibold border border-border-light bg-white hover:border-orange-accent"
+                  className="px-3 py-1.5 rounded-xl text-sm font-semibold border border-border-light bg-white hover:border-brand"
                 >
                   → {TOUR_STATUS_LABELS[s]}
                 </button>
@@ -143,7 +143,7 @@ export default async function TourDetailPage(props: { params: Promise<{ id: stri
                     {slots.map((slot) => (
                       <label
                         key={slot.time}
-                        className="text-center py-1.5 border border-border-light rounded-lg text-sm cursor-pointer has-[:checked]:bg-orange-accent has-[:checked]:text-white focus-within:ring-2 focus-within:ring-orange-accent"
+                        className="text-center py-1.5 border border-border-light rounded-lg text-sm cursor-pointer has-[:checked]:bg-brand-gradient has-[:checked]:text-on-brand focus-within:ring-2 focus-within:ring-brand-strong"
                       >
                         <input type="radio" name="time" value={slot.time} required className="sr-only" />
                         {slot.time}

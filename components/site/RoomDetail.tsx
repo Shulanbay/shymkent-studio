@@ -18,7 +18,7 @@ export function RoomDetail({ slug }: { slug: string }) {
       <section className="py-12 md:py-24 bg-bg-light">
         <div className="container-max">
           <nav aria-label="breadcrumbs" className="text-sm text-text-secondary mb-4">
-            <Link href="/rooms" className="hover:text-orange-accent">
+            <Link href="/rooms" className="hover:text-brand-ink">
               ← {t('roomsPage.title')}
             </Link>
           </nav>
@@ -33,7 +33,7 @@ export function RoomDetail({ slug }: { slug: string }) {
               <dl className="space-y-5">
                 <div>
                   <dt className="font-semibold text-text-primary mb-1">{t('roomsDescriptions.capacity')}</dt>
-                  <dd className="text-orange-accent font-semibold text-lg">{t('roomsDescriptions.upTo').replace('{n}', String(capacity))}</dd>
+                  <dd className="text-brand-ink font-semibold text-lg">{t('roomsDescriptions.upTo').replace('{n}', String(capacity))}</dd>
                 </div>
                 <div>
                   <dt className="font-semibold text-text-primary mb-1">{t('roomsDescriptions.roomSize')}</dt>
@@ -56,7 +56,7 @@ export function RoomDetail({ slug }: { slug: string }) {
                       <ul className="space-y-2 text-text-secondary">
                         {catalog.services.map((service) => (
                           <li key={service.slug} className="flex flex-wrap justify-between gap-x-4 border-b border-border-light pb-2">
-                            <Link href={`/book?service=${service.slug}&room=${room.slug}`} className="hover:text-orange-accent">
+                            <Link href={`/book?service=${service.slug}&room=${room.slug}`} className="hover:text-brand-ink">
                               {language === 'kk' ? service.nameKk : service.nameRu}
                             </Link>
                             <span className="font-semibold text-text-primary whitespace-nowrap">

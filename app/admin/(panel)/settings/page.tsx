@@ -41,7 +41,7 @@ const GOOGLE_MESSAGES: Record<string, { text: string; ok: boolean }> = {
 };
 
 const inputClass =
-  'w-full px-3 py-2 border border-border-light rounded-xl bg-white text-sm focus:outline-none focus:ring-2 focus:ring-orange-accent disabled:bg-bg-light';
+  'w-full px-3 py-2 border border-border-light rounded-xl bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-strong disabled:bg-bg-light';
 
 export default async function SettingsPage(props: { searchParams: Promise<{ google?: string }> }) {
   const searchParams = await props.searchParams;
@@ -128,8 +128,8 @@ export default async function SettingsPage(props: { searchParams: Promise<{ goog
               {Object.entries(DAY_NAMES).map(([key, name]) => {
                 const day = hours.days[key as keyof typeof hours.days];
                 return (
-                  <div key={key} className="grid grid-cols-[8rem_1fr_1fr_auto] gap-2 items-center text-sm">
-                    <span>{name}</span>
+                  <div key={key} className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] sm:grid-cols-[8rem_minmax(0,1fr)_minmax(0,1fr)_auto] gap-2 items-center text-sm">
+                    <span className="col-span-3 sm:col-span-1 font-medium sm:font-normal">{name}</span>
                     <label className="sr-only" htmlFor={`open-${key}`}>
                       {name}: открытие
                     </label>
@@ -179,7 +179,7 @@ export default async function SettingsPage(props: { searchParams: Promise<{ goog
         <p className="text-sm text-text-secondary mb-3">
           Активно: {rooms.filter((r) => r.active).length} комнаты, {services.filter((s) => s.active).length} тарифа.
         </p>
-        <a href="/admin/settings/catalog" className="text-sm font-semibold text-orange-accent hover:underline">
+        <a href="/admin/settings/catalog" className="text-sm font-semibold text-brand-ink hover:underline">
           Управлять каталогом →
         </a>
       </section>
@@ -292,7 +292,7 @@ export default async function SettingsPage(props: { searchParams: Promise<{ goog
             {isGoogleOAuthConfigured() ? (
               // Plain link: the OAuth flow is a full-page redirect to Google.
               // eslint-disable-next-line @next/next/no-html-link-for-pages
-              <a href="/api/auth/login" className="px-4 py-2 rounded-xl text-sm font-semibold border border-border-light hover:border-orange-accent">
+              <a href="/api/auth/login" className="px-4 py-2 rounded-xl text-sm font-semibold border border-border-light hover:border-brand">
                 {google.source === 'none' ? 'Подключить' : 'Переподключить'}
               </a>
             ) : (

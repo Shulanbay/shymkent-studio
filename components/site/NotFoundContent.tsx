@@ -2,14 +2,17 @@
 
 import Link from 'next/link';
 import { useLanguage } from '@/components/LanguageContext';
+import { useDocumentTitle } from '@/components/useDocumentTitle';
+import { NOT_FOUND_TITLE, SITE_NAME } from '@/lib/page-titles';
 
 export function NotFoundContent() {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
+  useDocumentTitle(`${NOT_FOUND_TITLE[language]} | ${SITE_NAME}`);
   return (
     <div>
       <section className="py-24 md:py-32 bg-bg-light">
         <div className="container-max text-center max-w-xl">
-          <p className="text-6xl font-bold text-orange-accent mb-6" aria-hidden="true">
+          <p className="text-6xl font-bold text-brand-strong mb-6" aria-hidden="true">
             404
           </p>
           <h1 className="text-3xl sm:text-4xl mb-4">{t('notFound.title')}</h1>

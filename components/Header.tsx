@@ -5,7 +5,9 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useCatalog } from './CatalogContext';
 import { useLanguage } from './LanguageContext';
+import { useDocumentTitle } from './useDocumentTitle';
 import { phoneHref } from '@/lib/contacts';
+import { pageTitle } from '@/lib/page-titles';
 
 const NAV = [
   { href: '/rooms', key: 'header.rooms' },
@@ -23,6 +25,8 @@ export function Header() {
 
   // Close the mobile menu after navigation and on Escape.
   useEffect(() => setMobileMenuOpen(false), [pathname]);
+  // Server HTML is Russian; the tab title follows the chosen language.
+  useDocumentTitle(pageTitle(pathname, language));
   useEffect(() => {
     if (!mobileMenuOpen) return;
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setMobileMenuOpen(false);
@@ -37,7 +41,7 @@ export function Header() {
       <a href="#main" className="skip-link">
         {t('common.skipToContent')}
       </a>
-      <div className="bg-orange-accent text-white">
+      <div className="bg-brand-gradient text-on-brand">
         <div className="container-max flex h-9 items-center justify-center">
           <a
             href={phoneHref(contacts.phone)}
@@ -55,7 +59,7 @@ export function Header() {
       <div className="container-max">
         <div className="flex items-center justify-between h-20 gap-3">
           <Link href="/" className="flex items-center gap-3 min-h-[44px]" aria-label={t('header.home')}>
-            <span className="w-9 h-9 bg-orange-bright rounded-lg flex items-center justify-center" aria-hidden="true">
+            <span className="w-9 h-9 bg-brand-gradient rounded-lg flex items-center justify-center" aria-hidden="true">
               <span className="text-white font-bold text-lg">◉</span>
             </span>
             <span className="hidden sm:inline font-bold text-white text-sm">SHYMKENT STUDIO</span>
@@ -84,7 +88,7 @@ export function Header() {
                   onClick={() => setLanguage(lang)}
                   aria-pressed={language === lang}
                   className={`min-w-[40px] min-h-[36px] px-3 text-xs font-semibold rounded-full transition ${
-                    language === lang ? 'bg-orange-bright text-black' : 'text-gray-300 hover:text-white'
+                    language === lang ? 'bg-brand-gradient text-on-brand' : 'text-gray-300 hover:text-white'
                   }`}
                 >
                   {lang === 'ru' ? 'РУ' : 'ҚАЗ'}
@@ -126,7 +130,9 @@ export function Header() {
                 <Link
                   href={item.href}
                   aria-current={isActive(item.href) ? 'page' : undefined}
-                  className="flex items-center min-h-[44px] text-base text-gray-200 hover:text-white"
+                  className={`flex items-center min-h-[44px] text-base border-l-2 pl-3 ${
+                    isActive(item.href) ? 'border-brand text-white font-semibold' : 'border-transparent text-gray-200 hover:text-white'
+                  }`}
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {t(item.key)}

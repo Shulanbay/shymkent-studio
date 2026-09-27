@@ -33,9 +33,11 @@ export async function recordPaymentAction(_prev: ActionState, formData: FormData
       note: str(formData, 'note'),
       proofUrl: str(formData, 'proofUrl'),
       paidAt: str(formData, 'paidAt') || undefined,
+      requestKey: str(formData, 'requestKey') || undefined,
     });
     scheduleOutboxProcessing(result.jobIds);
     refresh(bookingId);
+    if ('duplicate' in result) return { ok: true, message: 'Эта оплата уже проведена (повторная отправка формы не учтена)' };
     return { ok: true, message: result.payment.status === 'PAID' ? 'Оплата проведена' : 'Ожидающий платёж создан' };
   } catch (error) {
     return actionError(error);
@@ -65,9 +67,11 @@ export async function refundAction(_prev: ActionState, formData: FormData): Prom
       method: str(formData, 'method') as never,
       reference: str(formData, 'reference'),
       note: str(formData, 'note'),
+      requestKey: str(formData, 'requestKey') || undefined,
     });
     scheduleOutboxProcessing(result.jobIds);
     refresh(bookingId);
+    if ('duplicate' in result) return { ok: true, message: 'Этот возврат уже проведён (повторная отправка формы не учтена)' };
     return { ok: true, message: 'Возврат проведён' };
   } catch (error) {
     return actionError(error);

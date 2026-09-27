@@ -84,7 +84,7 @@ export default async function ClientDetailPage(props: { params: Promise<{ id: st
                 {client.bookings.map((b) => (
                   <li key={b.id} className="py-2 flex flex-wrap items-center justify-between gap-2">
                     <span>
-                      <Link href={`/admin/bookings/${b.id}`} className="font-semibold text-orange-accent hover:underline">
+                      <Link href={`/admin/bookings/${b.id}`} className="font-semibold text-brand-ink hover:underline">
                         {formatBookingNumber(b.bookingNumber)}
                       </Link>{' '}
                       {formatDate(b.startAt)} {formatTime(b.startAt)} · {b.room.nameRu} · {b.service.nameRu}
@@ -108,7 +108,7 @@ export default async function ClientDetailPage(props: { params: Promise<{ id: st
                 {client.tourRequests.map((t) => (
                   <li key={t.id} className="py-2 flex flex-wrap justify-between gap-2">
                     <span>
-                      <Link href={`/admin/tours/${t.id}`} className="font-semibold text-orange-accent hover:underline">
+                      <Link href={`/admin/tours/${t.id}`} className="font-semibold text-brand-ink hover:underline">
                         {formatTourNumber(t.requestNumber)}
                       </Link>{' '}
                       {formatDateTime(t.scheduledAt)}

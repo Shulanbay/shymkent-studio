@@ -1,12 +1,12 @@
 import { Suspense } from 'react';
 import { BookingForm } from '@/components/booking/BookingForm';
 import { BookingTitle } from '@/components/booking/BookingTitle';
+import { pageMetadata } from '@/lib/seo';
 
-export const metadata = {
-  alternates: { canonical: '/book' },
-  title: 'Забронировать запись подкаста | SHYMKENT STUDIO',
-  description: 'Онлайн-запись в подкаст-студию в Шымкенте: выберите тариф, комнату и свободное время.',
-};
+export const metadata = pageMetadata(
+  '/book',
+  'Онлайн-запись в подкаст-студию в Шымкенте: выберите тариф, комнату и свободное время.',
+);
 
 export default function BookingPage() {
   return (

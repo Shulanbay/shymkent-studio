@@ -27,7 +27,7 @@ export default async function AdminLoginPage(props: { searchParams: Promise<{ ne
     <AuthShell title="Вход для сотрудников">
       {password ? <LoginForm next={next} /> : <EmailLoginForm next={next} />}
       <p className="mt-6 pt-5 border-t border-border-light text-sm text-center">
-        <Link href={password ? switchHref() : switchHref('password')} className="text-orange-accent font-semibold hover:underline">
+        <Link href={password ? switchHref() : switchHref('password')} className="text-brand-ink font-semibold hover:underline">
           {password ? 'Войти по ссылке на почту' : 'Войти с паролем'}
         </Link>
       </p>

@@ -23,7 +23,7 @@ export default async function ClientsPage(props: { searchParams: Promise<Record<
             <input id="q" name="q" defaultValue={filters.q} maxLength={100} className={inputClass} />
           </Field>
         </div>
-        <button type="submit" className="px-4 py-2 rounded-xl text-sm font-semibold bg-orange-accent text-white">
+        <button type="submit" className="px-4 py-2 rounded-xl text-sm font-semibold bg-brand-gradient text-on-brand">
           Найти
         </button>
         <Link href="/admin/clients" className={linkButtonClass}>
@@ -51,7 +51,7 @@ export default async function ClientsPage(props: { searchParams: Promise<Record<
               {items.map((c) => (
                 <tr key={c.id}>
                   <td className="px-4 py-3">
-                    <Link href={`/admin/clients/${c.id}`} className="font-semibold text-orange-accent hover:underline">
+                    <Link href={`/admin/clients/${c.id}`} className="font-semibold text-brand-ink hover:underline">
                       {c.name}
                     </Link>
                     {c.company && <span className="block text-text-secondary">{c.company}</span>}

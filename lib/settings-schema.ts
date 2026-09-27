@@ -99,9 +99,9 @@ export const DEFAULT_STUDIO_CONTACTS: StudioContacts = {
   whatsapp: '77005030501',
   instagram: 'shymkent.studio',
   city: 'Шымкент',
-  // As published on /contacts.
-  address: 'ул. Сейдоллы Байтерекова, 85, ЖК «Байтерек»',
-  addressKk: 'Сейдолла Байтереков көшесі, 85, «Бәйтерек» ТК',
+  // Full address confirmed by the owner (2026-09).
+  address: 'Каратауский район, ул. Сейдоллы Байтерекова, 85, кв. 28, ЖК «Байтерек»',
+  addressKk: 'Қаратау ауданы, Сейдолла Байтереков көшесі, 85, 28-пәтер, «Бәйтерек» тұрғын үй кешені',
   mapUrl: 'https://maps.google.com/?q=Shymkent,+Seidolla+Bayterek+Street,+85',
   // As published on /contacts: «Студия откроется 10 ноября 2026 года».
   openingDate: '2026-11-10',

@@ -115,13 +115,13 @@ export interface PolicyTexts {
 export function policyTexts(policy: CancellationPolicy, lang: Lang): PolicyTexts {
   const { fullRefundHours: f, partialRefundHours: p, partialRefundPercent: pct, freeReschedules: r, rescheduleMinHours: rh } = policy;
   if (lang === 'kk') {
-    const full = `Түсірілімге ${f} сағаттан көп уақыт қалғанда бас тартсаңыз — толық қайтарым.`;
+    const full = `Түсірілімге ${f} сағаттан артық уақыт қалғанда бас тартсаңыз, төлем толық қайтарылады.`;
     const partial =
-      p < f ? `${p}–${f} сағат қалғанда бас тартсаңыз — ${pct}% қайтарылады.` : '';
-    const none = p > 0 ? `${p} сағаттан аз уақыт қалғанда — қайтарым жоқ.` : '';
+      p < f ? `${p}–${f} сағат қалғанда бас тартсаңыз, төлемнің ${pct}% қайтарылады.` : '';
+    const none = p > 0 ? `${p} сағаттан аз уақыт қалғанда бас тартсаңыз, төлем қайтарылмайды.` : '';
     const reschedule =
       r > 0
-        ? `Түсірілімге ${rh} сағаттан көп уақыт қалғанда ${r} рет тегін ауыстыруға болады.`
+        ? `Түсірілімге ${rh} сағаттан артық уақыт қалғанда ${r} рет тегін ауыстыруға болады.`
         : 'Тегін ауыстыру қарастырылмаған.';
     const override = 'Ерекше жағдайларда қайтарым сомасын әкімші жеке қарастыруы мүмкін.';
     return {
@@ -131,7 +131,7 @@ export function policyTexts(policy: CancellationPolicy, lang: Lang): PolicyTexts
       reschedule,
       override,
       summary: [full, partial, none, reschedule].filter(Boolean).join(' '),
-      short: `✓ ${f} сағаттан ерте бас тартсаңыз — толық қайтарым`,
+      short: `✓ ${f} сағаттан ерте бас тартсаңыз, төлем толық қайтарылады`,
     };
   }
   const full = `Отмена более чем за ${ruHours(f)} до съёмки — полный возврат.`;

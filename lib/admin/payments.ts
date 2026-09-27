@@ -5,6 +5,7 @@ import { logActivity } from '@/lib/activity';
 import type { SessionUser } from '@/lib/auth/service';
 import { getEffectiveIntegrationConfig } from '@/lib/integrations/effective';
 import { bookingChangedJobs, enqueueJobs, paymentLinkJobs } from '@/lib/outbox/jobs';
+import { isUniqueViolation } from '@/lib/bookings/shared';
 import { formatBookingNumber } from '@/lib/public/schemas';
 import { studioDayRange } from '@/lib/time';
 import { RuleError } from './errors';
@@ -63,6 +64,38 @@ export async function recomputeBookingPayment(tx: Tx, bookingId: string) {
   return tx.booking.update({ where: { id: bookingId }, data: { paidAmount: paid, paymentStatus: status } });
 }
 
+const requestKeySchema = z.uuid().optional().catch(undefined);
+
+/**
+ * Idempotent ledger write: an entry already recorded with this request key is
+ * returned as is (no new money movement, no new notifications).
+ */
+async function withRequestKey<T extends { payment: unknown; booking: unknown; jobIds: string[] }>(
+  db: PrismaClient,
+  requestKey: string | undefined,
+  write: () => Promise<T>,
+): Promise<T | { payment: Prisma.PaymentGetPayload<object>; booking: Prisma.BookingGetPayload<object>; jobIds: string[]; duplicate: true }> {
+  const replay = async () => {
+    if (!requestKey) return null;
+    const payment = await db.payment.findUnique({ where: { requestKey } });
+    if (!payment) return null;
+    const booking = await db.booking.findUniqueOrThrow({ where: { id: payment.bookingId } });
+    return { payment, booking, jobIds: [] as string[], duplicate: true as const };
+  };
+  const earlier = await replay();
+  if (earlier) return earlier;
+  try {
+    return await write();
+  } catch (error) {
+    // Two identical submits raced: the first one won, return its entry.
+    if (isUniqueViolation(error, 'requestKey')) {
+      const winner = await replay();
+      if (winner) return winner;
+    }
+    throw error;
+  }
+}
+
 async function syncIntegrations(tx: Tx, bookingId: string) {
   return enqueueJobs(tx, bookingChangedJobs(bookingId, `payment:${Date.now()}`, await getEffectiveIntegrationConfig(tx)));
 }
@@ -79,12 +112,13 @@ const recordSchema = z.object({
   note: optionalText(1000),
   proofUrl: optionalUrl,
   paidAt: optionalStudioDateTime,
+  requestKey: requestKeySchema,
 });
 
 export async function recordPayment(db: PrismaClient, actor: SessionUser, input: z.input<typeof recordSchema>) {
   const data = recordSchema.parse(input);
   if (data.paidAt && data.paidAt.getTime() > Date.now() + 60_000) throw new RuleError('Дата оплаты не может быть в будущем');
-  return db.$transaction(async (tx) => {
+  return withRequestKey(db, data.requestKey, () => db.$transaction(async (tx) => {
     const booking = await lockBooking(tx, data.bookingId);
     if (booking.status === 'CANCELLED') throw new RuleError('Нельзя принять оплату по отменённому заказу');
     if (data.status === 'PAID') {
@@ -107,6 +141,7 @@ export async function recordPayment(db: PrismaClient, actor: SessionUser, input:
         note: data.note,
         proofUrl: data.proofUrl,
         paidAt: data.status === 'PAID' ? (data.paidAt ?? new Date()) : null,
+        requestKey: data.requestKey ?? null,
         recordedById: actor.id,
       },
     });
@@ -120,7 +155,7 @@ export async function recordPayment(db: PrismaClient, actor: SessionUser, input:
     });
     const jobIds = await syncIntegrations(tx, booking.id);
     return { payment, booking: updated, jobIds };
-  });
+  }));
 }
 
 /** A PENDING payment becomes PAID once the money arrives (or FAILED if it never does). */
@@ -167,12 +202,13 @@ const refundSchema = z.object({
   method: z.enum(PAYMENT_METHODS),
   reference: optionalText(200),
   note: z.string().trim().min(3, 'Укажите причину возврата').max(1000),
+  requestKey: requestKeySchema,
 });
 
 /** A refund is a separate ledger entry; it can never exceed what was actually paid. */
 export async function refundPayment(db: PrismaClient, actor: SessionUser, input: z.input<typeof refundSchema>) {
   const data = refundSchema.parse(input);
-  return db.$transaction(async (tx) => {
+  return withRequestKey(db, data.requestKey, () => db.$transaction(async (tx) => {
     const booking = await lockBooking(tx, data.bookingId);
     const paid = await netPaid(tx, booking.id);
     if (data.amount > paid) throw new RuleError(`Нельзя вернуть больше оплаченного (оплачено ${paid} ₸)`);
@@ -187,6 +223,7 @@ export async function refundPayment(db: PrismaClient, actor: SessionUser, input:
         reference: data.reference,
         note: data.note,
         paidAt: new Date(),
+        requestKey: data.requestKey ?? null,
         recordedById: actor.id,
       },
     });
@@ -198,8 +235,8 @@ export async function refundPayment(db: PrismaClient, actor: SessionUser, input:
       action: 'payment.refund',
       metadata: { paymentId: refund.id, amount: data.amount, method: data.method, reason: data.note },
     });
-    return { refund, booking: updated, jobIds: await syncIntegrations(tx, booking.id) };
-  });
+    return { payment: refund, booking: updated, jobIds: await syncIntegrations(tx, booking.id) };
+  }));
 }
 
 /**

@@ -54,7 +54,7 @@ export function FAQSection() {
           {faqItems.map((item, index) => {
             const open = openIndex === index;
             return (
-              <div key={item.q} className="border border-border-light rounded-lg overflow-hidden hover:border-orange-accent/50 transition-colors">
+              <div key={item.q} className="border border-border-light rounded-lg overflow-hidden hover:border-brand/50 transition-colors">
                 <h3 className="text-base">
                   <button
                     type="button"
@@ -66,7 +66,7 @@ export function FAQSection() {
                   >
                     <span>{t(item.q)}</span>
                     <svg
-                      className={`w-5 h-5 text-orange-accent transition-transform flex-shrink-0 ${open ? 'rotate-180' : ''}`}
+                      className={`w-5 h-5 text-brand-ink transition-transform flex-shrink-0 ${open ? 'rotate-180' : ''}`}
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"

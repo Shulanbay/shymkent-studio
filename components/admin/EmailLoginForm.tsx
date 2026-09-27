@@ -3,7 +3,7 @@
 import { requestEmailLinkAction, type EmailLinkState } from '@/app/admin/login/email-actions';
 import { useKeepAction } from './useKeepAction';
 
-const inputClass = 'w-full px-4 py-3 border border-border-light rounded-card focus:outline-none focus:ring-2 focus:ring-orange-accent';
+const inputClass = 'w-full px-4 py-3 border border-border-light rounded-card focus:outline-none focus:ring-2 focus:ring-brand-strong';
 
 export function EmailLoginForm({ next }: { next?: string }) {
   const { state, pending, formProps } = useKeepAction<EmailLinkState>(requestEmailLinkAction, {});
@@ -17,7 +17,7 @@ export function EmailLoginForm({ next }: { next?: string }) {
           входа. Она действует 15 минут и работает один раз.
         </p>
         <p className="text-sm text-text-secondary">Письма нет через пару минут? Проверьте папку «Спам» или запросите ссылку снова.</p>
-        <a href={next ? `/admin/login?next=${encodeURIComponent(next)}` : '/admin/login'} className="inline-block text-sm font-semibold text-orange-accent hover:underline">
+        <a href={next ? `/admin/login?next=${encodeURIComponent(next)}` : '/admin/login'} className="inline-block text-sm font-semibold text-brand-ink hover:underline">
           Отправить ещё раз
         </a>
       </div>

@@ -6,6 +6,7 @@ import { useSearchParams } from 'next/navigation';
 import { formatPrice, useCatalog } from '@/components/CatalogContext';
 import { useLanguage } from '@/components/LanguageContext';
 import { useCancellationPolicy } from '@/components/PolicyContext';
+import { formatLongDate } from '@/lib/contacts';
 import { formatKzPhone, formatPhoneInput, normalizeKzPhone } from '@/lib/phone';
 import { policyTexts } from '@/lib/policy';
 import { computeBookingPrice, durationOptions } from '@/lib/pricing';
@@ -21,10 +22,12 @@ interface Slot {
 
 type SlotsState = { status: 'idle' } | { status: 'loading' } | { status: 'error' } | { status: 'ready'; slots: Slot[] };
 
+const TOTAL_STEPS = 5;
+
 const SLOT_ERROR_CODES = new Set(['SLOT_TAKEN', 'PAST', 'TOO_SOON', 'TOO_FAR', 'CLOSED', 'OUTSIDE_HOURS', 'OFF_GRID', 'INVALID_DATE']);
 
 const fieldClass =
-  'w-full px-4 py-3 border border-border-light rounded-card bg-white focus:outline-none focus:ring-2 focus:ring-orange-accent';
+  'w-full px-4 py-3 border border-border-light rounded-card bg-white focus:outline-none focus:ring-2 focus:ring-brand-strong';
 
 function newKey(): string {
   return typeof crypto !== 'undefined' && 'randomUUID' in crypto
@@ -32,16 +35,6 @@ function newKey(): string {
     : '10000000-1000-4000-8000-100000000000'.replace(/[018]/g, (c) =>
         (Number(c) ^ (Math.random() * 16) >> (Number(c) / 4)).toString(16),
       );
-}
-
-function formatLocalDate(date: string, language: 'ru' | 'kk') {
-  const [y, m, d] = date.split('-').map(Number);
-  return new Date(Date.UTC(y, m - 1, d)).toLocaleDateString(language === 'kk' ? 'kk-KZ' : 'ru-RU', {
-    timeZone: 'UTC',
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  });
 }
 
 export function BookingForm() {
@@ -200,12 +193,25 @@ export function BookingForm() {
     </h2>
   );
 
-  const selectedBorder = (selected: boolean) => ({ borderColor: selected ? '#FF6B24' : '#EDE5DD' });
+  const optionClass = (selected: boolean) =>
+    `flex items-center gap-4 p-4 border-2 rounded-card cursor-pointer focus-within:ring-2 focus-within:ring-brand-strong transition ${
+      selected ? 'border-brand bg-brand-soft' : 'border-border-light hover:border-brand'
+    }`;
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
       <div className="lg:col-span-2">
         <div className="bg-white rounded-card p-5 sm:p-8 border border-border-light">
+          {step <= TOTAL_STEPS && (
+            <div className="mb-6">
+              <p className="text-sm font-semibold text-brand-ink mb-2">{t('booking.progress', { n: step, total: TOTAL_STEPS })}</p>
+              <div className="flex gap-1.5" aria-hidden="true">
+                {Array.from({ length: TOTAL_STEPS }, (_, i) => (
+                  <span key={i} className={`h-1.5 flex-1 rounded-full ${i < step ? 'bg-brand-gradient' : 'bg-border-light'}`} />
+                ))}
+              </div>
+            </div>
+          )}
           {step === 1 && (
             <fieldset>
               <legend className="sr-only">{t('booking.step1Title')}</legend>
@@ -214,22 +220,25 @@ export function BookingForm() {
                 {catalog.services.map((s) => (
                   <label
                     key={s.slug}
-                    className="flex items-center gap-4 p-4 border-2 rounded-card cursor-pointer hover:border-orange-accent focus-within:ring-2 focus-within:ring-orange-accent transition"
-                    style={selectedBorder(serviceSlug === s.slug)}
+                    className={optionClass(serviceSlug === s.slug)}
                   >
                     <input
                       type="radio"
                       name="service"
                       value={s.slug}
                       checked={serviceSlug === s.slug}
-                      onChange={() => setServiceSlug(s.slug)}
-                      className="w-5 h-5 accent-orange-accent"
+                      onChange={() => {
+                        setServiceSlug(s.slug);
+                        // A new tariff starts from its base duration (and base price).
+                        setDuration(s.defaultDuration);
+                      }}
+                      className="w-5 h-5 accent-brand-strong"
                     />
                     <span className="flex-grow min-w-0">
                       <span className="block font-semibold text-text-primary">{serviceName(s)}</span>
                       <span className="block text-sm text-text-secondary">{language === 'kk' ? s.descriptionKk : s.descriptionRu}</span>
                     </span>
-                    <span className="text-lg font-bold text-orange-accent whitespace-nowrap">{formatPrice(s.basePrice)} ₸</span>
+                    <span className="text-lg font-bold text-brand-ink whitespace-nowrap">{formatPrice(s.basePrice)} ₸</span>
                   </label>
                 ))}
               </div>
@@ -249,8 +258,7 @@ export function BookingForm() {
                 {catalog.rooms.map((r) => (
                   <label
                     key={r.slug}
-                    className="flex items-center gap-4 p-4 border-2 rounded-card cursor-pointer hover:border-orange-accent focus-within:ring-2 focus-within:ring-orange-accent transition"
-                    style={selectedBorder(roomSlug === r.slug)}
+                    className={optionClass(roomSlug === r.slug)}
                   >
                     <input
                       type="radio"
@@ -258,7 +266,7 @@ export function BookingForm() {
                       value={r.slug}
                       checked={roomSlug === r.slug}
                       onChange={() => setRoomSlug(r.slug)}
-                      className="w-5 h-5 accent-orange-accent"
+                      className="w-5 h-5 accent-brand-strong"
                     />
                     <span className="flex-grow min-w-0">
                       <span className="block font-semibold text-text-primary">{roomName(r)}</span>
@@ -363,8 +371,8 @@ export function BookingForm() {
                         {slots.slots.map((slot) => (
                           <label
                             key={slot.time}
-                            className={`text-center py-2 border-2 rounded-xl cursor-pointer font-semibold focus-within:ring-2 focus-within:ring-orange-accent transition ${
-                              time === slot.time ? 'bg-orange-accent text-white border-orange-accent' : 'border-border-light hover:border-orange-accent'
+                            className={`text-center py-2 border-2 rounded-xl cursor-pointer font-semibold focus-within:ring-2 focus-within:ring-brand-strong transition ${
+                              time === slot.time ? 'bg-brand-gradient text-on-brand border-transparent' : 'border-border-light hover:border-brand'
                             }`}
                           >
                             <input
@@ -493,16 +501,16 @@ export function BookingForm() {
                     onChange={(e) => setAgree(e.target.checked)}
                     required
                     aria-required="true"
-                    className="w-5 h-5 mt-0.5 accent-orange-accent"
+                    className="w-5 h-5 mt-0.5 accent-brand-strong"
                   />
                   <span className="text-sm text-text-secondary">
                     {t('booking.agreeBefore')}
-                    <Link href="/terms" className="text-orange-accent underline underline-offset-2" target="_blank">
-                      {t('footer.terms')}
+                    <Link href="/terms" className="text-brand-ink underline underline-offset-2" target="_blank">
+                      {t('booking.agreeTerms')}
                     </Link>
                     {t('booking.agreeBetween')}
-                    <Link href="/privacy" className="text-orange-accent underline underline-offset-2" target="_blank">
-                      {t('footer.privacy')}
+                    <Link href="/privacy" className="text-brand-ink underline underline-offset-2" target="_blank">
+                      {t('booking.agreePrivacy')}
                     </Link>
                     {t('booking.agreeAfter')}
                   </span>
@@ -526,7 +534,7 @@ export function BookingForm() {
                 {[
                   [t('booking.service'), serviceName()],
                   [t('booking.room'), roomName()],
-                  [t('booking.dateAndTime'), `${formatLocalDate(date, language)}, ${time}`],
+                  [t('booking.dateAndTime'), `${formatLongDate(date, language)}, ${time} (${t('booking.tzSuffix')})`],
                   [t('booking.duration'), `${duration} ${t('booking.minutes')}`],
                   [t('booking.participants'), String(participants)],
                   [t('booking.phoneLabel').replace(' *', ''), (normalizedPhone ? formatKzPhone(normalizedPhone) : phone).replace(/ /g, '\u00a0')],
@@ -538,17 +546,17 @@ export function BookingForm() {
                 ))}
                 <div className="flex justify-between pt-2">
                   <dt className="text-lg font-semibold text-text-primary">{t('booking.total')}</dt>
-                  <dd className="text-2xl font-bold text-orange-accent">{price?.ok ? `${formatPrice(price.total)} ₸` : '—'}</dd>
+                  <dd className="text-2xl font-bold text-brand-strong">{price?.ok ? `${formatPrice(price.total)} ₸` : '—'}</dd>
                 </div>
               </dl>
-              <div className="p-4 bg-orange-accent/10 rounded-card border border-orange-accent/20 mb-6">
+              <div className="p-4 bg-brand-soft rounded-card border border-brand/30 mb-6">
                 <p className="text-sm text-text-primary">{t('booking.prepayment')}</p>
               </div>
               {submitError && (
                 <div className="p-4 bg-red-50 border border-red-200 rounded-card mb-6" role="alert">
                   <p className="text-sm text-red-700 font-semibold">{submitError.message}</p>
                   {submitError.slotProblem && (
-                    <button type="button" onClick={() => setStep(3)} className="mt-3 text-sm font-semibold text-orange-accent underline">
+                    <button type="button" onClick={() => setStep(3)} className="mt-3 text-sm font-semibold text-brand-ink underline">
                       {t('booking.chooseOtherTime')}
                     </button>
                   )}
@@ -580,7 +588,7 @@ export function BookingForm() {
                 {t('booking.successTitle')}
               </h2>
               <p className="text-text-secondary mb-1">{t('booking.successNumber')}</p>
-              <p className="text-3xl font-bold text-orange-accent mb-6 tracking-wide">{result.number}</p>
+              <p className="text-3xl font-bold text-brand-strong mb-6 tracking-wide">{result.number}</p>
               <p className="text-text-secondary mb-8 max-w-md mx-auto">
                 {t('booking.successText', { phone: (normalizedPhone ? formatKzPhone(normalizedPhone) : phone).replace(/ /g, '\u00a0') })}
               </p>
@@ -592,7 +600,7 @@ export function BookingForm() {
                   <span className="font-semibold text-text-primary">{t('booking.room')}:</span> {roomName()}
                 </p>
                 <p>
-                  <span className="font-semibold text-text-primary">{t('booking.dateAndTime')}:</span> {formatLocalDate(date, language)}, {time}
+                  <span className="font-semibold text-text-primary">{t('booking.dateAndTime')}:</span> {formatLongDate(date, language)}, {time} ({t('booking.tzSuffix')})
                 </p>
                 <p>
                   <span className="font-semibold text-text-primary">Email:</span> {email || t('booking.emailNotProvided')}
@@ -607,7 +615,7 @@ export function BookingForm() {
       </div>
 
       <aside className="lg:col-span-1" aria-label={t('booking.orderSummary')}>
-        <div className="lg:sticky top-24 bg-white rounded-card p-6 border border-border-light">
+        <div className="lg:sticky lg:top-[calc(var(--header-height)+1.5rem)] bg-white rounded-card p-6 border border-border-light">
           <h2 className="font-bold text-text-primary mb-4 text-lg">{t('booking.orderSummary')}</h2>
           <dl className="space-y-4 mb-6 pb-6 border-b border-border-light">
             <div>
@@ -624,19 +632,29 @@ export function BookingForm() {
               <div>
                 <dt className="text-sm text-text-secondary">{t('booking.dateAndTime')}</dt>
                 <dd className="font-semibold text-text-primary">
-                  {formatLocalDate(date, language)}
+                  {formatLongDate(date, language)}
                   {time ? `, ${time}` : ''}
                 </dd>
+                {time && <dd className="text-xs text-text-secondary">{t('booking.tzSuffix')}</dd>}
               </div>
             )}
           </dl>
           <p className="text-sm text-text-secondary mb-2">{t('booking.cost')}</p>
-          <p className="text-3xl font-bold text-orange-accent">
+          <p className="text-3xl font-bold text-brand-strong">
             {formatPrice(price?.ok ? price.total : service.basePrice)} ₸
           </p>
-          <div className="mt-6 p-4 bg-bg-light rounded-card text-sm text-text-secondary space-y-2">
-            <p>{t('booking.prepaymentCheck')}</p>
-            <p>{t('booking.whatsappConfirm')}</p>
+          <div className="mt-6 p-4 bg-bg-light rounded-card text-sm text-text-secondary">
+            <h3 className="font-semibold text-text-primary mb-3 text-sm">{t('booking.howTitle')}</h3>
+            <ol className="space-y-2 mb-3">
+              {(['booking.how1', 'booking.how2', 'booking.how3', 'booking.how4'] as const).map((key, i) => (
+                <li key={key} className="flex gap-2">
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-gradient text-[11px] font-bold text-on-brand" aria-hidden="true">
+                    {i + 1}
+                  </span>
+                  <span>{t(key)}</span>
+                </li>
+              ))}
+            </ol>
             <p>{policyTexts(policy, language).short}</p>
           </div>
         </div>

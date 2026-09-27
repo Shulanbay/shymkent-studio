@@ -39,7 +39,7 @@ export default async function ProductionPage(props: { searchParams: Promise<Reco
                 key={v}
                 href={viewLink(v)}
                 aria-current={f.view === v ? 'page' : undefined}
-                className={`px-3 py-1.5 rounded-lg text-sm ${f.view === v ? 'bg-orange-accent text-white font-semibold' : 'hover:bg-bg-light'}`}
+                className={`px-3 py-1.5 rounded-lg text-sm ${f.view === v ? 'bg-brand-gradient text-on-brand font-semibold' : 'hover:bg-bg-light'}`}
               >
                 {v === 'kanban' ? 'Канбан' : 'Список'}
               </Link>
@@ -93,7 +93,7 @@ export default async function ProductionPage(props: { searchParams: Promise<Reco
           </select>
         </Field>
         <div className="flex gap-2">
-          <button type="submit" className="px-4 py-2 rounded-xl text-sm font-semibold bg-orange-accent text-white">
+          <button type="submit" className="px-4 py-2 rounded-xl text-sm font-semibold bg-brand-gradient text-on-brand">
             Показать
           </button>
           <Link href={`/admin/production?view=${f.view}`} className={linkButtonClass}>
@@ -143,7 +143,7 @@ export default async function ProductionPage(props: { searchParams: Promise<Reco
                   {items.map((t) => (
                     <tr key={t.id}>
                       <td className="px-4 py-3">
-                        <Link href={`/admin/production/${t.id}`} className="font-semibold text-orange-accent hover:underline">
+                        <Link href={`/admin/production/${t.id}`} className="font-semibold text-brand-ink hover:underline">
                           {t.title}
                         </Link>
                         <span className="block text-xs text-text-secondary">

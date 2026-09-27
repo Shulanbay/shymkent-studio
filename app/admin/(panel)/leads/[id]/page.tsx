@@ -172,7 +172,7 @@ export default async function LeadPage(props: { params: Promise<{ id: string }> 
               <li>
                 Тур:{' '}
                 {lead.tourRequest ? (
-                  <Link href={`/admin/tours/${lead.tourRequest.id}`} className="text-orange-accent hover:underline">
+                  <Link href={`/admin/tours/${lead.tourRequest.id}`} className="text-brand-ink hover:underline">
                     {formatTourNumber(lead.tourRequest.requestNumber)} · {formatDateTime(lead.tourRequest.scheduledAt)}
                   </Link>
                 ) : (
@@ -182,7 +182,7 @@ export default async function LeadPage(props: { params: Promise<{ id: string }> 
               <li>
                 Заказ:{' '}
                 {lead.booking ? (
-                  <Link href={`/admin/bookings/${lead.booking.id}`} className="text-orange-accent hover:underline">
+                  <Link href={`/admin/bookings/${lead.booking.id}`} className="text-brand-ink hover:underline">
                     {formatBookingNumber(lead.booking.bookingNumber)}
                   </Link>
                 ) : (
